@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Regenerate muted clips from the promo master. The master path is required.
-# Each clip crop is W:H:X:Y on the 1920x1080 master and is applied before scaling.
+# Each clip crop is W:H:X:Y on the 1920x1080 master; clips keep the cropped size.
 set -euo pipefail
 
 if [[ $# -ne 1 ]]; then
@@ -63,9 +63,6 @@ encode_clip() {
   fi
 
   local vf="crop=${crop}"
-  if (( cw > 1600 )); then
-    vf="${vf},scale=1600:-2"
-  fi
 
   ffmpeg -y -hide_banner -loglevel error -i "$master" -ss "$start" -to "$end" \
     -an -vf "$vf" -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p \
@@ -91,12 +88,7 @@ encode_clip() {
     echo "mp4/webm size mismatch for $name: ${out_w}x${out_h} vs ${webm_w}x${webm_h}" >&2
     exit 1
   fi
-  if (( cw > 1600 )); then
-    if (( out_w != 1600 )); then
-      echo "expected scaled width 1600 for $name, got $out_w" >&2
-      exit 1
-    fi
-  elif (( out_w != cw || out_h != ch )); then
+  if (( out_w != cw || out_h != ch )); then
     echo "expected native ${cw}x${ch} for $name, got ${out_w}x${out_h}" >&2
     exit 1
   fi
@@ -104,7 +96,6 @@ encode_clip() {
 
 # intro: exploded board and grid only. Card clips share the card interior.
 encode_clip intro 0.0 5.0 1050:748:820:174
-encode_clip workspace 16.5 22.8 1768:624:72:288
 encode_clip spice 36.0 44.0 1260:724:570:190
 encode_clip placement 44.0 50.0 1260:724:570:190
 encode_clip comment 50.0 62.0 1260:724:570:190
@@ -119,7 +110,6 @@ ffmpeg -y -hide_banner -loglevel error -ss 53 -i "$master" -frames:v 1 \
 
 names=(
   intro
-  workspace
   spice
   placement
   comment

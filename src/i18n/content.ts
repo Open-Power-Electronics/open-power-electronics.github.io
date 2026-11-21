@@ -21,7 +21,7 @@ export type Content = {
     platformsLabel: string
   }
   film: { caption: string; play: string; chapters: Record<FilmChapterId, string> }
-  workspace: { title: string; lede: string; parts: readonly Term[] }
+  workspace: { title: string; lede: string; imageAlt: string; parts: readonly Term[] }
   workflow: { title: string; lede: string; steps: readonly Step[] }
   agents: {
     title: string
@@ -132,6 +132,7 @@ const en: Content = {
   workspace: {
     title: "Design and conversation, in one window.",
     lede: "Schematic, PCB layout and 3D model sit beside your agent conversation. Switch views, inspect properties, or describe the change you want.",
+    imageAlt: "OpenPE desktop with the EMC Flyback layout open and transformer T1 selected",
     parts: [
       { name: "Session manager", body: "Organize chats with your agent." },
       { name: "Agent interface", body: "Chat and send design requests." },
@@ -333,6 +334,7 @@ const zh: Content = {
   workspace: {
     title: "设计与对话，在同一个窗口里。",
     lede: "原理图、PCB layout 和 3D 模型与 agent 对话并排。切换视图、查看属性，或者直接描述你想要的修改。",
+    imageAlt: "OpenPE 桌面端：打开 EMC Flyback 的 Layout 视图，选中变压器 T1",
     parts: [
       { name: "会话管理", body: "整理你和 agent 的对话。" },
       { name: "Agent 界面", body: "对话并发送设计请求。" },

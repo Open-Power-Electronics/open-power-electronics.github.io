@@ -22,6 +22,13 @@ export const AGENT_MODES = {
   proposals: ["DeepSeek Harness", "Pi"],
 } as const
 
+/** 2x capture of the OpenPE desktop: EMC Flyback in Layout with T1 selected. */
+export const WORKSPACE_SHOT = {
+  src: "/media/workspace.webp",
+  width: 2960,
+  height: 1898,
+} as const
+
 export const FILM = {
   src: "/media/openpe-workflow-demo.mp4",
   poster: "/media/openpe-workflow-demo.jpg",
@@ -41,7 +48,6 @@ type ClipSpec = { width: number; height: number }
 
 export const CLIPS = {
   intro: { width: 1050, height: 748 },
-  workspace: { width: 1600, height: 564 },
   spice: { width: 1260, height: 724 },
   placement: { width: 1260, height: 724 },
   comment: { width: 1260, height: 724 },

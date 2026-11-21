@@ -36,4 +36,4 @@ Do not claim general KiCad or model import, complete ERC/DRC, autorouting, produ
 
 ## Media and review
 
-Clips are cropped to the product media inside each film card; the crop rectangles live in `scripts/cut-clips.sh`, and `src/content/site.ts` records the output sizes. Regenerate with `scripts/cut-clips.sh <master>`; the master path is required and the master is never committed. Visual changes need owner review.
+Clips are cropped to the product media inside each film card; the crop rectangles live in `scripts/cut-clips.sh`, and `src/content/site.ts` records the output sizes. Regenerate with `scripts/cut-clips.sh <master>`; the master path is required and the master is never committed. `public/media/workspace.webp` is a lossless 2x capture of the real OpenPE desktop window (EMC Flyback, Layout view, T1 selected); its size lives in `WORKSPACE_SHOT` and the callout anchors in `src/components/Workspace.tsx` are percentages of that image, so recapturing means re-placing them. Visual changes need owner review.
