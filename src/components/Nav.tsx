@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react"
+import { Languages } from "lucide-react"
 import { CHAPTERS, GITHUB_ORG_URL, type Chapter } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
-import type { Lang } from "@/i18n/content.ts"
 import { cn } from "@/lib/utils.ts"
 import { GithubMark, Wordmark } from "./primitives.tsx"
-
-const LANGS: readonly { id: Lang; label: string }[] = [
-  { id: "en", label: "EN" },
-  { id: "zh", label: "中文" },
-]
 
 function useActiveChapter(): Chapter | null {
   const [active, setActive] = useState<Chapter | null>(null)
@@ -37,7 +32,7 @@ function useActiveChapter(): Chapter | null {
 }
 
 export function Nav() {
-  const { t, lang, setLang } = useI18n()
+  const { t, toggle } = useI18n()
   const [scrolled, setScrolled] = useState(false)
   const active = useActiveChapter()
 
@@ -76,22 +71,15 @@ export function Nav() {
           ))}
         </ul>
         <div className="flex items-center gap-2">
-          <div role="group" aria-label={t.nav.langLabel} className="flex rounded-full border border-line bg-white p-0.5">
-            {LANGS.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                aria-pressed={lang === option.id}
-                onClick={() => setLang(option.id)}
-                className={cn(
-                  "rounded-full px-2.5 py-1 text-[12.5px] font-medium transition-colors",
-                  lang === option.id ? "bg-ink text-white" : "text-body hover:text-ink",
-                )}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={t.nav.switchLang}
+            title={t.nav.switchLang}
+            className="grid size-9 place-items-center rounded-full border border-line bg-white text-body transition-colors hover:bg-paper hover:text-ink"
+          >
+            <Languages className="size-[18px]" strokeWidth={1.9} />
+          </button>
           <a
             href={GITHUB_ORG_URL}
             className="hidden h-9 items-center gap-2 rounded-full bg-ink px-4 text-[13.5px] font-semibold text-white transition-colors hover:bg-ink-2 sm:inline-flex"

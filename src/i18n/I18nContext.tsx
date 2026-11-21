@@ -11,7 +11,6 @@ import { content, type Content, type Lang } from "./content.ts"
 
 type I18nValue = {
   lang: Lang
-  setLang: (lang: Lang) => void
   toggle: () => void
   t: Content
 }
@@ -32,11 +31,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   // stored choice is applied after mount. Never read navigator.language.
   const [lang, setLangState] = useState<Lang>("en")
 
-  const setLang = useCallback((next: Lang) => {
-    setLangState(next)
-    window.localStorage.setItem(STORAGE_KEY, next)
-  }, [])
-
   const toggle = useCallback(() => {
     setLangState((prev) => {
       const next = prev === "en" ? "zh" : "en"
@@ -56,8 +50,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, [lang])
 
   const value = useMemo<I18nValue>(
-    () => ({ lang, setLang, toggle, t: content[lang] }),
-    [lang, setLang, toggle],
+    () => ({ lang, toggle, t: content[lang] }),
+    [lang, toggle],
   )
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>

@@ -9,7 +9,7 @@ type Term = { name: string; body: string }
 
 export type Content = {
   meta: { title: string }
-  nav: Record<Chapter, string> & { github: string; langLabel: string }
+  nav: Record<Chapter, string> & { github: string; switchLang: string }
   hero: {
     badge: string
     titleTop: string
@@ -96,7 +96,7 @@ export type Content = {
 }
 
 const en: Content = {
-  meta: { title: "OpenPE — AI-Native Power Electronics Engineer Workbench" },
+  meta: { title: "OpenPE · AI-Native Power Electronics Engineer Workbench" },
   nav: {
     workspace: "Workspace",
     workflow: "Workflow",
@@ -106,14 +106,14 @@ const en: Content = {
     specs: "Specs",
     team: "Team",
     github: "GitHub",
-    langLabel: "Language",
+    switchLang: "Switch to Chinese",
   },
   hero: {
     badge: "Open source · Built on KiCad 10",
     titleTop: "AI-Native",
     titleAccent: "Power Electronics",
     titleBottom: "Engineer Workbench",
-    lede: "A desktop studio where your AI agent works in the same schematic, PCB layout, 3D model and simulation as you — on native KiCad files that never leave your machine.",
+    lede: "A desktop studio where your AI agent works on the same schematic, PCB layout, 3D model and simulation as you. Your designs stay on your machine as native KiCad files.",
     watch: "Watch the film",
     github: "View on GitHub",
     platformsLabel: "Runs on",
@@ -130,7 +130,7 @@ const en: Content = {
     },
   },
   workspace: {
-    title: "Design and conversation, in one window.",
+    title: "Design and talk to your agent in one window.",
     lede: "Schematic, PCB layout and 3D model sit beside your agent conversation. Switch views, inspect properties, or describe the change you want.",
     imageAlt: "OpenPE desktop with the EMC Flyback layout open and transformer T1 selected",
     parts: [
@@ -159,7 +159,7 @@ const en: Content = {
       {
         chapter: "Module",
         title: "Build the case",
-        body: "Model an enclosure from dimensions, then refine it in conversation — posts, walls and a clear 3 mm acrylic lid.",
+        body: "Model an enclosure from dimensions, then refine it in conversation: posts, walls and a clear 3 mm acrylic lid.",
         data: ["112 × 88 mm", "3 mm lid"],
       },
     ],
@@ -172,7 +172,7 @@ const en: Content = {
     parity: {
       name: "Agent parity",
       title: "Same commands for you and your agent.",
-      lede: "What you can do in the studio, your agent can do — through scoped tools, not a shell.",
+      lede: "Anything you can do in the studio, your agent can do too. It works through scoped tools, without a shell.",
       human: { name: "You", body: "Canvas · keyboard · Properties" },
       agent: { name: "Your agent", body: "Codex · Claude Code · Cursor" },
       gui: "GUI",
@@ -184,7 +184,7 @@ const en: Content = {
       plugins: "Plugins",
       points: [
         { name: "One set of commands", body: "The interface and your agent call the same capabilities, with the same validation." },
-        { name: "One undo history", body: "Agent edits are ordinary transactions. Review them, apply them, undo them." },
+        { name: "One undo history", body: "Agent edits are ordinary transactions, so they undo like your own." },
         { name: "Review or Auto", body: "Confirm each design change, or let supported commands run automatically." },
       ],
     },
@@ -208,7 +208,7 @@ const en: Content = {
   },
   plugins: {
     title: "Plugins bridge the studio and real-world engineering.",
-    lede: "Five engineering plugins ship built in. Write your own in JavaScript — they run in a sandbox with no native or network access.",
+    lede: "Five engineering plugins ship built in. You can write your own in JavaScript, and they run in a sandbox with no native or network access.",
     builtIn: "Built in",
     thermal: {
       name: "Layout Thermal",
@@ -255,7 +255,7 @@ const en: Content = {
     points: [
       "No account, no OpenPE servers, no telemetry",
       "Native KiCad files on your own disk",
-      "A Cursor API key is encrypted with OS safeStorage",
+      "OpenPE never reads your agent tools' credential files",
     ],
     note: "Library, price and datasheet lookups contact those vendors directly.",
   },
@@ -263,7 +263,7 @@ const en: Content = {
     title: "The details.",
     product: "OpenPE · Electrical Engineering Studio",
     rows: [
-      { key: "Design files", value: "Native KiCad 10 — .kicad_pro, .kicad_sch, .kicad_pcb. Unchanged files keep their original bytes." },
+      { key: "Design files", value: "Native KiCad 10: .kicad_pro, .kicad_sch, .kicad_pcb. Unchanged files keep their original bytes." },
       { key: "Editing", value: "Schematic, manual PCB layout, 3D Model CAD and native Source text" },
       { key: "History", value: "Whole-project undo · local Git snapshots" },
       { key: "Simulation", value: "ngspice 47 transient" },
@@ -298,7 +298,7 @@ const en: Content = {
 }
 
 const zh: Content = {
-  meta: { title: "OpenPE — AI 原生的电力电子工程师工作台" },
+  meta: { title: "OpenPE · AI 原生的电力电子工程师工作台" },
   nav: {
     workspace: "工作区",
     workflow: "工作流",
@@ -308,14 +308,14 @@ const zh: Content = {
     specs: "规格",
     team: "团队",
     github: "GitHub",
-    langLabel: "语言",
+    switchLang: "切换到英文",
   },
   hero: {
     badge: "开源 · 基于 KiCad 10",
     titleTop: "AI 原生的",
     titleAccent: "电力电子",
     titleBottom: "工程师工作台",
-    lede: "一个桌面工作室：你的 AI agent 和你在同一份原理图、PCB layout、3D 模型和仿真里协作。设计始终是原生 KiCad 文件，只保存在你的电脑上。",
+    lede: "一个桌面工作室，你的 AI agent 和你在同一份原理图、PCB layout、3D 模型和仿真上工作。设计以原生 KiCad 文件保存在你自己的电脑上。",
     watch: "观看宣传片",
     github: "在 GitHub 查看",
     platformsLabel: "支持系统",
@@ -332,7 +332,7 @@ const zh: Content = {
     },
   },
   workspace: {
-    title: "设计与对话，在同一个窗口里。",
+    title: "在同一个窗口里设计，也和 agent 对话。",
     lede: "原理图、PCB layout 和 3D 模型与 agent 对话并排。切换视图、查看属性，或者直接描述你想要的修改。",
     imageAlt: "OpenPE 桌面端：打开 EMC Flyback 的 Layout 视图，选中变压器 T1",
     parts: [
@@ -374,7 +374,7 @@ const zh: Content = {
     parity: {
       name: "人机同权",
       title: "你和 agent，用同一套命令。",
-      lede: "你在工作室里能做的，agent 也能做。它通过受限的工具操作，而不是开放一个 shell。",
+      lede: "你在工作室里能做的操作，agent 也能做。它通过受限工具操作，不开放 shell。",
       human: { name: "你", body: "画布 · 键盘 · 属性面板" },
       agent: { name: "你的 agent", body: "Codex · Claude Code · Cursor" },
       gui: "GUI",
@@ -386,7 +386,7 @@ const zh: Content = {
       plugins: "插件",
       points: [
         { name: "同一套命令", body: "界面和 agent 调用同样的能力，经过同样的校验。" },
-        { name: "同一条撤销历史", body: "agent 的修改就是普通事务：审阅、应用、撤销。" },
+        { name: "同一条撤销历史", body: "agent 的修改是普通事务，和你自己的编辑一样可以撤销。" },
         { name: "审阅或自动", body: "逐条确认设计修改，或让支持的命令自动执行。" },
       ],
     },
@@ -457,7 +457,7 @@ const zh: Content = {
     points: [
       "无账号、无 OpenPE 服务器、无遥测",
       "原生 KiCad 文件保存在你自己的磁盘上",
-      "Cursor API key 由系统 safeStorage 加密",
+      "OpenPE 不读取各 agent 工具的凭据文件",
     ],
     note: "元件库、价格和数据手册查询会直接访问对应的供应商。",
   },
