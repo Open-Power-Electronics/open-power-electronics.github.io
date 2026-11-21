@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type RefObject } from "react"
 import { ArrowRight, MessageSquareText, RefreshCw, SquareDashedMousePointer } from "lucide-react"
 import { useI18n } from "@/i18n/I18nContext.tsx"
+import { prefersReducedMotion } from "@/lib/motion.ts"
 import { Clip } from "./Clip.tsx"
 import { SubsectionHeader, revealDelay } from "./primitives.tsx"
 
@@ -13,7 +14,7 @@ function useTyped(text: string): { ref: RefObject<HTMLDivElement | null>; shown:
   useEffect(() => {
     const element = ref.current
     if (element === null) throw new Error("typed comment element missing")
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (prefersReducedMotion()) return
 
     setShown("")
     let timer = 0
@@ -50,7 +51,7 @@ export function Mark({ index }: { index: number }) {
     <div>
       <SubsectionHeader chapter="agents" index={index} name={m.name} title={m.title} lede={m.lede} />
 
-      <div className="relative mt-14 md:mt-20">
+      <div className="relative mt-14 md:mx-auto md:mt-20 md:w-[88%]">
         <div data-reveal className="window">
           <Clip name="comment" label={m.title} />
         </div>
@@ -58,7 +59,7 @@ export function Mark({ index }: { index: number }) {
           ref={typed.ref}
           data-reveal
           style={revealDelay(0.15)}
-          className="surface absolute -top-8 left-6 hidden w-[340px] p-4 md:block lg:-left-6"
+          className="surface absolute -top-8 left-6 hidden w-[340px] p-4 md:block lg:-left-10"
         >
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2 font-mono text-[12px] text-green">

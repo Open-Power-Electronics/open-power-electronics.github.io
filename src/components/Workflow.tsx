@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import { subsectionNumber, type ClipName } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
+import { prefersReducedMotion } from "@/lib/motion.ts"
 import { cn } from "@/lib/utils.ts"
 import { Clip } from "./Clip.tsx"
-import { ChapterSection, Chip, Marker, SectionHeader } from "./primitives.tsx"
+import { ChapterSection, Chip, SectionHeader, SubsectionMarker } from "./primitives.tsx"
 
 const STEP_CLIPS = ["spice", "placement", "case"] as const satisfies readonly ClipName[]
 
@@ -13,7 +14,13 @@ export function Workflow() {
   if (w.steps.length !== STEP_CLIPS.length) throw new Error("workflow steps and clips are out of sync")
 
   const [active, setActive] = useState(0)
+  const [progress, setProgress] = useState(0)
+  const [stillClips, setStillClips] = useState(false)
   const stepRefs = useRef<(HTMLLIElement | null)[]>([])
+
+  useEffect(() => {
+    setStillClips(prefersReducedMotion())
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -23,6 +30,7 @@ export function Workflow() {
           const index = stepRefs.current.indexOf(entry.target as HTMLLIElement)
           if (index < 0) throw new Error("observed workflow step is not registered")
           setActive(index)
+          setProgress(0)
         }
       },
       { rootMargin: "-48% 0px -48% 0px" },
@@ -43,7 +51,7 @@ export function Workflow() {
           <ol className="flex flex-col gap-16 lg:gap-0">
             {w.steps.map((step, index) => (
               <li
-                key={step.title}
+                key={STEP_CLIPS[index]}
                 ref={(element) => {
                   stepRefs.current[index] = element
                 }}
@@ -52,7 +60,7 @@ export function Workflow() {
                   index === active ? "lg:opacity-100" : "lg:opacity-30",
                 )}
               >
-                <Marker number={subsectionNumber("workflow", index)} name={step.chapter} level="subsection" />
+                <SubsectionMarker chapter="workflow" index={index} name={step.chapter} />
                 <h3 className="heading mt-5 text-[28px] md:text-[32px]">{step.title}</h3>
                 <p className="mt-3 max-w-[420px] text-[16px] leading-relaxed text-body">{step.body}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -78,6 +86,7 @@ export function Workflow() {
                     name={name}
                     label={w.steps[index].title}
                     active={index === active}
+                    onProgress={setProgress}
                     className={cn(
                       "absolute inset-0 h-full object-cover transition-opacity duration-500",
                       index === active ? "opacity-100" : "opacity-0",
@@ -86,14 +95,22 @@ export function Workflow() {
                 ))}
               </div>
               <ol className="mt-5 flex gap-2" aria-hidden="true">
-                {w.steps.map((step, index) => (
-                  <li key={step.title} className="flex-1">
-                    <span className={cn("block h-[3px] rounded-full transition-colors duration-500", index <= active ? "bg-green" : "bg-line")} />
-                    <span className={cn("mt-2 block font-mono text-[11px] tracking-[0.04em] uppercase", index === active ? "text-green" : "text-faint")}>
-                      {subsectionNumber("workflow", index)} {step.chapter}
-                    </span>
-                  </li>
-                ))}
+                {w.steps.map((step, index) => {
+                  const filled = index < active ? 1 : index > active ? 0 : stillClips ? 1 : progress
+                  return (
+                    <li key={STEP_CLIPS[index]} className="flex-1">
+                      <span className="relative block h-[3px] overflow-hidden rounded-full bg-line">
+                        <span className="absolute inset-y-0 left-0 rounded-full bg-green" style={{ width: `${filled * 100}%` }} />
+                      </span>
+                      <span className="mt-2 flex gap-2 font-mono text-[11px] tracking-[0.06em] uppercase">
+                        <span className={cn("font-semibold tabular-nums", index === active ? "text-green" : "text-faint")}>
+                          {subsectionNumber("workflow", index)}
+                        </span>
+                        <span className={index === active ? "text-ink-2" : "text-faint"}>{step.chapter}</span>
+                      </span>
+                    </li>
+                  )
+                })}
               </ol>
             </div>
           </div>

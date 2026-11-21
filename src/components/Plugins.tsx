@@ -30,7 +30,7 @@ function PluginCard({ icon: Icon, name, body, stat, clip, art, delay }: CardProp
         <p className="mt-1.5 max-w-[440px] text-[15px] leading-relaxed text-body">{body}</p>
       </div>
       {wide && (
-        <div className="mx-6 mt-auto mb-6 overflow-hidden rounded-xl border border-line md:mx-7 md:mb-7">
+        <div className="mx-6 mt-auto mb-6 overflow-hidden rounded-xl border border-line md:mx-auto md:mb-7 md:w-[calc((100%-3.5rem)*0.88)]">
           <Clip name={clip} label={name} />
         </div>
       )}

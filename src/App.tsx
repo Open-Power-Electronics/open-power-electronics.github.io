@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { I18nProvider } from "@/i18n/I18nContext.tsx"
+import { I18nProvider, useI18n } from "@/i18n/I18nContext.tsx"
+import type { Lang } from "@/i18n/content.ts"
 import { Agents } from "./components/Agents.tsx"
 import { Closing } from "./components/Closing.tsx"
 import { Film } from "./components/Film.tsx"
@@ -13,7 +14,8 @@ import { Team } from "./components/Team.tsx"
 import { Workflow } from "./components/Workflow.tsx"
 import { Workspace } from "./components/Workspace.tsx"
 
-function useReveal() {
+/** Re-scans on language change: items keyed by translated text remount without `data-in`. */
+function useReveal(lang: Lang) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -25,13 +27,14 @@ function useReveal() {
       },
       { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
     )
-    for (const element of document.querySelectorAll("[data-reveal]")) observer.observe(element)
+    for (const element of document.querySelectorAll("[data-reveal]:not([data-in])")) observer.observe(element)
     return () => observer.disconnect()
-  }, [])
+  }, [lang])
 }
 
 function Page() {
-  useReveal()
+  const { lang } = useI18n()
+  useReveal(lang)
   return (
     <>
       <Nav />

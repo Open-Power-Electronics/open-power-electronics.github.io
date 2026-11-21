@@ -34,8 +34,9 @@ export function Film() {
   }
 
   return (
-    <section id={FILM_ID} className="relative bg-white pt-20 pb-28 md:pt-28 md:pb-36">
-      <div className="container-page">
+    <section id={FILM_ID} className="relative bg-white pt-16 pb-20 md:pt-20 md:pb-24">
+      {/* Width also follows viewport height so the film and its chapter bar fit one screen. */}
+      <div className="container-page max-w-[min(1064px,calc((100svh-15rem)*16/9+4rem))]">
         <div data-reveal className="window">
           <div className="flex h-10 items-center justify-between border-b border-line bg-paper px-4">
             <div className="flex gap-1.5" aria-hidden="true">
