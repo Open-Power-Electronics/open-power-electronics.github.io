@@ -11,18 +11,23 @@ export function ChapterSection({ chapter, className, children }: { chapter: Chap
   )
 }
 
-export function Marker({ number, name, level }: { number: string; name: string; level: "chapter" | "subsection" }) {
+function ChapterMarker({ chapter }: { chapter: Chapter }) {
+  const { t } = useI18n()
   return (
-    <p className="flex items-center gap-3 font-mono text-[13px] leading-none font-medium tracking-[0.06em] uppercase">
-      <span
-        className={cn(
-          "rounded-md px-2 py-1.5 tabular-nums",
-          level === "chapter" ? "bg-green text-white" : "bg-mint text-green ring-1 ring-green/15",
-        )}
-      >
-        {number}
+    <p className="flex items-center gap-3.5">
+      <span className="rounded-lg bg-green px-2.5 py-1.5 font-mono text-[14.5px] leading-none font-semibold text-white tabular-nums">
+        {chapterNumber(chapter)}
       </span>
-      <span className={level === "chapter" ? "text-ink" : "text-green"}>{name}</span>
+      <span className="text-[20px] leading-none font-bold tracking-[-0.02em] text-ink">{t.nav[chapter]}</span>
+    </p>
+  )
+}
+
+export function SubsectionMarker({ chapter, index, name }: { chapter: Chapter; index: number; name: string }) {
+  return (
+    <p className="flex items-baseline gap-3 font-mono text-[12.5px] leading-none tracking-[0.08em] uppercase">
+      <span className="font-semibold text-green tabular-nums">{subsectionNumber(chapter, index)}</span>
+      <span className="text-muted">{name}</span>
     </p>
   )
 }
@@ -38,10 +43,9 @@ export function SectionHeader({
   lede?: string
   className?: string
 }) {
-  const { t } = useI18n()
   return (
-    <header data-reveal className={cn("flex max-w-[760px] flex-col gap-6", className)}>
-      <Marker number={chapterNumber(chapter)} name={t.nav[chapter]} level="chapter" />
+    <header data-reveal className={cn("flex max-w-[760px] flex-col gap-7", className)}>
+      <ChapterMarker chapter={chapter} />
       <h2 className="heading text-balance text-[36px] sm:text-[44px] lg:text-[56px]">{title}</h2>
       {lede !== undefined && <p className="lede max-w-[620px] text-pretty">{lede}</p>}
     </header>
@@ -65,7 +69,7 @@ export function SubsectionHeader({
 }) {
   return (
     <header data-reveal className={cn("flex max-w-[680px] flex-col gap-5", className)}>
-      <Marker number={subsectionNumber(chapter, index)} name={name} level="subsection" />
+      <SubsectionMarker chapter={chapter} index={index} name={name} />
       <h3 className="heading text-balance text-[28px] sm:text-[34px] lg:text-[40px]">{title}</h3>
       {lede !== undefined && <p className="max-w-[560px] text-[16px] leading-relaxed text-pretty text-body md:text-[17px]">{lede}</p>}
     </header>

@@ -6,13 +6,18 @@ export const FILM_ID = "film"
 export const CHAPTERS = ["workspace", "workflow", "agents", "plugins", "privacy", "specs", "team"] as const
 export type Chapter = (typeof CHAPTERS)[number]
 
-export function chapterNumber(chapter: Chapter): string {
-  return String(CHAPTERS.indexOf(chapter) + 1).padStart(2, "0")
+function chapterOrdinal(chapter: Chapter): number {
+  return CHAPTERS.indexOf(chapter) + 1
 }
 
+export function chapterNumber(chapter: Chapter): string {
+  return String(chapterOrdinal(chapter)).padStart(2, "0")
+}
+
+/** Subsections drop the chapter's leading zero: `2.1`, not `02.1`. */
 export function subsectionNumber(chapter: Chapter, index: number): string {
   if (!Number.isInteger(index) || index < 0) throw new Error(`invalid subsection index: ${index}`)
-  return `${chapterNumber(chapter)}.${index + 1}`
+  return `${chapterOrdinal(chapter)}.${index + 1}`
 }
 
 export const PLATFORMS = ["Windows x64", "macOS arm64", "Linux x64"] as const
