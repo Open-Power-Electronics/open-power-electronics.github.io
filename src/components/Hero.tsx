@@ -1,10 +1,8 @@
 import { Play } from "lucide-react"
-import { GITHUB_ORG_URL, SECTION_IDS } from "@/content/site.ts"
+import { FILM_ID, GITHUB_ORG_URL, PLATFORMS } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { Clip } from "./Clip.tsx"
 import { GithubMark } from "./primitives.tsx"
-
-const AGENTS = ["Codex", "Claude Code", "Cursor", "DeepSeek Harness", "Pi"] as const
 
 export function Hero() {
   const { t } = useI18n()
@@ -34,7 +32,7 @@ export function Hero() {
           </p>
           <div className="rise mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: "0.3s" }}>
             <a
-              href={`#${SECTION_IDS.film}`}
+              href={`#${FILM_ID}`}
               className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-ink pr-5 pl-2 text-[15px] font-semibold text-white transition-colors hover:bg-ink-2"
             >
               <span className="grid size-8 place-items-center rounded-full bg-white/12 transition-colors group-hover:bg-signal group-hover:text-ink">
@@ -50,14 +48,18 @@ export function Hero() {
               {t.hero.github}
             </a>
           </div>
-          <ul className="rise mt-8 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] text-muted" style={{ animationDelay: "0.38s" }}>
-            {t.hero.meta.map((item, index) => (
-              <li key={item} className="flex items-center gap-4">
-                {index > 0 && <span aria-hidden="true" className="size-1 rounded-full bg-faint" />}
-                {item}
-              </li>
-            ))}
-          </ul>
+          <div className="rise mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[12px]" style={{ animationDelay: "0.38s" }}>
+            <p className="tracking-[0.06em] text-muted uppercase">{t.hero.platformsLabel}</p>
+            <span aria-hidden="true" className="h-3 w-px bg-line-strong" />
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-ink-2">
+              {PLATFORMS.map((platform, index) => (
+                <li key={platform} className="flex items-center gap-4">
+                  {index > 0 && <span aria-hidden="true" className="size-1 rounded-full bg-faint" />}
+                  {platform}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="rise relative -mx-6 lg:mx-0 lg:-mr-16" style={{ animationDelay: "0.2s" }}>
           <Clip
@@ -65,18 +67,6 @@ export function Hero() {
             label="Exploded view of an OpenPE power board"
             className="mix-blend-multiply [mask-image:radial-gradient(75%_75%_at_50%_50%,black_60%,transparent)]"
           />
-        </div>
-      </div>
-      <div className="relative border-t border-line/70 bg-white/60 backdrop-blur-sm">
-        <div className="container-page flex flex-col items-center gap-4 py-7 md:flex-row md:justify-between">
-          <p className="font-mono text-[12px] tracking-[0.06em] text-muted uppercase">{t.hero.agentsLabel}</p>
-          <ul className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3">
-            {AGENTS.map((name) => (
-              <li key={name} className="text-[17px] font-semibold tracking-[-0.02em] text-ink/45">
-                {name}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

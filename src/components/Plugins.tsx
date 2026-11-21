@@ -1,11 +1,11 @@
 import type { ReactNode } from "react"
 import { Activity, BookOpen, Puzzle, Spline, Thermometer, Waves, type LucideIcon } from "lucide-react"
-import { SECTION_IDS, type ClipName } from "@/content/site.ts"
+import type { ClipName } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { cn } from "@/lib/utils.ts"
 import { Clip } from "./Clip.tsx"
 import { LoopArt, TransientArt } from "./PluginArt.tsx"
-import { Chip, SectionHeader, revealDelay } from "./primitives.tsx"
+import { ChapterSection, Chip, SectionHeader, revealDelay } from "./primitives.tsx"
 
 type CardProps = {
   icon: LucideIcon
@@ -44,10 +44,10 @@ export function Plugins() {
   const p = t.plugins
 
   return (
-    <section id={SECTION_IDS.plugins} className="relative border-t border-line bg-white py-28 md:py-36">
+    <ChapterSection chapter="plugins" className="bg-white">
       <div className="container-page">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeader eyebrow={p.eyebrow} title={p.title} lede={p.lede} />
+          <SectionHeader chapter="plugins" title={p.title} lede={p.lede} />
           <p data-reveal className="shrink-0 font-mono text-[12px] tracking-[0.06em] text-muted uppercase">
             {p.builtIn} · 5
           </p>
@@ -79,6 +79,6 @@ export function Plugins() {
           </article>
         </div>
       </div>
-    </section>
+    </ChapterSection>
   )
 }

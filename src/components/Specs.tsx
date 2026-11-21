@@ -1,16 +1,15 @@
-import { SECTION_IDS } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
-import { SectionHeader } from "./primitives.tsx"
+import { ChapterSection, SectionHeader } from "./primitives.tsx"
 
 export function Specs() {
   const { t } = useI18n()
   const s = t.specs
 
   return (
-    <section id={SECTION_IDS.specs} className="relative border-t border-line bg-white py-28 md:py-36">
+    <ChapterSection chapter="specs" className="bg-white">
       <div className="container-page grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <SectionHeader eyebrow={s.eyebrow} title={s.title} />
+          <SectionHeader chapter="specs" title={s.title} />
         </div>
         <div data-reveal className="overflow-hidden rounded-[20px] border border-line">
           <div className="flex items-center justify-between gap-4 border-b border-line bg-paper px-5 py-3.5 md:px-7">
@@ -30,6 +29,6 @@ export function Specs() {
           </dl>
         </div>
       </div>
-    </section>
+    </ChapterSection>
   )
 }

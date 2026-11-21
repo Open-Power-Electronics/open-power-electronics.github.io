@@ -1,4 +1,4 @@
-import { GITHUB_ORG_URL, NAV_SECTIONS, SECTION_IDS } from "@/content/site.ts"
+import { CHAPTERS, GITHUB_ORG_URL } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { GithubMark, Wordmark } from "./primitives.tsx"
 
@@ -14,9 +14,9 @@ export function Footer() {
           <p className="mt-2 text-[12.5px] leading-relaxed text-muted">{t.footer.notices}</p>
         </div>
         <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-3">
-          {NAV_SECTIONS.map((id) => (
-            <a key={id} href={`#${SECTION_IDS[id]}`} className="text-[14px] font-medium text-body transition-colors hover:text-ink">
-              {t.nav[id]}
+          {CHAPTERS.map((chapter) => (
+            <a key={chapter} href={`#${chapter}`} className="text-[14px] font-medium text-body transition-colors hover:text-ink">
+              {t.nav[chapter]}
             </a>
           ))}
           <a href={GITHUB_ORG_URL} className="inline-flex items-center gap-2 text-[14px] font-medium text-body transition-colors hover:text-ink">

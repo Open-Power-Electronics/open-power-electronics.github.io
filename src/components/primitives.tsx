@@ -1,31 +1,73 @@
 import type { CSSProperties, ReactNode } from "react"
+import { chapterNumber, subsectionNumber, type Chapter } from "@/content/site.ts"
+import { useI18n } from "@/i18n/I18nContext.tsx"
 import { cn } from "@/lib/utils.ts"
 
+export function ChapterSection({ chapter, className, children }: { chapter: Chapter; className?: string; children: ReactNode }) {
+  return (
+    <section id={chapter} className={cn("relative border-t border-line py-28 md:py-36", className)}>
+      {children}
+    </section>
+  )
+}
+
+export function Marker({ number, name, level }: { number: string; name: string; level: "chapter" | "subsection" }) {
+  return (
+    <p className="flex items-center gap-3 font-mono text-[13px] leading-none font-medium tracking-[0.06em] uppercase">
+      <span
+        className={cn(
+          "rounded-md px-2 py-1.5 tabular-nums",
+          level === "chapter" ? "bg-green text-white" : "bg-mint text-green ring-1 ring-green/15",
+        )}
+      >
+        {number}
+      </span>
+      <span className={level === "chapter" ? "text-ink" : "text-green"}>{name}</span>
+    </p>
+  )
+}
+
 export function SectionHeader({
-  eyebrow,
+  chapter,
   title,
   lede,
-  align = "left",
   className,
 }: {
-  eyebrow: string
+  chapter: Chapter
   title: string
   lede?: string
-  align?: "left" | "center"
+  className?: string
+}) {
+  const { t } = useI18n()
+  return (
+    <header data-reveal className={cn("flex max-w-[760px] flex-col gap-6", className)}>
+      <Marker number={chapterNumber(chapter)} name={t.nav[chapter]} level="chapter" />
+      <h2 className="heading text-balance text-[36px] sm:text-[44px] lg:text-[56px]">{title}</h2>
+      {lede !== undefined && <p className="lede max-w-[620px] text-pretty">{lede}</p>}
+    </header>
+  )
+}
+
+export function SubsectionHeader({
+  chapter,
+  index,
+  name,
+  title,
+  lede,
+  className,
+}: {
+  chapter: Chapter
+  index: number
+  name: string
+  title: string
+  lede?: string
   className?: string
 }) {
   return (
-    <header
-      data-reveal
-      className={cn(
-        "flex max-w-[760px] flex-col gap-5",
-        align === "center" && "mx-auto items-center text-center",
-        className,
-      )}
-    >
-      <p className="eyebrow">{eyebrow}</p>
-      <h2 className="heading text-balance text-[36px] sm:text-[44px] lg:text-[56px]">{title}</h2>
-      {lede !== undefined && <p className="lede max-w-[620px] text-pretty">{lede}</p>}
+    <header data-reveal className={cn("flex max-w-[680px] flex-col gap-5", className)}>
+      <Marker number={subsectionNumber(chapter, index)} name={name} level="subsection" />
+      <h3 className="heading text-balance text-[28px] sm:text-[34px] lg:text-[40px]">{title}</h3>
+      {lede !== undefined && <p className="max-w-[560px] text-[16px] leading-relaxed text-pretty text-body md:text-[17px]">{lede}</p>}
     </header>
   )
 }

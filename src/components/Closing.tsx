@@ -1,5 +1,5 @@
 import { Play } from "lucide-react"
-import { GITHUB_ORG_URL, SECTION_IDS } from "@/content/site.ts"
+import { FILM_ID, GITHUB_ORG_URL } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { GithubMark } from "./primitives.tsx"
 
@@ -29,7 +29,7 @@ export function Closing() {
             {c.github}
           </a>
           <a
-            href={`#${SECTION_IDS.film}`}
+            href={`#${FILM_ID}`}
             className="inline-flex h-12 items-center gap-2.5 rounded-full border border-line-strong bg-white px-6 text-[15px] font-semibold text-ink transition-colors hover:border-ink/30"
           >
             <Play className="size-3.5 fill-current" strokeWidth={0} />

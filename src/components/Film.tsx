@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { Play } from "lucide-react"
-import { FILM, FILM_CHAPTERS, SECTION_IDS } from "@/content/site.ts"
+import { FILM, FILM_CHAPTERS, FILM_ID } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { cn } from "@/lib/utils.ts"
 
@@ -34,7 +34,7 @@ export function Film() {
   }
 
   return (
-    <section id={SECTION_IDS.film} className="relative bg-white pt-20 pb-28 md:pt-28 md:pb-36">
+    <section id={FILM_ID} className="relative bg-white pt-20 pb-28 md:pt-28 md:pb-36">
       <div className="container-page">
         <div data-reveal className="window">
           <div className="flex h-10 items-center justify-between border-b border-line bg-paper px-4">

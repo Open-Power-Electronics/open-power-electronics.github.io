@@ -22,7 +22,7 @@ scripts/cut-clips.sh /absolute/path/to/OpenPE-Workflow-Demo.mp4
 
 ## Design
 
-The page follows the promo film: white paper with mint corner radials, deep green accents, extra-bold tight headlines, and a datasheet-like layer of mono labels, hairlines and numbered sections (`01 · Agent parity`). Tokens are defined once in `src/index.css` under `@theme`; use them instead of raw hex values.
+The page follows the promo film: white paper with mint corner radials, deep green accents, extra-bold tight headlines, and a datasheet-like layer of mono labels, hairlines and numbered chapters. `CHAPTERS` in `src/content/site.ts` is the single ordered list behind section anchors, nav entries and chapter numbers; a chapter marker shows its number and nav name (`03 Agents`) and subsections use decimal numbers (`03.1`). Lists inside a subsection are not numbered. Tokens are defined once in `src/index.css` under `@theme`; use them instead of raw hex values.
 
 - Ink `#1F2622`, body `#505854`, muted `#7D8781`, hairline `#E3E8E4`, paper `#FAFCF9`, mint `#E7F1E9`, green `#206F39`, signal `#88EA5C` (dots and highlights only).
 - Architecture blocks: Agent `#E6EFFC`, Human `#DFF1F2`, Uniform API `#EBE3F6`, Core `#ECF5E9`, Plugins `#F8EBE4`. Chart: Baseline `#A36734`, Tuned `#39784E`, ±1% band `#EAF7EC`.

@@ -1,8 +1,8 @@
 import { ArrowUpRight, Mail } from "lucide-react"
-import { GITHUB_ORG_URL, SECTION_IDS } from "@/content/site.ts"
+import { GITHUB_ORG_URL } from "@/content/site.ts"
 import { contactEmail, institutions, teamMembers } from "@/content/team.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
-import { GithubMark, SectionHeader, revealDelay } from "./primitives.tsx"
+import { ChapterSection, GithubMark, SectionHeader, revealDelay } from "./primitives.tsx"
 
 function initials(name: string): string {
   const parts = name.split(" ").filter((part) => part !== "")
@@ -15,14 +15,14 @@ export function Team() {
   const team = t.team
 
   return (
-    <section id={SECTION_IDS.team} className="relative border-t border-line bg-white py-28 md:py-36">
+    <ChapterSection chapter="team" className="bg-paper">
       <div className="container-page">
-        <SectionHeader eyebrow={team.eyebrow} title={team.title} />
+        <SectionHeader chapter="team" title={team.title} />
 
         <h3 data-reveal className="mt-14 font-mono text-[12px] tracking-[0.06em] text-muted uppercase">
           {team.core}
         </h3>
-        <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-5 grid max-w-[800px] gap-3 sm:grid-cols-2">
           {teamMembers.map((member, index) => {
             const details = [member.role, member.affiliation].filter((value) => value !== "")
             const body = (
@@ -40,9 +40,9 @@ export function Team() {
             return (
               <li key={member.name} data-reveal style={revealDelay((index % 3) * 0.05)}>
                 {member.link === "" ? (
-                  <div className="flex items-center gap-4 rounded-2xl border border-line px-4 py-4">{body}</div>
+                  <div className="flex items-center gap-4 rounded-2xl border border-line bg-white px-4 py-4">{body}</div>
                 ) : (
-                  <a href={member.link} className="group flex items-center gap-4 rounded-2xl border border-line px-4 py-4 transition-colors hover:border-green/40">
+                  <a href={member.link} className="group flex items-center gap-4 rounded-2xl border border-line bg-white px-4 py-4 transition-colors hover:border-green/40">
                     {body}
                   </a>
                 )}
@@ -86,6 +86,6 @@ export function Team() {
           </div>
         </div>
       </div>
-    </section>
+    </ChapterSection>
   )
 }

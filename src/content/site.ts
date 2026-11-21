@@ -1,19 +1,26 @@
 export const GITHUB_ORG_URL = "https://github.com/Open-Power-Electronics"
 
-export const SECTION_IDS = {
-  film: "film",
-  parity: "parity",
-  workflow: "workflow",
-  mark: "mark",
-  plugins: "plugins",
-  privacy: "privacy",
-  specs: "specs",
-  team: "team",
-} as const
-export type SectionKey = keyof typeof SECTION_IDS
+export const FILM_ID = "film"
 
-export const NAV_SECTIONS = ["workflow", "plugins", "privacy", "specs", "team"] as const satisfies readonly SectionKey[]
-export type NavSection = (typeof NAV_SECTIONS)[number]
+/** Numbered chapters in page order. Each id is the section anchor and the nav entry. */
+export const CHAPTERS = ["workspace", "workflow", "agents", "plugins", "privacy", "specs", "team"] as const
+export type Chapter = (typeof CHAPTERS)[number]
+
+export function chapterNumber(chapter: Chapter): string {
+  return String(CHAPTERS.indexOf(chapter) + 1).padStart(2, "0")
+}
+
+export function subsectionNumber(chapter: Chapter, index: number): string {
+  if (!Number.isInteger(index) || index < 0) throw new Error(`invalid subsection index: ${index}`)
+  return `${chapterNumber(chapter)}.${index + 1}`
+}
+
+export const PLATFORMS = ["Windows x64", "macOS arm64", "Linux x64"] as const
+
+export const AGENT_MODES = {
+  tools: ["Codex", "Claude Code", "Cursor"],
+  proposals: ["DeepSeek Harness", "Pi"],
+} as const
 
 export const FILM = {
   src: "/media/openpe-workflow-demo.mp4",

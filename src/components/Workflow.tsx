@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react"
-import { SECTION_IDS, type ClipName } from "@/content/site.ts"
+import { subsectionNumber, type ClipName } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { cn } from "@/lib/utils.ts"
 import { Clip } from "./Clip.tsx"
-import { Chip, SectionHeader } from "./primitives.tsx"
+import { ChapterSection, Chip, Marker, SectionHeader } from "./primitives.tsx"
 
-const STEP_CLIPS = ["workspace", "spice", "placement", "case"] as const satisfies readonly ClipName[]
+const STEP_CLIPS = ["spice", "placement", "case"] as const satisfies readonly ClipName[]
 
 export function Workflow() {
   const { t } = useI18n()
@@ -35,9 +35,9 @@ export function Workflow() {
   }, [])
 
   return (
-    <section id={SECTION_IDS.workflow} className="relative border-t border-line bg-paper py-28 md:py-36">
+    <ChapterSection chapter="workflow" className="bg-white">
       <div className="container-page">
-        <SectionHeader eyebrow={w.eyebrow} title={w.title} lede={w.lede} />
+        <SectionHeader chapter="workflow" title={w.title} lede={w.lede} />
 
         <div className="mt-16 grid gap-10 lg:mt-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-14">
           <ol className="flex flex-col gap-16 lg:gap-0">
@@ -52,12 +52,8 @@ export function Workflow() {
                   index === active ? "lg:opacity-100" : "lg:opacity-30",
                 )}
               >
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-[12px] text-green">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
-                  <span className="font-mono text-[12px] tracking-[0.06em] text-muted uppercase">{step.chapter}</span>
-                </div>
-                <h3 className="heading mt-4 text-[28px] md:text-[32px]">{step.title}</h3>
+                <Marker number={subsectionNumber("workflow", index)} name={step.chapter} level="subsection" />
+                <h3 className="heading mt-5 text-[28px] md:text-[32px]">{step.title}</h3>
                 <p className="mt-3 max-w-[420px] text-[16px] leading-relaxed text-body">{step.body}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {step.data.map((item) => (
@@ -94,7 +90,7 @@ export function Workflow() {
                   <li key={step.title} className="flex-1">
                     <span className={cn("block h-[3px] rounded-full transition-colors duration-500", index <= active ? "bg-green" : "bg-line")} />
                     <span className={cn("mt-2 block font-mono text-[11px] tracking-[0.04em] uppercase", index === active ? "text-green" : "text-faint")}>
-                      {step.chapter}
+                      {subsectionNumber("workflow", index)} {step.chapter}
                     </span>
                   </li>
                 ))}
@@ -103,6 +99,6 @@ export function Workflow() {
           </div>
         </div>
       </div>
-    </section>
+    </ChapterSection>
   )
 }

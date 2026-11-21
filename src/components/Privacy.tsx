@@ -1,20 +1,20 @@
 import { Check, CloudOff, Laptop, Sparkles, X } from "lucide-react"
-import { SECTION_IDS } from "@/content/site.ts"
+import { AGENT_MODES } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
-import { SectionHeader, revealDelay } from "./primitives.tsx"
+import { ChapterSection, SectionHeader, revealDelay } from "./primitives.tsx"
 
 const FILES = [".kicad_pro", ".kicad_sch", ".kicad_pcb"] as const
-const AGENTS = ["Codex", "Claude Code", "Cursor", "DeepSeek Harness", "Pi"] as const
+const AGENTS = [...AGENT_MODES.tools, ...AGENT_MODES.proposals] as const
 
 export function Privacy() {
   const { t } = useI18n()
   const p = t.privacy
 
   return (
-    <section id={SECTION_IDS.privacy} className="relative border-t border-line bg-paper py-28 md:py-36">
+    <ChapterSection chapter="privacy" className="bg-paper">
       <div className="container-page grid items-center gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-20">
         <div>
-          <SectionHeader eyebrow={p.eyebrow} title={p.title} lede={p.lede} />
+          <SectionHeader chapter="privacy" title={p.title} lede={p.lede} />
           <ul className="mt-10 flex flex-col gap-3.5">
             {p.points.map((point, index) => (
               <li key={point} data-reveal style={revealDelay(index * 0.06)} className="flex items-start gap-3 text-[16px] text-ink-2">
@@ -93,6 +93,6 @@ export function Privacy() {
           </div>
         </div>
       </div>
-    </section>
+    </ChapterSection>
   )
 }

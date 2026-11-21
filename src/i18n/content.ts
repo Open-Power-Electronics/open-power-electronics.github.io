@@ -1,14 +1,15 @@
-import type { FilmChapterId, NavSection } from "@/content/site.ts"
+import type { Chapter, FilmChapterId } from "@/content/site.ts"
 
 export type Lang = "en" | "zh"
 
 type Step = { chapter: string; title: string; body: string; data: readonly string[] }
 type Plugin = { name: string; body: string; stat: string }
 type SpecRow = { key: string; value: string }
+type Term = { name: string; body: string }
 
 export type Content = {
   meta: { title: string }
-  nav: Record<NavSection, string> & { github: string; langLabel: string }
+  nav: Record<Chapter, string> & { github: string; langLabel: string }
   hero: {
     badge: string
     titleTop: string
@@ -17,42 +18,46 @@ export type Content = {
     lede: string
     watch: string
     github: string
-    meta: readonly string[]
-    agentsLabel: string
+    platformsLabel: string
   }
   film: { caption: string; play: string; chapters: Record<FilmChapterId, string> }
-  parity: {
-    eyebrow: string
+  workspace: { title: string; lede: string; parts: readonly Term[] }
+  workflow: { title: string; lede: string; steps: readonly Step[] }
+  agents: {
     title: string
     lede: string
-    note: string
-    human: { label: string; sub: string }
-    agent: { label: string; sub: string }
-    gui: string
-    context: string
-    api: string
-    apiOps: readonly string[]
-    core: string
-    coreSub: string
-    plugins: string
-    points: readonly { title: string; body: string }[]
-  }
-  workflow: { eyebrow: string; title: string; lede: string; steps: readonly Step[] }
-  mark: {
-    eyebrow: string
-    title: string
-    lede: string
-    commentLabel: string
-    commentAction: string
-    comment: string
-    steps: readonly { title: string; body: string }[]
-    statValue: string
-    statLabel: string
-    statDetail: string
-    note: string
+    tools: Term
+    proposals: Term
+    parity: {
+      name: string
+      title: string
+      lede: string
+      human: Term
+      agent: Term
+      gui: string
+      context: string
+      api: string
+      apiOps: readonly string[]
+      core: string
+      coreSub: string
+      plugins: string
+      points: readonly Term[]
+    }
+    mark: {
+      name: string
+      title: string
+      lede: string
+      commentLabel: string
+      commentAction: string
+      comment: string
+      steps: readonly Term[]
+      statValue: string
+      statLabel: string
+      statDetail: string
+      note: string
+    }
   }
   plugins: {
-    eyebrow: string
     title: string
     lede: string
     builtIn: string
@@ -64,7 +69,6 @@ export type Content = {
     yours: { name: string; body: string; tags: readonly string[] }
   }
   privacy: {
-    eyebrow: string
     title: string
     lede: string
     machine: string
@@ -78,10 +82,9 @@ export type Content = {
     points: readonly string[]
     note: string
   }
-  specs: { eyebrow: string; title: string; product: string; rows: readonly SpecRow[] }
+  specs: { title: string; product: string; rows: readonly SpecRow[] }
   closing: { line1: string; accent: string; line3: string; github: string; watch: string }
   team: {
-    eyebrow: string
     title: string
     core: string
     institutions: string
@@ -95,7 +98,9 @@ export type Content = {
 const en: Content = {
   meta: { title: "OpenPE — AI-Native Power Electronics Engineer Workbench" },
   nav: {
+    workspace: "Workspace",
     workflow: "Workflow",
+    agents: "Agents",
     plugins: "Plugins",
     privacy: "Privacy",
     specs: "Specs",
@@ -111,8 +116,7 @@ const en: Content = {
     lede: "A desktop studio where your AI agent works in the same schematic, PCB layout, 3D model and simulation as you — on native KiCad files that never leave your machine.",
     watch: "Watch the film",
     github: "View on GitHub",
-    meta: ["Windows x64", "macOS arm64", "Linux x64", "Apache-2.0"],
-    agentsLabel: "Bring your own agent",
+    platformsLabel: "Runs on",
   },
   film: {
     caption: "OpenPE workflow · 1:38",
@@ -125,37 +129,20 @@ const en: Content = {
       plugins: "Plugins",
     },
   },
-  parity: {
-    eyebrow: "01 · Agent parity",
-    title: "Same commands for you and your agent.",
-    lede: "What you can do in the studio, your agent can do. Codex, Claude Code and Cursor drive the same design, simulation and project commands as the interface — through scoped tools, not a shell.",
-    note: "DeepSeek Harness and Pi propose changes; you apply them.",
-    human: { label: "You", sub: "Canvas · keyboard · Properties" },
-    agent: { label: "Your agent", sub: "Codex · Claude Code · Cursor" },
-    gui: "GUI",
-    context: "Context management",
-    api: "Uniform API",
-    apiOps: ["Set part value", "Route tracks", "Pour copper", "Run SPICE"],
-    core: "Core",
-    coreSub: "One validated transaction per edit",
-    plugins: "Plugins",
-    points: [
-      { title: "One set of commands", body: "The interface and your agent call the same capabilities, with the same validation." },
-      { title: "One undo history", body: "Agent edits are ordinary transactions. Review them, apply them, undo them." },
-      { title: "Review or Auto", body: "Confirm each design change, or let supported commands run automatically." },
+  workspace: {
+    title: "Design and conversation, in one window.",
+    lede: "Schematic, PCB layout and 3D model sit beside your agent conversation. Switch views, inspect properties, or describe the change you want.",
+    parts: [
+      { name: "Session manager", body: "Organize chats with your agent." },
+      { name: "Agent interface", body: "Chat and send design requests." },
+      { name: "Design workspace", body: "Switch between Schematic, Layout, 3D Model and Source." },
+      { name: "Properties", body: "Inspect and edit the selected object." },
     ],
   },
   workflow: {
-    eyebrow: "02 · Workflow",
-    title: "From schematic to enclosure, in one window.",
+    title: "From schematic to enclosure.",
     lede: "Edit directly or guide your agent. Every view works on the same project.",
     steps: [
-      {
-        chapter: "Overall",
-        title: "One unified workspace",
-        body: "Schematic, PCB layout and 3D model sit beside your agent conversation. Switch views, inspect properties, or describe the change you want.",
-        data: ["Schematic", "PCB", "3D"],
-      },
       {
         chapter: "Schematic",
         title: "Design and verify",
@@ -176,25 +163,49 @@ const en: Content = {
       },
     ],
   },
-  mark: {
-    eyebrow: "03 · Mark and refine",
-    title: "Point at the board. Say what you want.",
-    lede: "Mark a region on the schematic or PCB, leave a comment, and send it with your next message. Your agent refines exactly that part.",
-    commentLabel: "User Comment",
-    commentAction: "Add",
-    comment: "Could you turn D7 and C19 so the pads line up better?",
-    steps: [
-      { title: "Mark", body: "Select parts or draw a region on the canvas." },
-      { title: "Comment", body: "Describe the change right where it belongs." },
-      { title: "Refine", body: "Your agent rotates, reroutes and compares." },
-    ],
-    statValue: "47%",
-    statLabel: "shorter secondary copper",
-    statDetail: "39.9 → 21.2 mm",
-    note: "Marks are screenshots attached to your message. They never edit the design on their own.",
+  agents: {
+    title: "Bring your own agent.",
+    lede: "Connect the agent you already use. It works on the project you have open, with the access its mode allows.",
+    tools: { name: "Scoped tools", body: "Run the same design, simulation and project commands as the interface." },
+    proposals: { name: "Proposals", body: "Suggest changes with restricted context. You review and apply them." },
+    parity: {
+      name: "Agent parity",
+      title: "Same commands for you and your agent.",
+      lede: "What you can do in the studio, your agent can do — through scoped tools, not a shell.",
+      human: { name: "You", body: "Canvas · keyboard · Properties" },
+      agent: { name: "Your agent", body: "Codex · Claude Code · Cursor" },
+      gui: "GUI",
+      context: "Context management",
+      api: "Uniform API",
+      apiOps: ["Set part value", "Route tracks", "Pour copper", "Run SPICE"],
+      core: "Core",
+      coreSub: "One validated transaction per edit",
+      plugins: "Plugins",
+      points: [
+        { name: "One set of commands", body: "The interface and your agent call the same capabilities, with the same validation." },
+        { name: "One undo history", body: "Agent edits are ordinary transactions. Review them, apply them, undo them." },
+        { name: "Review or Auto", body: "Confirm each design change, or let supported commands run automatically." },
+      ],
+    },
+    mark: {
+      name: "Mark and refine",
+      title: "Point at the board. Say what you want.",
+      lede: "Mark a region on the schematic or PCB, leave a comment, and send it with your next message. Your agent refines exactly that part.",
+      commentLabel: "User Comment",
+      commentAction: "Add",
+      comment: "Could you turn D7 and C19 so the pads line up better?",
+      steps: [
+        { name: "Mark", body: "Select parts or draw a region on the canvas." },
+        { name: "Comment", body: "Describe the change right where it belongs." },
+        { name: "Refine", body: "Your agent rotates, reroutes and compares." },
+      ],
+      statValue: "47%",
+      statLabel: "shorter secondary copper",
+      statDetail: "39.9 → 21.2 mm",
+      note: "Marks are screenshots attached to your message. They never edit the design on their own.",
+    },
   },
   plugins: {
-    eyebrow: "04 · Plugins",
     title: "Plugins bridge the studio and real-world engineering.",
     lede: "Five engineering plugins ship built in. Write your own in JavaScript — they run in a sandbox with no native or network access.",
     builtIn: "Built in",
@@ -230,7 +241,6 @@ const en: Content = {
     },
   },
   privacy: {
-    eyebrow: "05 · Local-first",
     title: "No OpenPE cloud. Your work stays local.",
     lede: "OpenPE has no servers and no accounts. Projects stay on your disk as native KiCad files, and prompts go only to the AI provider you choose.",
     machine: "Your computer",
@@ -249,7 +259,6 @@ const en: Content = {
     note: "Library, price and datasheet lookups contact those vendors directly.",
   },
   specs: {
-    eyebrow: "06 · Specifications",
     title: "The details.",
     product: "OpenPE · Electrical Engineering Studio",
     rows: [
@@ -274,7 +283,6 @@ const en: Content = {
     watch: "Watch the film",
   },
   team: {
-    eyebrow: "07 · Team",
     title: "The people behind OpenPE.",
     core: "Core developers",
     institutions: "Teams & institutions",
@@ -291,7 +299,9 @@ const en: Content = {
 const zh: Content = {
   meta: { title: "OpenPE — AI 原生的电力电子工程师工作台" },
   nav: {
+    workspace: "工作区",
     workflow: "工作流",
+    agents: "Agent",
     plugins: "插件",
     privacy: "隐私",
     specs: "规格",
@@ -307,8 +317,7 @@ const zh: Content = {
     lede: "一个桌面工作室：你的 AI agent 和你在同一份原理图、PCB layout、3D 模型和仿真里协作。设计始终是原生 KiCad 文件，只保存在你的电脑上。",
     watch: "观看宣传片",
     github: "在 GitHub 查看",
-    meta: ["Windows x64", "macOS arm64", "Linux x64", "Apache-2.0"],
-    agentsLabel: "接入你自己的 agent",
+    platformsLabel: "支持系统",
   },
   film: {
     caption: "OpenPE 工作流 · 1:38",
@@ -321,37 +330,20 @@ const zh: Content = {
       plugins: "插件",
     },
   },
-  parity: {
-    eyebrow: "01 · 人机同权",
-    title: "你和 agent，用同一套命令。",
-    lede: "你在工作室里能做的，agent 也能做。Codex、Claude Code 和 Cursor 通过受限的工具，调用与界面相同的设计、仿真和工程命令，而不是开放一个 shell。",
-    note: "DeepSeek Harness 和 Pi 提出修改，由你确认应用。",
-    human: { label: "你", sub: "画布 · 键盘 · 属性面板" },
-    agent: { label: "你的 agent", sub: "Codex · Claude Code · Cursor" },
-    gui: "GUI",
-    context: "上下文管理",
-    api: "Uniform API",
-    apiOps: ["设置元件值", "布线", "铺铜", "运行 SPICE"],
-    core: "Core",
-    coreSub: "每次编辑都是一次经过校验的事务",
-    plugins: "插件",
-    points: [
-      { title: "同一套命令", body: "界面和 agent 调用同样的能力，经过同样的校验。" },
-      { title: "同一条撤销历史", body: "agent 的修改就是普通事务：审阅、应用、撤销。" },
-      { title: "审阅或自动", body: "逐条确认设计修改，或让支持的命令自动执行。" },
+  workspace: {
+    title: "设计与对话，在同一个窗口里。",
+    lede: "原理图、PCB layout 和 3D 模型与 agent 对话并排。切换视图、查看属性，或者直接描述你想要的修改。",
+    parts: [
+      { name: "会话管理", body: "整理你和 agent 的对话。" },
+      { name: "Agent 界面", body: "对话并发送设计请求。" },
+      { name: "设计工作区", body: "在原理图、Layout、3D 模型和 Source 之间切换。" },
+      { name: "属性面板", body: "查看并编辑选中的对象。" },
     ],
   },
   workflow: {
-    eyebrow: "02 · 工作流",
-    title: "从原理图到外壳，都在一个窗口里。",
+    title: "从原理图到外壳。",
     lede: "直接动手编辑，或者交给 agent。所有视图共享同一个工程。",
     steps: [
-      {
-        chapter: "总览",
-        title: "统一的工作区",
-        body: "原理图、PCB layout 和 3D 模型与 agent 对话并排。切换视图、查看属性，或者直接描述你想要的修改。",
-        data: ["原理图", "PCB", "3D"],
-      },
       {
         chapter: "原理图",
         title: "设计与验证",
@@ -372,25 +364,49 @@ const zh: Content = {
       },
     ],
   },
-  mark: {
-    eyebrow: "03 · 圈选修改",
-    title: "指着板子，说出你的想法。",
-    lede: "在原理图或 PCB 上圈出区域，写下评论，随下一条消息发送。agent 只修改你指出的那一部分。",
-    commentLabel: "User Comment",
-    commentAction: "Add",
-    comment: "Could you turn D7 and C19 so the pads line up better?",
-    steps: [
-      { title: "圈选", body: "选中元件，或在画布上框出区域。" },
-      { title: "评论", body: "就在对应的位置描述修改。" },
-      { title: "修改", body: "agent 旋转、重新布线并对比结果。" },
-    ],
-    statValue: "47%",
-    statLabel: "次级铜线缩短",
-    statDetail: "39.9 → 21.2 mm",
-    note: "圈选标记是随消息附带的截图，本身不会修改设计。",
+  agents: {
+    title: "接入你自己的 agent。",
+    lede: "连接你已经在用的 agent。它直接在你打开的工程里工作，权限由它的接入方式决定。",
+    tools: { name: "受限工具", body: "调用与界面相同的设计、仿真和工程命令。" },
+    proposals: { name: "修改提案", body: "在受限的上下文中提出修改，由你审阅并应用。" },
+    parity: {
+      name: "人机同权",
+      title: "你和 agent，用同一套命令。",
+      lede: "你在工作室里能做的，agent 也能做。它通过受限的工具操作，而不是开放一个 shell。",
+      human: { name: "你", body: "画布 · 键盘 · 属性面板" },
+      agent: { name: "你的 agent", body: "Codex · Claude Code · Cursor" },
+      gui: "GUI",
+      context: "上下文管理",
+      api: "Uniform API",
+      apiOps: ["设置元件值", "布线", "铺铜", "运行 SPICE"],
+      core: "Core",
+      coreSub: "每次编辑都是一次经过校验的事务",
+      plugins: "插件",
+      points: [
+        { name: "同一套命令", body: "界面和 agent 调用同样的能力，经过同样的校验。" },
+        { name: "同一条撤销历史", body: "agent 的修改就是普通事务：审阅、应用、撤销。" },
+        { name: "审阅或自动", body: "逐条确认设计修改，或让支持的命令自动执行。" },
+      ],
+    },
+    mark: {
+      name: "圈选修改",
+      title: "指着板子，说出你的想法。",
+      lede: "在原理图或 PCB 上圈出区域，写下评论，随下一条消息发送。agent 只修改你指出的那一部分。",
+      commentLabel: "User Comment",
+      commentAction: "Add",
+      comment: "Could you turn D7 and C19 so the pads line up better?",
+      steps: [
+        { name: "圈选", body: "选中元件，或在画布上框出区域。" },
+        { name: "评论", body: "就在对应的位置描述修改。" },
+        { name: "修改", body: "agent 旋转、重新布线并对比结果。" },
+      ],
+      statValue: "47%",
+      statLabel: "次级铜线缩短",
+      statDetail: "39.9 → 21.2 mm",
+      note: "圈选标记是随消息附带的截图，本身不会修改设计。",
+    },
   },
   plugins: {
-    eyebrow: "04 · 插件",
     title: "插件连接工作室与真实的工程世界。",
     lede: "内置五个工程插件。你也可以用 JavaScript 编写自己的插件，它们运行在沙箱中，没有本机权限，也不能联网。",
     builtIn: "内置",
@@ -426,7 +442,6 @@ const zh: Content = {
     },
   },
   privacy: {
-    eyebrow: "05 · 本地优先",
     title: "没有 OpenPE 云端，数据留在本地。",
     lede: "OpenPE 没有服务器，也不需要账号。工程以原生 KiCad 文件保存在你的磁盘上，提示词只发送给你选择的 AI 厂商。",
     machine: "你的电脑",
@@ -445,7 +460,6 @@ const zh: Content = {
     note: "元件库、价格和数据手册查询会直接访问对应的供应商。",
   },
   specs: {
-    eyebrow: "06 · 规格",
     title: "技术细节。",
     product: "OpenPE · Electrical Engineering Studio",
     rows: [
@@ -470,7 +484,6 @@ const zh: Content = {
     watch: "观看宣传片",
   },
   team: {
-    eyebrow: "07 · 团队",
     title: "OpenPE 背后的人。",
     core: "核心开发者",
     institutions: "参与团队与机构",

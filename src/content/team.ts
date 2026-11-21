@@ -8,10 +8,6 @@ export type TeamMember = {
 export const teamMembers: readonly TeamMember[] = [
   { name: "Xiao Yang", role: "", affiliation: "", link: "" },
   { name: "Yukang Zhu", role: "", affiliation: "", link: "" },
-  { name: "Tian Xia", role: "", affiliation: "", link: "" },
-  { name: "Chengmin Li", role: "", affiliation: "", link: "" },
-  { name: "Dongsheng Yang", role: "", affiliation: "", link: "" },
-  { name: "Tailin Wu", role: "", affiliation: "", link: "" },
 ]
 
 export const institutions: readonly string[] = []
