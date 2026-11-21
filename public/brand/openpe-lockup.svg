@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="104" viewBox="0 0 360 104">
+  <title>OpenPE — Electrical Engineering Studio</title>
+  <g transform="translate(8 8) scale(1.375)"><path data-role="body" fill="#292929" stroke="#87ea5c" stroke-width="1.25" stroke-linejoin="round" paint-order="stroke fill" d="M24 7h26a6 6 0 0 1 0 12H25a5 5 0 0 0-5 5v16a5 5 0 0 0 5 5h25a6 6 0 0 1 0 12H24A16 16 0 0 1 8 41V23A16 16 0 0 1 24 7Z"/>
+<path data-role="signal" fill="none" stroke="#87ea5c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M15 33h13a2 2 0 0 0 2-2v-4a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h9"/></g>
+  <text x="112" y="61" font-family="Segoe UI,Arial,sans-serif" font-weight="600" font-size="51" letter-spacing="-2.2" fill="#292929">OpenPE</text>
+  <text x="115" y="82" font-family="Segoe UI,Arial,sans-serif" font-size="11" letter-spacing="1.5" fill="#666666">ELECTRICAL ENGINEERING STUDIO</text>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>OpenPE — Signal E, monochrome</title>
+  <path data-role="body" fill="#292929" d="M24 7h26a6 6 0 0 1 0 12H25a5 5 0 0 0-5 5v16a5 5 0 0 0 5 5h25a6 6 0 0 1 0 12H24A16 16 0 0 1 8 41V23A16 16 0 0 1 24 7Z"/>
+  <path data-role="signal" fill="none" stroke="#292929" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M15 33h13a2 2 0 0 0 2-2v-4a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h9"/>
+</svg>

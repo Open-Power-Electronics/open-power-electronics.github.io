@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* Inter has no CJK glyphs. Those code points come from the user agent. */
+
+@theme inline {
+  --font-sans: "Inter Variable";
+  --color-pe-green: #206f39;
+  --color-pe-headline: #1f2622;
+  --color-pe-headline-2: #363d39;
+  --color-pe-body: #505854;
+  --color-pe-nav: #57665c;
+  --color-pe-logo: #88ea5c;
+  --color-pe-card: #fafcf9;
+  --color-pe-border: #dee3df;
+  --color-pe-selection: #1e6c36;
+  --color-pe-agent: #e6effc;
+  --color-pe-human: #dff1f2;
+  --color-pe-api: #ebe3f6;
+  --color-pe-core: #ecf5e9;
+  --color-pe-plugins: #f8ebe4;
+  --color-pe-baseline: #a36734;
+  --color-pe-tuned: #39784e;
+  --color-pe-band: #eaf7ec;
+  --color-pe-stat: #a15c34;
+  --color-pe-mint: #e7f1e9;
+  --color-pe-mint-a: #f7fbf7;
+  --color-pe-mint-b: #f1f7f0;
+  --color-pe-mint-c: #f3f8f4;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(58% 42% at 100% 0%, #e7f1e9 0%, #f1f7f0 32%, #f7fbf7 58%, rgba(255, 255, 255, 0) 74%),
+    radial-gradient(48% 38% at 0% 100%, #e7f1e9 0%, #f3f8f4 40%, #f7fbf7 62%, rgba(255, 255, 255, 0) 78%);
+  background-attachment: fixed;
+  color: #505854;
+  font-family: "Inter Variable";
+}
+
+::selection {
+  background: #eaf7ec;
+  color: #1f2622;
+}
+
+:focus-visible {
+  outline: 2px solid #206f39;
+  outline-offset: 3px;
+}
+
+.pe-grid {
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(to right, rgba(222, 227, 223, 0.95) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(222, 227, 223, 0.95) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.pe-card {
+  border: 1px solid #dee3df;
+  border-radius: 20px;
+  background: #fafcf9;
+  box-shadow: 0 8px 28px rgba(31, 38, 34, 0.05);
+}
+
+.pe-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: #1f2622;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .pe-hero {
+    animation: pe-enter 0.4s ease both;
+  }
+
+  .pe-caret {
+    animation: pe-caret 1s steps(1) infinite;
+  }
+
+  /* Offscreen sections are hidden only after JS marks pe-below. Without script they stay visible. */
+  .reveal.pe-below {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .reveal.pe-below.pe-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pe-caret {
+    display: none;
+  }
+}
+
+@keyframes pe-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pe-caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
