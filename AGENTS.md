@@ -4,7 +4,7 @@ Static promo site for OpenPE. Every product claim must be traceable to the OpenP
 
 ## Stack
 
-Vite 8, React 19, TypeScript 6, Tailwind CSS 4 (`@tailwindcss/vite`), lucide-react, oxlint. `cn()` is clsx + tailwind-merge. shadcn/ui is configured and used only where a component is needed. English is the default. Chinese is an explicit toggle stored in `localStorage` as `openpe-lang`. Never read `navigator.language`.
+Vite 8, React 19, TypeScript 6, Tailwind CSS 4 (`@tailwindcss/vite`), lucide-react, oxlint. `cn()` is clsx + tailwind-merge. Fonts are self-hosted: Inter Variable (optical size axis) for text, JetBrains Mono Variable for technical labels. English is the default. Chinese is an explicit toggle stored in `localStorage` as `openpe-lang`. Never read `navigator.language`. All copy lives in `src/i18n/content.ts`; both languages share one typed shape. Team and contact data live in `src/content/team.ts`; empty strings render nothing.
 
 ## Commands
 
@@ -20,14 +20,20 @@ scripts/cut-clips.sh /absolute/path/to/OpenPE-Workflow-Demo.mp4
 
 `npm run build` typechecks, builds the client, builds the server bundle, and prerenders `dist/index.html`.
 
-## Tokens
+## Design
 
-Page `#FFFFFF` with mint corner radials (`#E7F1E9`, `#F7FBF7`, `#F1F7F0`, `#F3F8F4`). Green `#206F39`. Headlines `#1F2622` / `#363D39`. Body `#505854`. Inactive nav `#57665C`. Logo highlight `#88EA5C` (the mark SVG keeps its own painted green; do not redraw it). Cards `#FAFCF9` / `#FFFFFF`, 1px border `#DEE3DF`, radius 20px. Selection `#1E6C36`. Architecture: Agent `#E6EFFC`, Human `#DFF1F2`, Uniform API `#EBE3F6`, Core `#ECF5E9`, Plugins `#F8EBE4`. Chart: Baseline `#A36734`, Tuned `#39784E`, ±1% band `#EAF7EC`. Stat bar `#A15C34`. Inter, headline weight 800, tracking tight near 0, line-height about 1.15. The hero title is Title Case on three lines; the middle line is green. Section titles are sentence case.
+The page follows the promo film: white paper with mint corner radials, deep green accents, extra-bold tight headlines, and a datasheet-like layer of mono labels, hairlines and numbered sections (`01 · Agent parity`). Tokens are defined once in `src/index.css` under `@theme`; use them instead of raw hex values.
+
+- Ink `#1F2622`, body `#505854`, muted `#7D8781`, hairline `#E3E8E4`, paper `#FAFCF9`, mint `#E7F1E9`, green `#206F39`, signal `#88EA5C` (dots and highlights only).
+- Architecture blocks: Agent `#E6EFFC`, Human `#DFF1F2`, Uniform API `#EBE3F6`, Core `#ECF5E9`, Plugins `#F8EBE4`. Chart: Baseline `#A36734`, Tuned `#39784E`, ±1% band `#EAF7EC`.
+- Media sits in `.window` frames (radius 20px, hairline border, layered shadow). The hero board uses `mix-blend-multiply` so its white surround disappears.
+- Motion: `.rise` on first paint, `[data-reveal]` on scroll, travelling dots on `.wire`. Everything is disabled under `prefers-reduced-motion`.
+- The mark SVG keeps its own painted colours; do not redraw it.
 
 ## Copy red lines
 
-Do not claim general KiCad or model import, complete ERC/DRC, autorouting, production or manufacturing qualification, EMC compliance or emission prediction, junction temperature, or that Gerber means production ready. Thermal copy says PCB temperature. EMC is geometry review, not compliance. Marks are screenshots sent with the next message; they do not edit the design. DeepSeek Harness and Pi propose changes; the user applies them. The chapter label stays `Module`.
+Do not claim general KiCad or model import, complete ERC/DRC, autorouting, production or manufacturing qualification, EMC compliance or emission prediction, junction temperature, or that Gerber means production ready. Thermal copy says PCB temperature. EMC is geometry review, not compliance. Marks are screenshots sent with the next message; they do not edit the design. DeepSeek Harness and Pi propose changes; the user applies them. The film chapter label stays `Module`.
 
 ## Media and review
 
-Regenerate clips with `scripts/cut-clips.sh <master>`. The master path is required. Outputs land in `public/media/`. Do not commit the master. Visual changes need owner review. This repo cannot confirm that the page matches the promo film.
+Clips are cropped to the product media inside each film card; the crop rectangles live in `scripts/cut-clips.sh`, and `src/content/site.ts` records the output sizes. Regenerate with `scripts/cut-clips.sh <master>`; the master path is required and the master is never committed. Visual changes need owner review.

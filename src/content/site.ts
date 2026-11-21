@@ -1,81 +1,54 @@
 export const GITHUB_ORG_URL = "https://github.com/Open-Power-Electronics"
 
-export const CHAPTER_IDS = ["overall", "schematic", "layout", "module", "plugins"] as const
-export type ChapterId = (typeof CHAPTER_IDS)[number]
-
-export const NAV_IDS = ["features", "plugins", "privacy", "team"] as const
-export type NavId = (typeof NAV_IDS)[number]
-
-export const CHAPTER_SECTION_ID: Record<ChapterId, string> = {
-  overall: "overall",
-  schematic: "schematic",
-  layout: "layout",
-  module: "module",
-  plugins: "plugins",
-}
-
-export const NAV_SECTION_ID: Record<NavId, string> = {
-  features: "features",
+export const SECTION_IDS = {
+  film: "film",
+  parity: "parity",
+  workflow: "workflow",
+  mark: "mark",
   plugins: "plugins",
   privacy: "privacy",
+  specs: "specs",
   team: "team",
-}
+} as const
+export type SectionKey = keyof typeof SECTION_IDS
 
-export const FILM_TIME_SECONDS: Record<ChapterId, number> = {
-  overall: 0,
-  schematic: 26,
-  layout: 44,
-  module: 65,
-  plugins: 80,
-}
+export const NAV_SECTIONS = ["workflow", "plugins", "privacy", "specs", "team"] as const satisfies readonly SectionKey[]
+export type NavSection = (typeof NAV_SECTIONS)[number]
 
-export const CLIP_NAMES = [
-  "intro",
-  "architecture",
-  "agents",
-  "workspace",
-  "spice",
-  "placement",
-  "comment",
-  "case",
-  "plugins",
-  "thermal",
-  "parasitics",
+export const FILM = {
+  src: "/media/openpe-workflow-demo.mp4",
+  poster: "/media/openpe-workflow-demo.jpg",
+  durationSeconds: 98,
+} as const
+
+export const FILM_CHAPTERS = [
+  { id: "overall", start: 0 },
+  { id: "schematic", start: 26 },
+  { id: "layout", start: 44 },
+  { id: "module", start: 65 },
+  { id: "plugins", start: 80 },
 ] as const
-export type ClipName = (typeof CLIP_NAMES)[number]
+export type FilmChapterId = (typeof FILM_CHAPTERS)[number]["id"]
 
-export const FILM_SRC = "/media/openpe-workflow-demo.mp4"
-export const FILM_POSTER = "/media/openpe-workflow-demo.jpg"
+type ClipSpec = { width: number; height: number }
 
-export function clipSources(name: ClipName): { webm: string; mp4: string; poster: string } {
+export const CLIPS = {
+  intro: { width: 1050, height: 748 },
+  workspace: { width: 1600, height: 564 },
+  spice: { width: 1260, height: 724 },
+  placement: { width: 1260, height: 724 },
+  comment: { width: 1260, height: 724 },
+  case: { width: 1260, height: 724 },
+  thermal: { width: 1260, height: 724 },
+  parasitics: { width: 1260, height: 724 },
+} as const satisfies Record<string, ClipSpec>
+export type ClipName = keyof typeof CLIPS
+
+export function clipSources(name: ClipName) {
   return {
     webm: `/media/clips/${name}.webm`,
     mp4: `/media/clips/${name}.mp4`,
     poster: `/media/clips/${name}.jpg`,
-  }
-}
-
-export function parseChapterId(value: string | undefined): ChapterId {
-  switch (value) {
-    case "overall":
-    case "schematic":
-    case "layout":
-    case "module":
-    case "plugins":
-      return value
-    default:
-      throw new Error(`unknown chapter: ${String(value)}`)
-  }
-}
-
-export function parseNavId(value: string | undefined): NavId {
-  switch (value) {
-    case "features":
-    case "plugins":
-    case "privacy":
-    case "team":
-      return value
-    default:
-      throw new Error(`unknown nav section: ${String(value)}`)
+    ...CLIPS[name],
   }
 }

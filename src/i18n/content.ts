@@ -1,502 +1,487 @@
+import type { FilmChapterId, NavSection } from "@/content/site.ts"
+
 export type Lang = "en" | "zh"
 
-export type PluginCardCopy = {
-  name: string
-  detail: string
-}
+type Step = { chapter: string; title: string; body: string; data: readonly string[] }
+type Plugin = { name: string; body: string; stat: string }
+type SpecRow = { key: string; value: string }
 
 export type Content = {
   meta: { title: string }
-  lang: { en: string; zh: string; switchToEn: string; switchToZh: string }
-  nav: {
-    features: string
-    plugins: string
-    privacy: string
-    team: string
-    github: string
-    menu: string
-    close: string
-  }
-  chapters: {
-    overall: string
-    schematic: string
-    layout: string
-    module: string
-    plugins: string
-  }
+  nav: Record<NavSection, string> & { github: string; langLabel: string }
   hero: {
-    line1: string
-    line2: string
-    line3: string
-    sub: string
+    badge: string
+    titleTop: string
+    titleAccent: string
+    titleBottom: string
+    lede: string
     watch: string
     github: string
-    clipLabel: string
+    meta: readonly string[]
+    agentsLabel: string
   }
-  film: { title: string; label: string; play: string }
-  agent: {
+  film: { caption: string; play: string; chapters: Record<FilmChapterId, string> }
+  parity: {
+    eyebrow: string
     title: string
-    bullets: readonly [string, string]
+    lede: string
     note: string
-    blocks: {
-      agent: string
-      human: string
-      context: string
-      gui: string
-      api: string
-      core: string
-      plugins: string
-      task: string
-      operation: string
-      object: string
-    }
-    clipLabel: string
+    human: { label: string; sub: string }
+    agent: { label: string; sub: string }
+    gui: string
+    context: string
+    api: string
+    apiOps: readonly string[]
+    core: string
+    coreSub: string
+    plugins: string
+    points: readonly { title: string; body: string }[]
   }
-  workspace: {
-    title: string
-    bullets: readonly [string, string]
-    clipLabel: string
-  }
-  verify: {
-    title: string
-    bullets: readonly [string, string]
-    stat: string
-    legend: { baseline: string; tuned: string; band: string }
-    clipLabel: string
-  }
+  workflow: { eyebrow: string; title: string; lede: string; steps: readonly Step[] }
   mark: {
+    eyebrow: string
     title: string
-    bullets: readonly [string, string]
-    note: string
+    lede: string
+    commentLabel: string
+    commentAction: string
     comment: string
-    shorter: string
-    from: string
-    to: string
-    unit: string
-    copper: string
-    clipLabel: string
-  }
-  place: {
-    title: string
-    bullets: readonly [string, string]
-    clipLabel: string
-  }
-  case: {
-    title: string
-    bullets: readonly [string, string]
-    prompt: string
-    clipLabel: string
-  }
-  chrome: {
-    userComment: string
-    add: string
-    userPrompt: string
-    before: string
-    after: string
+    steps: readonly { title: string; body: string }[]
+    statValue: string
+    statLabel: string
+    statDetail: string
+    note: string
   }
   plugins: {
+    eyebrow: string
     title: string
-    bullets: readonly [string, string]
-    cards: readonly [
-      PluginCardCopy,
-      PluginCardCopy,
-      PluginCardCopy,
-      PluginCardCopy,
-      PluginCardCopy,
-    ]
-    yours: string
-    thermalCaption: string
-    parasiticsCaption: string
-    thermalLabel: string
-    parasiticsLabel: string
-    wallLabel: string
+    lede: string
+    builtIn: string
+    thermal: Plugin
+    spice: Plugin
+    emc: Plugin
+    parasitics: Plugin
+    skill: Plugin
+    yours: { name: string; body: string; tags: readonly string[] }
   }
   privacy: {
+    eyebrow: string
     title: string
-    bullets: readonly [string, string, string]
+    lede: string
     machine: string
-    machineItems: readonly [string, string, string]
-    onlyTo: string
+    studio: string
+    files: string
+    agents: string
     provider: string
-    agents: readonly [string, string, string, string, string]
+    providerSub: string
+    cloud: string
+    cloudSub: string
+    points: readonly string[]
     note: string
-    clipLabel: string
   }
-  native: {
-    title: string
-    items: readonly [string, string, string, string]
-  }
-  closing: {
-    lead: string
-    power: string
-    rest: string
-    engineer: string
-    cta: string
-    imageLabel: string
-  }
+  specs: { eyebrow: string; title: string; product: string; rows: readonly SpecRow[] }
+  closing: { line1: string; accent: string; line3: string; github: string; watch: string }
   team: {
+    eyebrow: string
     title: string
-    developers: string
+    core: string
     institutions: string
-    pending: string
+    institutionsEmpty: string
     contact: string
-    github: string
+    contactGithub: string
   }
-  footer: {
-    license: string
-    copyright: string
-    github: string
-    notices: string
-  }
+  footer: { license: string; notices: string }
 }
 
-export const en = {
+const en: Content = {
   meta: { title: "OpenPE — AI-Native Power Electronics Engineer Workbench" },
-  lang: {
-    en: "EN",
-    zh: "中文",
-    switchToEn: "Switch to English",
-    switchToZh: "切换到中文",
-  },
   nav: {
-    features: "Features",
+    workflow: "Workflow",
     plugins: "Plugins",
     privacy: "Privacy",
+    specs: "Specs",
     team: "Team",
     github: "GitHub",
-    menu: "Menu",
-    close: "Close",
-  },
-  chapters: {
-    overall: "Overall",
-    schematic: "Schematic",
-    layout: "Layout",
-    module: "Module",
-    plugins: "Plugins",
+    langLabel: "Language",
   },
   hero: {
-    line1: "AI-Native",
-    line2: "Power Electronics",
-    line3: "Engineer Workbench",
-    sub: "An open-source desktop studio where your AI agent works in the same schematic, PCB layout, 3D model and simulation as you. Built on native KiCad 10 files.",
+    badge: "Open source · Built on KiCad 10",
+    titleTop: "AI-Native",
+    titleAccent: "Power Electronics",
+    titleBottom: "Engineer Workbench",
+    lede: "A desktop studio where your AI agent works in the same schematic, PCB layout, 3D model and simulation as you — on native KiCad files that never leave your machine.",
     watch: "Watch the film",
-    github: "GitHub",
-    clipLabel: "OpenPE intro",
+    github: "View on GitHub",
+    meta: ["Windows x64", "macOS arm64", "Linux x64", "Apache-2.0"],
+    agentsLabel: "Bring your own agent",
   },
   film: {
-    title: "See the workflow",
-    label: "OpenPE workflow film",
-    play: "Play",
-  },
-  agent: {
-    title: "Same commands for you and your agent",
-    bullets: [
-      "What you can do in the studio, your agent can do",
-      "Codex, Claude Code and Cursor drive the same design, simulation and project commands as the UI, through scoped tools",
-    ],
-    note: "DeepSeek Harness and Pi propose changes; you apply them.",
-    blocks: {
-      agent: "Agent",
-      human: "Human",
-      context: "Context Management",
-      gui: "GUI",
-      api: "Uniform API",
-      core: "Core",
+    caption: "OpenPE workflow · 1:38",
+    play: "Play the film",
+    chapters: {
+      overall: "Overall",
+      schematic: "Schematic",
+      layout: "Layout",
+      module: "Module",
       plugins: "Plugins",
-      task: "Task",
-      operation: "Operation",
-      object: "Object",
     },
-    clipLabel: "Architecture",
   },
-  workspace: {
-    title: "One unified workspace",
-    bullets: ["From schematic to PCB and 3D", "Edit directly or guide your agent"],
-    clipLabel: "Unified workspace",
+  parity: {
+    eyebrow: "01 · Agent parity",
+    title: "Same commands for you and your agent.",
+    lede: "What you can do in the studio, your agent can do. Codex, Claude Code and Cursor drive the same design, simulation and project commands as the interface — through scoped tools, not a shell.",
+    note: "DeepSeek Harness and Pi propose changes; you apply them.",
+    human: { label: "You", sub: "Canvas · keyboard · Properties" },
+    agent: { label: "Your agent", sub: "Codex · Claude Code · Cursor" },
+    gui: "GUI",
+    context: "Context management",
+    api: "Uniform API",
+    apiOps: ["Set part value", "Route tracks", "Pour copper", "Run SPICE"],
+    core: "Core",
+    coreSub: "One validated transaction per edit",
+    plugins: "Plugins",
+    points: [
+      { title: "One set of commands", body: "The interface and your agent call the same capabilities, with the same validation." },
+      { title: "One undo history", body: "Agent edits are ordinary transactions. Review them, apply them, undo them." },
+      { title: "Review or Auto", body: "Confirm each design change, or let supported commands run automatically." },
+    ],
   },
-  verify: {
-    title: "Design and verify",
-    bullets: ["Build and tune editable circuits", "Verify the result with ngspice"],
-    stat: "R15 39.0 → 38.1 kΩ · output within ±1% (11.99–12.05 V)",
-    legend: { baseline: "Baseline", tuned: "Tuned", band: "±1% band" },
-    clipLabel: "ngspice verification",
+  workflow: {
+    eyebrow: "02 · Workflow",
+    title: "From schematic to enclosure, in one window.",
+    lede: "Edit directly or guide your agent. Every view works on the same project.",
+    steps: [
+      {
+        chapter: "Overall",
+        title: "One unified workspace",
+        body: "Schematic, PCB layout and 3D model sit beside your agent conversation. Switch views, inspect properties, or describe the change you want.",
+        data: ["Schematic", "PCB", "3D"],
+      },
+      {
+        chapter: "Schematic",
+        title: "Design and verify",
+        body: "Your agent builds the feedback loop, runs a 10 ms ngspice transient and tunes R15 until the output sits inside ±1%.",
+        data: ["R15 39.0 → 38.1 kΩ", "VOUT 11.99–12.05 V"],
+      },
+      {
+        chapter: "Layout",
+        title: "Place with guidance",
+        body: "Preview positions and angles for a group of parts, then place the whole group with Tab.",
+        data: ["5 parts placed", "Tab"],
+      },
+      {
+        chapter: "Module",
+        title: "Build the case",
+        body: "Model an enclosure from dimensions, then refine it in conversation — posts, walls and a clear 3 mm acrylic lid.",
+        data: ["112 × 88 mm", "3 mm lid"],
+      },
+    ],
   },
   mark: {
-    title: "Mark and refine",
-    bullets: [
-      "Mark a region on the schematic or board and leave a comment",
-      "Your agent refines exactly that part — rotate, reroute, compare",
-    ],
-    note: "Marks are screenshots sent with your next message; they never edit the design on their own.",
+    eyebrow: "03 · Mark and refine",
+    title: "Point at the board. Say what you want.",
+    lede: "Mark a region on the schematic or PCB, leave a comment, and send it with your next message. Your agent refines exactly that part.",
+    commentLabel: "User Comment",
+    commentAction: "Add",
     comment: "Could you turn D7 and C19 so the pads line up better?",
-    shorter: "47% shorter",
-    from: "39.9",
-    to: "21.2",
-    unit: "mm",
-    copper: "SEC copper",
-    clipLabel: "Mark and refine",
-  },
-  place: {
-    title: "Place with guidance",
-    bullets: ["Preview positions and angles", "Place the group with Tab"],
-    clipLabel: "Guided placement",
-  },
-  case: {
-    title: "Build the case",
-    bullets: ["Model from dimensions in 3D", "Refine the case and fit a clear lid"],
-    prompt: "Could you add a lid made of clear acrylic? Make it 3 mm thick.",
-    clipLabel: "Case model",
-  },
-  chrome: {
-    userComment: "User Comment",
-    add: "Add",
-    userPrompt: "User Prompt",
-    before: "Before",
-    after: "After",
+    steps: [
+      { title: "Mark", body: "Select parts or draw a region on the canvas." },
+      { title: "Comment", body: "Describe the change right where it belongs." },
+      { title: "Refine", body: "Your agent rotates, reroutes and compares." },
+    ],
+    statValue: "47%",
+    statLabel: "shorter secondary copper",
+    statDetail: "39.9 → 21.2 mm",
+    note: "Marks are screenshots attached to your message. They never edit the design on their own.",
   },
   plugins: {
-    title: "Extend your workbench",
-    bullets: [
-      "Plugins connect the studio to real-world engineering",
-      "Install your own JavaScript plugins — sandboxed, with no native or network access",
-    ],
-    cards: [
-      { name: "SPICE Simulation", detail: "ngspice 47 transient" },
-      { name: "Layout Thermal", detail: "Gmsh + Elmer PCB temperature" },
-      {
-        name: "Layout Parasitics",
-        detail: "pad-to-pad DC resistance and partial inductance",
-      },
-      { name: "EMC Analysis", detail: "geometry review, not compliance" },
-      { name: "PE Layout Skill", detail: "bundled layout guidance" },
-    ],
-    yours: "Your plugin",
-    thermalCaption: "Peak PCB temperature 67.7 °C",
-    parasiticsCaption: "30.30 mΩ · 17.61 nH",
-    thermalLabel: "PCB temperature",
-    parasiticsLabel: "Layout parasitics",
-    wallLabel: "Plugin wall",
+    eyebrow: "04 · Plugins",
+    title: "Plugins bridge the studio and real-world engineering.",
+    lede: "Five engineering plugins ship built in. Write your own in JavaScript — they run in a sandbox with no native or network access.",
+    builtIn: "Built in",
+    thermal: {
+      name: "Layout Thermal",
+      body: "Gmsh and Elmer map PCB temperatures and locate the hottest point.",
+      stat: "67.7 °C peak PCB temperature",
+    },
+    spice: {
+      name: "SPICE Simulation",
+      body: "ngspice 47 transient analysis, straight from your schematic.",
+      stat: "ngspice 47",
+    },
+    emc: {
+      name: "EMC Analysis",
+      body: "Review layout geometry for EMC risks. A design review, not a compliance test.",
+      stat: "Geometry review",
+    },
+    parasitics: {
+      name: "Layout Parasitics",
+      body: "Follow a pad-to-pad path and read its DC resistance and partial inductance.",
+      stat: "30.30 mΩ · 17.61 nH",
+    },
+    skill: {
+      name: "PE Layout Skill",
+      body: "Bundled power-electronics layout guidance for your agent.",
+      stat: "Bundled guidance",
+    },
+    yours: {
+      name: "Your plugin",
+      body: "Package JavaScript as a local plugin. It installs with your approval and runs in a QuickJS sandbox with declared inputs and project reads.",
+      tags: [".openpe-plugin", "QuickJS sandbox", "No network"],
+    },
   },
   privacy: {
-    title: "Local-first by design",
-    bullets: [
-      "No OpenPE cloud — no account, no OpenPE servers, no telemetry",
-      "Your designs stay on your machine as native KiCad files",
-      "Prompts go only to the AI provider you choose, through its own CLI or SDK",
-    ],
-    machine: "Your machine",
-    machineItems: ["OpenPE", "project files", "local agent CLIs"],
-    onlyTo: "only to",
+    eyebrow: "05 · Local-first",
+    title: "No OpenPE cloud. Your work stays local.",
+    lede: "OpenPE has no servers and no accounts. Projects stay on your disk as native KiCad files, and prompts go only to the AI provider you choose.",
+    machine: "Your computer",
+    studio: "OpenPE studio",
+    files: "Project files",
+    agents: "Agent CLI or SDK",
     provider: "Your chosen AI provider",
-    agents: ["Codex", "Claude Code", "Cursor", "DeepSeek Harness", "Pi"],
-    note: "Library, price and datasheet lookups contact those vendors directly. A Cursor API key is encrypted with the OS keychain via Electron safeStorage.",
-    clipLabel: "Local agents",
+    providerSub: "Prompts and the context you send",
+    cloud: "OpenPE cloud",
+    cloudSub: "Doesn't exist",
+    points: [
+      "No account, no OpenPE servers, no telemetry",
+      "Native KiCad files on your own disk",
+      "A Cursor API key is encrypted with OS safeStorage",
+    ],
+    note: "Library, price and datasheet lookups contact those vendors directly.",
   },
-  native: {
-    title: "Native and open",
-    items: [
-      "Native KiCad 10 files — unchanged files keep their original bytes",
-      "Whole-project undo and local Git history",
-      "Apache-2.0 open source",
-      "Windows x64 · macOS arm64 · Linux x64",
+  specs: {
+    eyebrow: "06 · Specifications",
+    title: "The details.",
+    product: "OpenPE · Electrical Engineering Studio",
+    rows: [
+      { key: "Design files", value: "Native KiCad 10 — .kicad_pro, .kicad_sch, .kicad_pcb. Unchanged files keep their original bytes." },
+      { key: "Editing", value: "Schematic, manual PCB layout, 3D Model CAD and native Source text" },
+      { key: "History", value: "Whole-project undo · local Git snapshots" },
+      { key: "Simulation", value: "ngspice 47 transient" },
+      { key: "Thermal", value: "Gmsh 4.15.2 + Elmer 26.1 · PCB temperature" },
+      { key: "Agents", value: "Codex · Claude Code · Cursor with scoped tools; DeepSeek Harness · Pi with proposals" },
+      { key: "Plugins", value: "Five built in · JavaScript packages in a QuickJS sandbox" },
+      { key: "Cloud", value: "None" },
+      { key: "Scope", value: "Manual layout, no autorouter. Bounded ERC/DRC coverage, not full KiCad parity." },
+      { key: "Platforms", value: "Windows x64 · macOS arm64 · Linux x64 (glibc 2.41+)" },
+      { key: "License", value: "Apache-2.0" },
     ],
   },
   closing: {
-    lead: "What will you",
-    power: "Power",
-    rest: "next,",
-    engineer: "Engineer?",
-    cta: "GitHub",
-    imageLabel: "Cased board",
+    line1: "What will you",
+    accent: "power next,",
+    line3: "Engineer?",
+    github: "View on GitHub",
+    watch: "Watch the film",
   },
   team: {
-    title: "Team and contact",
-    developers: "Core developers",
+    eyebrow: "07 · Team",
+    title: "The people behind OpenPE.",
+    core: "Core developers",
     institutions: "Teams & institutions",
-    pending: "To be announced",
+    institutionsEmpty: "To be announced",
     contact: "Contact",
-    github: "GitHub organization",
+    contactGithub: "GitHub organization",
   },
   footer: {
-    license: "Apache-2.0",
-    copyright: "© OpenPE contributors",
-    github: "GitHub",
-    notices:
-      "Third-party notices: Inter is licensed under the SIL Open Font License. Solver, format, and provider names belong to their owners.",
+    license: "Apache-2.0 · © 2026 OpenPE contributors",
+    notices: "Inter and JetBrains Mono are licensed under the SIL Open Font License. Product names belong to their owners.",
   },
-} satisfies Content
+}
 
-export const zh = {
-  meta: { title: "OpenPE — AI-Native 电力电子工程师工作台" },
-  lang: {
-    en: "EN",
-    zh: "中文",
-    switchToEn: "Switch to English",
-    switchToZh: "切换到中文",
-  },
+const zh: Content = {
+  meta: { title: "OpenPE — AI 原生的电力电子工程师工作台" },
   nav: {
-    features: "功能",
+    workflow: "工作流",
     plugins: "插件",
     privacy: "隐私",
+    specs: "规格",
     team: "团队",
     github: "GitHub",
-    menu: "菜单",
-    close: "关闭",
-  },
-  chapters: {
-    overall: "总览",
-    schematic: "原理图",
-    layout: "布局",
-    module: "模块",
-    plugins: "插件",
+    langLabel: "语言",
   },
   hero: {
-    line1: "AI-Native",
-    line2: "电力电子",
-    line3: "工程师工作台",
-    sub: "一个开源桌面工作室：你的 AI agent 与你使用同一份原理图、PCB 布局、3D 模型和仿真。基于原生 KiCad 10 文件。",
-    watch: "观看影片",
-    github: "GitHub",
-    clipLabel: "OpenPE 介绍",
+    badge: "开源 · 基于 KiCad 10",
+    titleTop: "AI 原生的",
+    titleAccent: "电力电子",
+    titleBottom: "工程师工作台",
+    lede: "一个桌面工作室：你的 AI agent 和你在同一份原理图、PCB layout、3D 模型和仿真里协作。设计始终是原生 KiCad 文件，只保存在你的电脑上。",
+    watch: "观看宣传片",
+    github: "在 GitHub 查看",
+    meta: ["Windows x64", "macOS arm64", "Linux x64", "Apache-2.0"],
+    agentsLabel: "接入你自己的 agent",
   },
   film: {
-    title: "观看工作流",
-    label: "OpenPE 工作流影片",
-    play: "播放",
-  },
-  agent: {
-    title: "你和你的 agent 使用同一套命令",
-    bullets: [
-      "你在工作室里能做的，你的 agent 也能做",
-      "Codex、Claude Code 和 Cursor 通过范围受控的工具，执行与界面相同的设计、仿真和项目命令",
-    ],
-    note: "DeepSeek Harness 和 Pi 提出修改；由你来应用。",
-    blocks: {
-      agent: "Agent",
-      human: "人",
-      context: "上下文管理",
-      gui: "GUI",
-      api: "统一 API",
-      core: "Core",
+    caption: "OpenPE 工作流 · 1:38",
+    play: "播放宣传片",
+    chapters: {
+      overall: "总览",
+      schematic: "原理图",
+      layout: "Layout",
+      module: "模块",
       plugins: "插件",
-      task: "任务",
-      operation: "操作",
-      object: "对象",
     },
-    clipLabel: "架构",
   },
-  workspace: {
-    title: "一个统一的工作区",
-    bullets: ["从原理图到 PCB 和 3D", "直接编辑，或引导你的 agent"],
-    clipLabel: "统一工作区",
+  parity: {
+    eyebrow: "01 · 人机同权",
+    title: "你和 agent，用同一套命令。",
+    lede: "你在工作室里能做的，agent 也能做。Codex、Claude Code 和 Cursor 通过受限的工具，调用与界面相同的设计、仿真和工程命令，而不是开放一个 shell。",
+    note: "DeepSeek Harness 和 Pi 提出修改，由你确认应用。",
+    human: { label: "你", sub: "画布 · 键盘 · 属性面板" },
+    agent: { label: "你的 agent", sub: "Codex · Claude Code · Cursor" },
+    gui: "GUI",
+    context: "上下文管理",
+    api: "Uniform API",
+    apiOps: ["设置元件值", "布线", "铺铜", "运行 SPICE"],
+    core: "Core",
+    coreSub: "每次编辑都是一次经过校验的事务",
+    plugins: "插件",
+    points: [
+      { title: "同一套命令", body: "界面和 agent 调用同样的能力，经过同样的校验。" },
+      { title: "同一条撤销历史", body: "agent 的修改就是普通事务：审阅、应用、撤销。" },
+      { title: "审阅或自动", body: "逐条确认设计修改，或让支持的命令自动执行。" },
+    ],
   },
-  verify: {
-    title: "设计并验证",
-    bullets: ["搭建并调节可编辑电路", "用 ngspice 验证结果"],
-    stat: "R15 39.0 → 38.1 kΩ · 输出在 ±1% 以内（11.99–12.05 V）",
-    legend: { baseline: "基线", tuned: "调节后", band: "±1% 区间" },
-    clipLabel: "ngspice 验证",
+  workflow: {
+    eyebrow: "02 · 工作流",
+    title: "从原理图到外壳，都在一个窗口里。",
+    lede: "直接动手编辑，或者交给 agent。所有视图共享同一个工程。",
+    steps: [
+      {
+        chapter: "总览",
+        title: "统一的工作区",
+        body: "原理图、PCB layout 和 3D 模型与 agent 对话并排。切换视图、查看属性，或者直接描述你想要的修改。",
+        data: ["原理图", "PCB", "3D"],
+      },
+      {
+        chapter: "原理图",
+        title: "设计与验证",
+        body: "agent 搭好反馈回路，运行 10 ms 的 ngspice 瞬态仿真，并调整 R15，直到输出落在 ±1% 以内。",
+        data: ["R15 39.0 → 38.1 kΩ", "VOUT 11.99–12.05 V"],
+      },
+      {
+        chapter: "Layout",
+        title: "引导式放置",
+        body: "预览一组元件的位置和角度，按 Tab 一次放置整组。",
+        data: ["已放置 5 个元件", "Tab"],
+      },
+      {
+        chapter: "模块",
+        title: "生成外壳",
+        body: "按尺寸建模外壳，再在对话中细化：立柱、侧壁和一块 3 mm 透明亚克力盖板。",
+        data: ["112 × 88 mm", "3 mm 盖板"],
+      },
+    ],
   },
   mark: {
-    title: "标记并细化",
-    bullets: [
-      "在原理图或电路板上标出区域并留下注释",
-      "你的 agent 只细化那一部分：旋转、重新走线、对比",
+    eyebrow: "03 · 圈选修改",
+    title: "指着板子，说出你的想法。",
+    lede: "在原理图或 PCB 上圈出区域，写下评论，随下一条消息发送。agent 只修改你指出的那一部分。",
+    commentLabel: "User Comment",
+    commentAction: "Add",
+    comment: "Could you turn D7 and C19 so the pads line up better?",
+    steps: [
+      { title: "圈选", body: "选中元件，或在画布上框出区域。" },
+      { title: "评论", body: "就在对应的位置描述修改。" },
+      { title: "修改", body: "agent 旋转、重新布线并对比结果。" },
     ],
-    note: "标记是随下一条消息发送的截图；它们不会自行修改设计。",
-    comment: "能否把 D7 和 C19 转一下，让焊盘对齐得更好？",
-    shorter: "缩短 47%",
-    from: "39.9",
-    to: "21.2",
-    unit: "mm",
-    copper: "SEC copper",
-    clipLabel: "标记并细化",
-  },
-  place: {
-    title: "在引导下放置",
-    bullets: ["预览位置和角度", "用 Tab 放置这一组"],
-    clipLabel: "引导放置",
-  },
-  case: {
-    title: "制作外壳",
-    bullets: ["按尺寸在 3D 中建模", "细化外壳并装上透明盖"],
-    prompt: "能否加一个透明亚克力盖？厚度做成 3 mm。",
-    clipLabel: "外壳模型",
-  },
-  chrome: {
-    userComment: "用户注释",
-    add: "添加",
-    userPrompt: "用户提示",
-    before: "之前",
-    after: "之后",
+    statValue: "47%",
+    statLabel: "次级铜线缩短",
+    statDetail: "39.9 → 21.2 mm",
+    note: "圈选标记是随消息附带的截图，本身不会修改设计。",
   },
   plugins: {
-    title: "扩展你的工作台",
-    bullets: [
-      "插件把工作室连接到实际工程",
-      "安装你自己的 JavaScript 插件：沙箱运行，没有原生或网络访问",
-    ],
-    cards: [
-      { name: "SPICE Simulation", detail: "ngspice 47 瞬态" },
-      { name: "Layout Thermal", detail: "Gmsh + Elmer，PCB 温度" },
-      { name: "Layout Parasitics", detail: "焊盘到焊盘的直流电阻与部分电感" },
-      { name: "EMC Analysis", detail: "几何审查，不是合规判定" },
-      { name: "PE Layout Skill", detail: "随附的布局指导" },
-    ],
-    yours: "你的插件",
-    thermalCaption: "峰值 PCB 温度 67.7 °C",
-    parasiticsCaption: "30.30 mΩ · 17.61 nH",
-    thermalLabel: "PCB 温度",
-    parasiticsLabel: "布局寄生参数",
-    wallLabel: "插件墙",
+    eyebrow: "04 · 插件",
+    title: "插件连接工作室与真实的工程世界。",
+    lede: "内置五个工程插件。你也可以用 JavaScript 编写自己的插件，它们运行在沙箱中，没有本机权限，也不能联网。",
+    builtIn: "内置",
+    thermal: {
+      name: "Layout Thermal",
+      body: "用 Gmsh 和 Elmer 计算 PCB 温度分布，定位最热点。",
+      stat: "PCB 峰值温度 67.7 °C",
+    },
+    spice: {
+      name: "SPICE Simulation",
+      body: "直接基于原理图运行 ngspice 47 瞬态分析。",
+      stat: "ngspice 47",
+    },
+    emc: {
+      name: "EMC Analysis",
+      body: "审查 layout 几何中的 EMC 风险。这是设计审查，不是合规测试。",
+      stat: "几何审查",
+    },
+    parasitics: {
+      name: "Layout Parasitics",
+      body: "沿焊盘到焊盘的路径，读出直流电阻和部分电感。",
+      stat: "30.30 mΩ · 17.61 nH",
+    },
+    skill: {
+      name: "PE Layout Skill",
+      body: "为 agent 内置的电力电子 layout 指导。",
+      stat: "内置指导",
+    },
+    yours: {
+      name: "你的插件",
+      body: "把 JavaScript 打包成本地插件。安装需要你确认，运行在 QuickJS 沙箱中，只能读取声明的输入和工程内容。",
+      tags: [".openpe-plugin", "QuickJS 沙箱", "无网络权限"],
+    },
   },
   privacy: {
-    title: "设计上即本地优先",
-    bullets: [
-      "没有 OpenPE 云：没有账户，没有 OpenPE 服务器，没有遥测",
-      "你的设计以原生 KiCad 文件留在自己的机器上",
-      "提示词只发给你选择的 AI 提供方，经由它自己的 CLI 或 SDK",
+    eyebrow: "05 · 本地优先",
+    title: "没有 OpenPE 云端，数据留在本地。",
+    lede: "OpenPE 没有服务器，也不需要账号。工程以原生 KiCad 文件保存在你的磁盘上，提示词只发送给你选择的 AI 厂商。",
+    machine: "你的电脑",
+    studio: "OpenPE 工作室",
+    files: "工程文件",
+    agents: "Agent CLI 或 SDK",
+    provider: "你选择的 AI 厂商",
+    providerSub: "提示词和你发送的上下文",
+    cloud: "OpenPE 云端",
+    cloudSub: "不存在",
+    points: [
+      "无账号、无 OpenPE 服务器、无遥测",
+      "原生 KiCad 文件保存在你自己的磁盘上",
+      "Cursor API key 由系统 safeStorage 加密",
     ],
-    machine: "你的机器",
-    machineItems: ["OpenPE", "项目文件", "本地 agent CLI"],
-    onlyTo: "只发往",
-    provider: "你选择的 AI 提供方",
-    agents: ["Codex", "Claude Code", "Cursor", "DeepSeek Harness", "Pi"],
-    note: "元件库、价格和数据手册查询直接联系相应厂商。Cursor API key 通过 Electron safeStorage，用操作系统钥匙串加密。",
-    clipLabel: "本地 agent",
+    note: "元件库、价格和数据手册查询会直接访问对应的供应商。",
   },
-  native: {
-    title: "原生且开放",
-    items: [
-      "原生 KiCad 10 文件：未改动的文件保持原来的字节",
-      "全项目撤销，以及本地 Git 历史",
-      "Apache-2.0 开源",
-      "Windows x64 · macOS arm64 · Linux x64",
+  specs: {
+    eyebrow: "06 · 规格",
+    title: "技术细节。",
+    product: "OpenPE · Electrical Engineering Studio",
+    rows: [
+      { key: "设计文件", value: "原生 KiCad 10：.kicad_pro、.kicad_sch、.kicad_pcb。未修改的文件保留原始字节。" },
+      { key: "编辑", value: "原理图、手动 PCB layout、3D Model CAD 和原生 Source 文本" },
+      { key: "历史", value: "整个工程可撤销 · 本地 Git 快照" },
+      { key: "仿真", value: "ngspice 47 瞬态" },
+      { key: "热分析", value: "Gmsh 4.15.2 + Elmer 26.1 · PCB 温度" },
+      { key: "Agent", value: "Codex · Claude Code · Cursor 使用受限工具；DeepSeek Harness · Pi 提出修改" },
+      { key: "插件", value: "内置五个 · JavaScript 插件运行在 QuickJS 沙箱" },
+      { key: "云端", value: "无" },
+      { key: "范围", value: "手动 layout，无自动布线。ERC/DRC 覆盖有限，不等同于 KiCad 完整检查。" },
+      { key: "平台", value: "Windows x64 · macOS arm64 · Linux x64（glibc 2.41+）" },
+      { key: "许可证", value: "Apache-2.0" },
     ],
   },
   closing: {
-    lead: "你接下来要",
-    power: "驱动",
-    rest: "什么，",
-    engineer: "Engineer？",
-    cta: "GitHub",
-    imageLabel: "装壳后的电路板",
+    line1: "下一次，",
+    accent: "你想为什么供电，",
+    line3: "工程师？",
+    github: "在 GitHub 查看",
+    watch: "观看宣传片",
   },
   team: {
-    title: "团队与联系",
-    developers: "核心开发者",
-    institutions: "团队与机构",
-    pending: "待公布",
+    eyebrow: "07 · 团队",
+    title: "OpenPE 背后的人。",
+    core: "核心开发者",
+    institutions: "参与团队与机构",
+    institutionsEmpty: "待公布",
     contact: "联系",
-    github: "GitHub 组织",
+    contactGithub: "GitHub 组织",
   },
   footer: {
-    license: "Apache-2.0",
-    copyright: "© OpenPE contributors",
-    github: "GitHub",
-    notices:
-      "第三方声明：Inter 以 SIL Open Font License 授权。求解器、文件格式和提供方的名称归各自所有者。",
+    license: "Apache-2.0 · © 2026 OpenPE contributors",
+    notices: "Inter 与 JetBrains Mono 以 SIL Open Font License 授权。产品名称归各自所有者。",
   },
-} satisfies Content
+}
 
 export const content: Record<Lang, Content> = { en, zh }

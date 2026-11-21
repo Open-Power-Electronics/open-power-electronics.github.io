@@ -1,115 +1,132 @@
+@import "@fontsource-variable/inter/opsz.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
 
-/* Inter has no CJK glyphs. Those code points come from the user agent. */
+@theme {
+  --font-sans: "Inter Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
-@theme inline {
-  --font-sans: "Inter Variable";
-  --color-pe-green: #206f39;
-  --color-pe-headline: #1f2622;
-  --color-pe-headline-2: #363d39;
-  --color-pe-body: #505854;
-  --color-pe-nav: #57665c;
-  --color-pe-logo: #88ea5c;
-  --color-pe-card: #fafcf9;
-  --color-pe-border: #dee3df;
-  --color-pe-selection: #1e6c36;
-  --color-pe-agent: #e6effc;
-  --color-pe-human: #dff1f2;
-  --color-pe-api: #ebe3f6;
-  --color-pe-core: #ecf5e9;
-  --color-pe-plugins: #f8ebe4;
-  --color-pe-baseline: #a36734;
-  --color-pe-tuned: #39784e;
-  --color-pe-band: #eaf7ec;
-  --color-pe-stat: #a15c34;
-  --color-pe-mint: #e7f1e9;
-  --color-pe-mint-a: #f7fbf7;
-  --color-pe-mint-b: #f1f7f0;
-  --color-pe-mint-c: #f3f8f4;
+  --color-ink: #1f2622;
+  --color-ink-2: #363d39;
+  --color-body: #505854;
+  --color-muted: #7d8781;
+  --color-faint: #a9b1ac;
+  --color-line: #e3e8e4;
+  --color-line-strong: #d3dad5;
+  --color-paper: #fafcf9;
+  --color-mint: #e7f1e9;
+  --color-mint-2: #f1f7f0;
+  --color-green: #206f39;
+  --color-green-deep: #1a5c2f;
+  --color-signal: #88ea5c;
+
+  --color-agent: #e6effc;
+  --color-agent-ink: #2f5a9e;
+  --color-human: #dff1f2;
+  --color-human-ink: #23706f;
+  --color-api: #ebe3f6;
+  --color-api-ink: #5f4796;
+  --color-core: #ecf5e9;
+  --color-plugin: #f8ebe4;
+  --color-plugin-ink: #a15c34;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-body {
-  margin: 0;
-  background-color: #ffffff;
-  background-image:
-    radial-gradient(58% 42% at 100% 0%, #e7f1e9 0%, #f1f7f0 32%, #f7fbf7 58%, rgba(255, 255, 255, 0) 74%),
-    radial-gradient(48% 38% at 0% 100%, #e7f1e9 0%, #f3f8f4 40%, #f7fbf7 62%, rgba(255, 255, 255, 0) 78%);
-  background-attachment: fixed;
-  color: #505854;
-  font-family: "Inter Variable";
-}
-
-::selection {
-  background: #eaf7ec;
-  color: #1f2622;
-}
-
-:focus-visible {
-  outline: 2px solid #206f39;
-  outline-offset: 3px;
-}
-
-.pe-grid {
-  background-color: #ffffff;
-  background-image:
-    linear-gradient(to right, rgba(222, 227, 223, 0.95) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(222, 227, 223, 0.95) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-.pe-card {
-  border: 1px solid #dee3df;
-  border-radius: 20px;
-  background: #fafcf9;
-  box-shadow: 0 8px 28px rgba(31, 38, 34, 0.05);
-}
-
-.pe-caret {
-  display: inline-block;
-  width: 2px;
-  height: 1.05em;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  background: #1f2622;
-}
-
-@media (prefers-reduced-motion: no-preference) {
+@layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
-  .pe-hero {
-    animation: pe-enter 0.4s ease both;
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    font-feature-settings: "cv11", "calt";
+    text-rendering: optimizeLegibility;
   }
 
-  .pe-caret {
-    animation: pe-caret 1s steps(1) infinite;
+  ::selection {
+    background: color-mix(in oklab, var(--color-signal) 45%, white);
+    color: var(--color-ink);
   }
 
-  /* Offscreen sections are hidden only after JS marks pe-below. Without script they stay visible. */
-  .reveal.pe-below {
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+  :focus-visible {
+    outline: 2px solid var(--color-green);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
-  .reveal.pe-below.pe-in {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pe-caret {
-    display: none;
+  [id] {
+    scroll-margin-top: 88px;
   }
 }
 
-@keyframes pe-enter {
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-6 md:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[12px] font-medium tracking-[0.08em] text-green uppercase;
+  }
+
+  .display {
+    @apply font-extrabold text-ink;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+
+  .heading {
+    @apply font-bold text-ink;
+    letter-spacing: -0.032em;
+    line-height: 1.04;
+  }
+
+  :lang(zh) .display,
+  :lang(zh) .heading {
+    letter-spacing: -0.01em;
+    line-height: 1.14;
+  }
+
+  .lede {
+    @apply text-[17px] leading-[1.6] text-body md:text-[19px];
+    letter-spacing: -0.011em;
+  }
+
+  .surface {
+    @apply rounded-[20px] border border-line bg-white;
+    box-shadow:
+      0 1px 2px rgb(16 32 22 / 0.04),
+      0 12px 32px -16px rgb(16 48 26 / 0.12);
+  }
+
+  .window {
+    @apply overflow-hidden rounded-[20px] border border-line bg-white;
+    box-shadow:
+      0 1px 1px rgb(16 32 22 / 0.04),
+      0 2px 6px rgb(16 32 22 / 0.04),
+      0 32px 80px -32px rgb(16 56 28 / 0.28);
+  }
+
+  .hairline-grid {
+    background-image:
+      linear-gradient(to right, rgb(31 38 34 / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(31 38 34 / 0.055) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .mint-corners {
+    background:
+      radial-gradient(60% 55% at 100% 0%, var(--color-mint) 0%, rgb(231 241 233 / 0) 70%),
+      radial-gradient(55% 50% at 0% 100%, var(--color-mint) 0%, rgb(231 241 233 / 0) 70%),
+      #fff;
+  }
+}
+
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -117,13 +134,110 @@ body {
   }
 }
 
-@keyframes pe-caret {
+@keyframes pulse-dot {
   0%,
-  45% {
+  100% {
+    box-shadow: 0 0 0 0 rgb(136 234 92 / 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgb(136 234 92 / 0);
+  }
+}
+
+@keyframes travel {
+  from {
+    top: -8px;
+    opacity: 0;
+  }
+  15% {
     opacity: 1;
   }
-  50%,
-  100% {
+  85% {
+    opacity: 1;
+  }
+  to {
+    top: calc(100% + 2px);
     opacity: 0;
+  }
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.rise {
+  animation: rise 0.9s var(--ease-out-soft) both;
+}
+
+.signal-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+.wire {
+  position: relative;
+  width: 1px;
+  background: var(--color-line-strong);
+}
+
+.wire::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--color-green);
+  box-shadow: 0 0 0 3px rgb(136 234 92 / 0.35);
+  animation: travel 2.6s var(--ease-out-soft) infinite;
+  animation-delay: var(--wire-delay, 0s);
+}
+
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: caret 1s steps(1) infinite;
+}
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s var(--ease-out-soft),
+    transform 0.8s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.js [data-reveal][data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rise,
+  .signal-dot,
+  .wire::after,
+  .caret::after {
+    animation: none;
+  }
+
+  .wire::after {
+    display: none;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
