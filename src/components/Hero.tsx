@@ -12,7 +12,8 @@ const foundations = [
 ] as const
 
 export function Hero() {
-  const { t } = useI18n()
+  const { lang, t } = useI18n()
+  const wordSpace = lang === "en" ? " " : ""
 
   return (
     <section id="top" className="circuit-field hero-section relative pt-16">
@@ -21,8 +22,9 @@ export function Hero() {
           <h1 className="display hero-title rise" style={{ animationDelay: "0.12s" }}>
             <span>{t.hero.titleMain}</span>{" "}
             <span className="hero-title-audience">
-              <span className="hero-title-for">{t.hero.titleFor}</span>{" "}
-              <span className="hero-title-accent">{t.hero.titleAudience}</span>
+              <span className="hero-title-for">{t.hero.titleFor}</span>{wordSpace}
+              <span className="hero-title-accent">{t.hero.titleDomain}</span>{wordSpace}
+              <span>{t.hero.titleRole}</span>
             </span>
           </h1>
           <div className="hero-actions">

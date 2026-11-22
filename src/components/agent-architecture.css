@@ -1,0 +1,308 @@
+.agent-architecture {
+  max-inline-size: 58rem;
+  margin-inline: auto;
+  padding: clamp(0.875rem, 2.6vw, 1.875rem);
+}
+
+.agent-architecture-title {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-block-end: clamp(1rem, 2vw, 1.375rem);
+  color: var(--color-ink);
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+.agent-architecture-title::after {
+  flex: 1;
+  border-block-start: 1px solid var(--color-line);
+  content: "";
+}
+
+.agent-architecture-flow {
+  --architecture-rail: clamp(0.8rem, 2.8vw, 1.875rem);
+  --architecture-actor-height: 2.375rem;
+  --architecture-wire-gap: clamp(0.95rem, 2.65vw, 1.5rem);
+  --architecture-trace: color-mix(in oklab, var(--color-green-deep) 65%, var(--color-muted));
+  --architecture-border: color-mix(in oklab, var(--color-green-deep) 18%, var(--color-line));
+
+  display: grid;
+  grid-template-columns:
+    var(--architecture-rail) minmax(0, 1fr) clamp(1.375rem, 6.5vw, 3.75rem) minmax(0, 1fr)
+    var(--architecture-rail);
+  grid-template-rows:
+    var(--architecture-actor-height) var(--architecture-wire-gap) minmax(2.625rem, auto)
+    var(--architecture-wire-gap) minmax(2.5rem, auto) var(--architecture-wire-gap) auto;
+}
+
+.architecture-node {
+  z-index: 1;
+  display: grid;
+  min-inline-size: 0;
+  align-content: center;
+  gap: 0.25rem;
+  padding: 0.375rem clamp(0.3rem, 1.5vw, 0.875rem);
+  border: 1px solid var(--architecture-border);
+  border-radius: 0.625rem;
+  background: white;
+  color: var(--color-ink);
+  text-align: center;
+  text-wrap: balance;
+  font-size: clamp(0.875rem, 0.82rem + 0.3vw, 1rem);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.architecture-node svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+  flex: none;
+  color: var(--color-green-deep);
+  stroke-width: 1.65;
+}
+
+.architecture-actor,
+.architecture-api,
+.architecture-module-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.architecture-actor {
+  justify-self: center;
+  min-inline-size: min(100%, 5.875rem);
+  border-radius: 999px;
+  background: var(--color-mint-2);
+}
+
+.architecture-agent {
+  grid-area: 1 / 2;
+}
+
+.architecture-human {
+  grid-area: 1 / 4;
+}
+
+.architecture-context {
+  grid-area: 3 / 2;
+}
+
+.architecture-gui {
+  grid-area: 3 / 4;
+}
+
+.architecture-api {
+  grid-area: 5 / 1 / 6 / -1;
+  border-color: var(--color-green-deep);
+  background: var(--color-green-deep);
+  color: white;
+  font-weight: 700;
+}
+
+.architecture-api svg {
+  color: currentColor;
+}
+
+.architecture-output {
+  padding-block: 0.625rem;
+  border-color: var(--color-line-strong);
+  background: var(--color-paper);
+}
+
+.architecture-module-label {
+  font-weight: 700;
+}
+
+.architecture-node-detail {
+  color: var(--color-body);
+  font-size: clamp(0.75rem, 0.73rem + 0.25vw, 0.9rem);
+  font-weight: 500;
+}
+
+.architecture-core {
+  grid-area: 7 / 2;
+}
+
+.architecture-plugins {
+  grid-area: 7 / 4;
+}
+
+.architecture-wire {
+  position: relative;
+  place-self: stretch center;
+  inline-size: 1px;
+  color: var(--architecture-trace);
+}
+
+.architecture-wire > svg {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.architecture-trace {
+  fill: none;
+  stroke: currentColor;
+  vector-effect: non-scaling-stroke;
+}
+
+.architecture-wire::before,
+.architecture-wire::after {
+  position: absolute;
+  inset-inline-start: 50%;
+  inline-size: 0.4rem;
+  block-size: 0.4rem;
+  translate: -50% 0;
+  border-block-end: 1px solid;
+  border-inline-end: 1px solid;
+}
+
+.architecture-wire::after {
+  inset-block-end: 2px;
+  rotate: 45deg;
+  content: "";
+}
+
+.architecture-wire:is([data-arrow=up], [data-arrow=both])::before {
+  inset-block-start: 2px;
+  rotate: 225deg;
+  content: "";
+}
+
+.architecture-wire[data-arrow=up]::after {
+  content: none;
+}
+
+.architecture-wire[data-arrow=left] {
+  place-self: center stretch;
+  inline-size: auto;
+  block-size: 1px;
+}
+
+.architecture-wire[data-arrow=left]::after {
+  inset-block: 50% auto;
+  inset-inline-start: 2px;
+  translate: 0 -50%;
+  rotate: 135deg;
+}
+
+.architecture-context-to-agent {
+  grid-area: 2 / 2;
+}
+
+.architecture-human-to-gui {
+  grid-area: 2 / 4;
+}
+
+.architecture-gui-to-context {
+  grid-area: 3 / 3;
+}
+
+.architecture-gui-to-api {
+  grid-area: 4 / 4;
+}
+
+.architecture-api-to-core {
+  grid-area: 6 / 2;
+}
+
+.architecture-api-to-plugins {
+  grid-area: 6 / 4;
+}
+
+.architecture-agent-to-api {
+  grid-area: 1 / 1 / 5 / 3;
+  place-self: stretch;
+  inline-size: auto;
+  margin-block-start: calc(var(--architecture-actor-height) / 2);
+  margin-inline: 0.375rem calc((100% - var(--architecture-rail)) / 2);
+}
+
+.architecture-agent-to-api::after {
+  inset-inline-start: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .agent-architecture-flow :is(.architecture-node, .architecture-wire) {
+    --reveal-progress: clamp(0, calc((var(--stage-progress, 1) - var(--reveal-start, 0)) / var(--reveal-span, 0.28)), 1);
+  }
+
+  .architecture-actor {
+    --reveal-start: 0.02;
+  }
+
+  .architecture-context,
+  .architecture-gui {
+    --reveal-start: 0.19;
+  }
+
+  .architecture-context-to-agent,
+  .architecture-human-to-gui {
+    --reveal-start: 0.23;
+  }
+
+  .architecture-gui-to-context {
+    --reveal-start: 0.31;
+    --reveal-span: 0.24;
+  }
+
+  .architecture-api,
+  .architecture-gui-to-api {
+    --reveal-start: 0.44;
+  }
+
+  .architecture-agent-to-api {
+    --reveal-start: 0.55;
+    --reveal-span: 0.36;
+  }
+
+  .architecture-api-to-core,
+  .architecture-api-to-plugins {
+    --reveal-start: 0.64;
+  }
+
+  .architecture-output {
+    --reveal-start: 0.67;
+  }
+
+  [data-scroll-ready] .agent-architecture .architecture-node {
+    opacity: var(--reveal-progress);
+  }
+
+  [data-scroll-ready] .agent-architecture .architecture-trace {
+    mask: var(--architecture-reveal-mask);
+  }
+
+  .architecture-wire mask {
+    mask-type: alpha;
+  }
+
+  .architecture-reveal {
+    fill: none;
+    stroke: white;
+    /* A straight wire's SVG is only one pixel across its short axis. */
+    stroke-width: 108;
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: calc(1 - var(--reveal-progress));
+  }
+
+  .architecture-agent-to-api .architecture-reveal {
+    stroke-width: 4;
+  }
+
+  [data-scroll-ready] .agent-architecture .architecture-wire::before,
+  [data-scroll-ready] .agent-architecture .architecture-wire::after {
+    opacity: clamp(0, calc((var(--reveal-progress) - 0.85) / 0.15), 1);
+  }
+
+  [data-scroll-ready] .agent-architecture .architecture-agent-to-api::after {
+    opacity: clamp(0, calc((var(--reveal-progress) - 0.96) / 0.04), 1);
+  }
+}

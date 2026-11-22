@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Regenerate the web film derivative, muted clips and posters from the promo master.
 # Current release: OpenPE.mp4, as recorded in OpenPE promotion/VERIFY.md.
-# SHA-256: 119de623eb33d9969c8afaa19bafe0a596d45c4e609a7baf94bf4c7d7be4663f
+# SHA-256: e3b59d67283c9a5e83861e7de6bce0e9ebdde29cdf0d2dfd1c64384a871be69a
 # Each clip crop is W:H:X:Y on the 1920x1080 master. Use 16px-aligned output dimensions to avoid partially visible decoder padding.
 set -euo pipefail
 

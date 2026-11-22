@@ -24,12 +24,11 @@ export const schools = {
     compact: { terminal: [554, 75], lead: "M351.5 165.1V140.5L410 82H547L554 75" },
   },
   glasgow: {
-    // University site icon: https://www.gla.ac.uk/3t4/img/hd_hi.png
-    logo: "/media/team/glasgow.png",
+    logo: "/media/team/glasgow.svg",
     pad: [547.4, 123.2],
     dock: "below",
     wide: { terminal: [505, 216], lead: "M547.4 123.2V162.6L505 205V216" },
-    compact: { terminal: [560, 291], lead: "M547.4 123.2V217.4L560 230V291" },
+    compact: { terminal: [576, 272], lead: "M547.4 123.2V217.4L576 246V272" },
   },
   eindhoven: {
     logo: "/media/team/eindhoven.svg",
@@ -48,59 +47,14 @@ export const schools = {
 } as const
 
 export type SchoolId = keyof typeof schools
-export type TeamRole =
-  | "doctoral"
-  | "visitingScholar"
-  | "visitingResearcher"
-  | "researchAssistant"
-  | "assistantProfessor"
-  | "associateProfessor"
-  | "masters"
-  | "masterOfEngineering"
-  | "postgraduateResearchStudent"
-  | "phd"
-
-type TeamMember = {
-  name: string
-  link: string
-  connections: readonly [SchoolId, TeamRole][]
-}
 
 /** Website credits follow the order shown in the project film. */
-export const teamMembers: readonly TeamMember[] = [
-  {
-    name: "Xiao Yang",
-    link: "https://fleaxiao.github.io/",
-    connections: [["eindhoven", "doctoral"], ["westlake", "visitingScholar"]],
-  },
-  {
-    name: "Yukang Zhu",
-    link: "https://cn.linkedin.com/in/yukang-zhu-b33a6a250",
-    connections: [["westlake", "visitingResearcher"], ["ucla", "masters"]],
-  },
-  {
-    name: "Wenhao Deng",
-    link: "https://www.gla.ac.uk/pgrs/wenhaodeng/",
-    connections: [["glasgow", "postgraduateResearchStudent"]],
-  },
-  {
-    name: "Tian Xia",
-    link: "https://ai4s.lab.westlake.edu.cn/people/",
-    connections: [["westlake", "researchAssistant"], ["berkeley", "masterOfEngineering"]],
-  },
-  {
-    name: "Chengmin Li",
-    link: "https://research.tue.nl/en/persons/chengmin-li/",
-    connections: [["eindhoven", "assistantProfessor"]],
-  },
-  {
-    name: "Dongsheng Yang",
-    link: "https://research.tue.nl/en/persons/dongsheng-yang/",
-    connections: [["eindhoven", "associateProfessor"]],
-  },
-  {
-    name: "Tailin Wu",
-    link: "https://tailin.org/",
-    connections: [["westlake", "assistantProfessor"], ["mit", "phd"]],
-  },
-]
+export const teamMembers = [
+  "Xiao Yang",
+  "Yukang Zhu",
+  "Wenhao Deng",
+  "Tian Xia",
+  "Chengmin Li",
+  "Dongsheng Yang",
+  "Tailin Wu",
+] as const

@@ -1,4 +1,4 @@
-import { useId, useState, type CSSProperties } from "react"
+import { useState, type CSSProperties } from "react"
 import { MAP_SIZE, schools, teamMembers, type SchoolId } from "@/content/team.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { ChapterSection, SectionHeader } from "./primitives.tsx"
@@ -27,6 +27,21 @@ function mapPosition(school: (typeof schools)[SchoolId]): CSSProperties {
 function MapRoutes({ active }: { active: SchoolId | null }) {
   return (
     <svg className="team-routes" viewBox={"0 0 " + MAP_SIZE.width + " " + MAP_SIZE.height} aria-hidden="true">
+      <defs>
+        <filter id="team-logo-ink" colorInterpolationFilters="sRGB">
+          <feFlood floodColor="var(--team-signal)" />
+          <feComposite in2="SourceGraphic" operator="in" />
+        </filter>
+        <filter id="team-logo-crest" colorInterpolationFilters="sRGB">
+          <feColorMatrix type="saturate" values="0" />
+          {/* Ink, midtone green, and warm paper retain the heraldic detail. */}
+          <feComponentTransfer>
+            <feFuncR type="table" tableValues="0.071 0.102 0.259 0.588 0.945" />
+            <feFuncG type="table" tableValues="0.267 0.361 0.494 0.733 0.937" />
+            <feFuncB type="table" tableValues="0.133 0.184 0.314 0.624 0.922" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
       <g className="team-traces">
         {trunkPaths.map((path, index) => (
           <path key={path} d={path} pathLength="1" style={{ "--route-delay": index * 0.06 } as CSSProperties} />
@@ -62,29 +77,15 @@ function MapRoutes({ active }: { active: SchoolId | null }) {
 }
 
 export function Team() {
-  const { lang, t } = useI18n()
+  const { t } = useI18n()
   const team = t.team
-  const nameSeparator = lang === "zh" ? "" : " "
-  const connectionId = useId()
-  const [selected, setSelected] = useState<SchoolId | null>(null)
   const [hovered, setHovered] = useState<SchoolId | null>(null)
-  const [focused, setFocused] = useState<SchoolId | null>(null)
-  const active = hovered ?? focused ?? selected
-  const connections = selected === null ? [] : teamMembers.flatMap((member) =>
-    member.connections.filter(([school]) => school === selected).map(([, role]) => ({ member, role })),
-  )
 
   return (
     <ChapterSection chapter="team" className="circuit-field team-section">
       <div className="container-page">
         <SectionHeader chapter="team" title={team.title} />
-        <figure
-          className="team-map"
-          data-scroll-stage=""
-          onKeyDown={(event) => {
-            if (event.key === "Escape") setSelected(null)
-          }}
-        >
+        <figure className="team-map" data-scroll-stage="">
           <div className="team-map-graphic">
             <div className="team-map-sheet">
               <img
@@ -96,32 +97,22 @@ export function Team() {
                 loading="lazy"
                 decoding="async"
               />
-              <MapRoutes active={active} />
-              <ul className="team-map-labels" aria-label={team.institutions}>
+              <MapRoutes active={hovered} />
+              <ul className="team-map-labels" role="list" aria-label={team.institutions}>
                 {schoolIds.map((id) => (
                   <li key={id} style={mapPosition(schools[id])}>
-                    <button
-                      type="button"
+                    <span
                       className="team-map-label"
-                      aria-label={team.schoolNames[id].join(nameSeparator)}
-                      aria-controls={connectionId}
-                      aria-expanded={selected === id}
-                      data-active={active === id || undefined}
                       data-school={id}
                       data-dock={schools[id].dock}
                       onPointerEnter={(event) => {
                         if (event.pointerType === "mouse") setHovered(id)
                       }}
                       onPointerLeave={() => setHovered(null)}
-                      onFocus={(event) => {
-                        if (event.currentTarget.matches(":focus-visible")) setFocused(id)
-                      }}
-                      onBlur={() => setFocused(null)}
-                      onClick={() => setSelected((current) => current === id ? null : id)}
                     >
                       <img className="team-map-logo" src={schools[id].logo} alt="" width={18} height={18} loading="lazy" />
                       <span className="team-map-school-name">{team.schoolNames[id].join("\n")}</span>
-                    </button>
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -129,33 +120,9 @@ export function Team() {
           </div>
 
           <figcaption className="team-credits">
-            <ul aria-label={team.core}>
-              {teamMembers.map((member) => (
-                <li key={member.name}>
-                  <a
-                    href={member.link}
-                    className="team-credit"
-                    data-active={member.connections.some(([id]) => id === active) || undefined}
-                  >
-                    {member.name}
-                  </a>
-                </li>
-              ))}
+            <ul role="list" aria-label={team.core}>
+              {teamMembers.map((name) => <li key={name}>{name}</li>)}
             </ul>
-            <div id={connectionId} className="team-academic-links" hidden={selected === null}>
-              {selected !== null && (
-                <>
-                  <strong>{team.schoolNames[selected].join(nameSeparator)}</strong>
-                  <ul>
-                    {connections.map(({ member, role }) => (
-                      <li key={member.name}>
-                        <a href={member.link}>{member.name}</a><span> · {team.roles[role]}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </div>
           </figcaption>
         </figure>
       </div>

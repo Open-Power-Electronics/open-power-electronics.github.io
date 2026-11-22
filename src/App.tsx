@@ -39,19 +39,44 @@ function useScrollMotion() {
   useEffect(() => {
     const root = document.documentElement
     const motion = matchMedia("(prefers-reduced-motion: no-preference)")
-    const stages = [...document.querySelectorAll<HTMLElement>("[data-scroll-stage]")]
+    const stages = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-stage]"), (element) => ({
+      element,
+      paced: element.dataset.scrollStage === "architecture",
+      progress: undefined as number | undefined,
+    }))
     let frame = 0
+    let previousFrame: number | undefined
 
-    const update = () => {
+    const update = (now: number) => {
       frame = 0
       if (!motion.matches) return
+
       const height = window.innerHeight
-      const tops = stages.map((stage) => stage.getBoundingClientRect().top)
-      tops.forEach((top, index) => {
-        const progress = Math.min(1, Math.max(0, (height - top) / (height * 0.55)))
-        stages[index].style.setProperty("--stage-progress", String(progress))
+      const tops = stages.map(({ element }) => element.getBoundingClientRect().top)
+      const elapsed = previousFrame === undefined ? 1000 / 60 : Math.min(now - previousFrame, 50)
+      const maxStep = elapsed / 1550
+      let settling = false
+
+      stages.forEach((stage, index) => {
+        const range = height * (stage.paced ? 0.65 : 0.55)
+        const target = Math.min(1, Math.max(0, (height - tops[index]) / range))
+        const current = stage.progress ?? 0
+        const delta = target - current
+        // Limit how much of the diagram a single wheel step or anchor jump can skip.
+        const progress = stage.paced && Math.abs(delta) > maxStep
+          ? current + Math.sign(delta) * maxStep
+          : target
+
+        if (progress !== stage.progress) {
+          stage.element.style.setProperty("--stage-progress", String(progress))
+          stage.progress = progress
+        }
+        settling ||= progress !== target
       })
-      root.setAttribute("data-scroll-ready", "")
+
+      if (!root.hasAttribute("data-scroll-ready")) root.setAttribute("data-scroll-ready", "")
+      previousFrame = settling ? now : undefined
+      if (settling) frame = requestAnimationFrame(update)
     }
 
     const schedule = () => {
@@ -59,7 +84,12 @@ function useScrollMotion() {
     }
     const sync = () => {
       if (motion.matches) schedule()
-      else root.removeAttribute("data-scroll-ready")
+      else {
+        cancelAnimationFrame(frame)
+        frame = 0
+        previousFrame = undefined
+        root.removeAttribute("data-scroll-ready")
+      }
     }
 
     sync()

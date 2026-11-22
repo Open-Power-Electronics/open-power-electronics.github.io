@@ -1,5 +1,6 @@
 import { CirclePlus } from "lucide-react"
 import { useI18n } from "@/i18n/I18nContext.tsx"
+import { AgentArchitecture } from "./AgentArchitecture.tsx"
 import { ChapterSection, SectionHeader, revealDelay } from "./primitives.tsx"
 
 const providers = [
@@ -24,6 +25,7 @@ export function Agents() {
           title={title}
           lede={<>{storage}{" "}<span className="agent-provider-context">{providerContext}</span></>}
         />
+        <AgentArchitecture />
         <ul role="list" className="chapter-content grid grid-cols-2 gap-2.5 sm:grid-cols-3 xl:grid-cols-6">
           {providers.map((provider, index) => (
             <li

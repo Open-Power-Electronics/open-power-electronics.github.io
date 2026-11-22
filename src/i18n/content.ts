@@ -1,5 +1,5 @@
 import type { Chapter } from "@/content/site.ts"
-import type { SchoolId, TeamRole } from "@/content/team.ts"
+import type { SchoolId } from "@/content/team.ts"
 
 export type Lang = "en" | "zh"
 
@@ -9,19 +9,36 @@ type Term = { name: string; body: string }
 
 export type Content = {
   meta: { title: string }
-  nav: Record<Chapter, string> & { github: string; switchLang: string; primaryLabel: string; footerLabel: string }
+  nav: Record<Chapter, string> & { github: string; menu: string; switchLang: string; primaryLabel: string; footerLabel: string }
   hero: {
     openSource: string
     foundations: string
     titleMain: string
     titleFor: string
-    titleAudience: string
+    titleDomain: string
+    titleRole: string
     download: string
   }
   film: { title: string; caption: string; play: string }
   workspace: { title: string; imageAlt: string; parts: readonly Term[] }
   workflow: { title: string; steps: readonly Step[] }
-  agents: { title: string; storage: string; providerContext: string; more: string }
+  agents: {
+    title: string
+    storage: string
+    providerContext: string
+    more: string
+    architecture: {
+      title: string
+      description: string
+      agent: string
+      human: string
+      context: string
+      gui: string
+      api: string
+      core: Term
+      plugins: Term
+    }
+  }
   plugins: {
     title: string
     thermal: Plugin
@@ -35,7 +52,6 @@ export type Content = {
     title: string
     core: string
     institutions: string
-    roles: Record<TeamRole, string>
     schoolNames: Record<SchoolId, readonly [string, string]>
   }
   footer: { license: string }
@@ -50,6 +66,7 @@ const en: Content = {
     plugins: "Plugins",
     team: "Team",
     github: "GitHub",
+    menu: "Menu",
     switchLang: "Switch to Chinese",
     primaryLabel: "Primary navigation",
     footerLabel: "Footer navigation",
@@ -59,7 +76,8 @@ const en: Content = {
     foundations: "Built with open source",
     titleMain: "AI-Native Workbench",
     titleFor: "for",
-    titleAudience: "Power Electronics Engineer",
+    titleDomain: "Power Electronics",
+    titleRole: "Engineer",
     download: "Download",
   },
   film: {
@@ -99,6 +117,17 @@ const en: Content = {
     storage: "Projects stay in native KiCad files.",
     providerContext: "The AI provider you choose receives the prompts and context you send.",
     more: "More Agents",
+    architecture: {
+      title: "OpenPE architecture",
+      description: "The GUI supplies project context to the Agent. Both share the Uniform API for Core and plugin capabilities.",
+      agent: "Agent",
+      human: "Human",
+      context: "Context Management",
+      gui: "GUI",
+      api: "Uniform API",
+      core: { name: "Core", body: "Schematic · PCB · Model" },
+      plugins: { name: "Plugins", body: "Analysis and extensions" },
+    },
   },
   plugins: {
     title: "Extend the workbench",
@@ -133,19 +162,7 @@ const en: Content = {
   team: {
     title: "The OpenPE team",
     core: "Authors",
-    institutions: "Academic connections",
-    roles: {
-      doctoral: "Ph.D. candidate",
-      visitingScholar: "Visiting scholar",
-      visitingResearcher: "Visiting researcher",
-      researchAssistant: "Research assistant",
-      assistantProfessor: "Assistant professor",
-      associateProfessor: "Associate professor",
-      masters: "M.S.",
-      masterOfEngineering: "M.Eng.",
-      postgraduateResearchStudent: "Postgraduate research student",
-      phd: "Ph.D.",
-    },
+    institutions: "Universities",
     schoolNames: {
       berkeley: ["University of", "California, Berkeley"],
       ucla: ["University of", "California, Los Angeles"],
@@ -169,6 +186,7 @@ const zh: Content = {
     plugins: "插件",
     team: "团队",
     github: "GitHub",
+    menu: "菜单",
     switchLang: "切换到英文",
     primaryLabel: "主导航",
     footerLabel: "页脚导航",
@@ -178,7 +196,8 @@ const zh: Content = {
     foundations: "基于开源技术",
     titleMain: "AI 原生工作台",
     titleFor: "面向",
-    titleAudience: "电力电子工程师",
+    titleDomain: "电力电子",
+    titleRole: "工程师",
     download: "下载",
   },
   film: {
@@ -218,6 +237,17 @@ const zh: Content = {
     storage: "工程以 KiCad 原生格式保存在本地。",
     providerContext: "所选 AI 服务商会收到你发送的提示词和上下文。",
     more: "更多 Agent",
+    architecture: {
+      title: "OpenPE 架构",
+      description: "图形界面向 Agent 提供工程上下文。两者通过统一 API 使用核心与插件功能。",
+      agent: "Agent",
+      human: "用户",
+      context: "上下文管理",
+      gui: "图形界面",
+      api: "统一 API",
+      core: { name: "核心", body: "原理图、PCB 布局与建模" },
+      plugins: { name: "插件", body: "分析工具与扩展" },
+    },
   },
   plugins: {
     title: "扩展工作台",
@@ -253,18 +283,6 @@ const zh: Content = {
     title: "OpenPE 团队",
     core: "作者",
     institutions: "院校",
-    roles: {
-      doctoral: "博士生",
-      visitingScholar: "访问学者",
-      visitingResearcher: "访问研究员",
-      researchAssistant: "研究助理",
-      assistantProfessor: "助理教授",
-      associateProfessor: "副教授",
-      masters: "理学硕士",
-      masterOfEngineering: "工程硕士",
-      postgraduateResearchStudent: "研究型学位在读",
-      phd: "博士",
-    },
     schoolNames: {
       berkeley: ["加州大学", "伯克利分校"],
       ucla: ["加州大学", "洛杉矶分校"],

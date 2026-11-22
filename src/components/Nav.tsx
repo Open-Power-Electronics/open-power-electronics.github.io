@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { Languages } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { Languages, Menu, X } from "lucide-react"
 import { CHAPTERS, GITHUB_ORG_URL, type Chapter } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { cn } from "@/lib/utils.ts"
@@ -31,9 +31,33 @@ function useActiveChapter(): Chapter | null {
   return active
 }
 
+function ChapterLinks({ active, closeMenu }: { active: Chapter | null; closeMenu?: () => void }) {
+  const { t } = useI18n()
+  return CHAPTERS.map((chapter) => (
+    <li key={chapter}>
+      <a
+        href={`#${chapter}`}
+        onClick={closeMenu}
+        aria-current={active === chapter ? "location" : undefined}
+        className={cn(
+          "whitespace-nowrap font-medium text-ink-2 transition-colors motion-reduce:transition-none",
+          closeMenu
+            ? "flex min-h-11 items-center rounded-full px-3 py-2 text-sm hover:bg-paper hover:text-ink aria-[current=location]:bg-mint aria-[current=location]:text-green"
+            : "site-nav-chapter inline-flex min-h-11 items-center rounded-md px-2.5 text-[13px] hover:text-green-deep aria-[current=location]:text-green-deep",
+        )}
+      >
+        {t.nav[chapter]}
+      </a>
+    </li>
+  ))
+}
+
 export function Nav() {
   const { t, toggle } = useI18n()
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menu = useRef<HTMLDivElement>(null)
+  const trigger = useRef<HTMLButtonElement>(null)
   const active = useActiveChapter()
 
   useEffect(() => {
@@ -43,34 +67,46 @@ export function Nav() {
     return () => window.removeEventListener("scroll", update)
   }, [])
 
+  useEffect(() => {
+    if (!menuOpen) return
+    const desktop = window.matchMedia("(min-width: 64rem)")
+    const onDesktop = () => {
+      if (desktop.matches) setMenuOpen(false)
+    }
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !menu.current?.contains(event.target)) setMenuOpen(false)
+    }
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return
+      event.preventDefault()
+      setMenuOpen(false)
+      trigger.current?.focus()
+    }
+
+    desktop.addEventListener("change", onDesktop)
+    document.addEventListener("pointerdown", onPointerDown)
+    document.addEventListener("keydown", onEscape)
+    return () => {
+      desktop.removeEventListener("change", onDesktop)
+      document.removeEventListener("pointerdown", onPointerDown)
+      document.removeEventListener("keydown", onEscape)
+    }
+  }, [menuOpen])
+
   return (
     <div
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300",
-        scrolled ? "border-b border-line bg-white" : "border-b border-transparent",
-      )}
+      className="site-nav fixed inset-x-0 top-0 z-50"
+      data-scrolled={scrolled || undefined}
+      data-menu-open={menuOpen || undefined}
     >
-      <nav className="container-page flex h-16 items-center justify-between gap-6" aria-label={t.nav.primaryLabel}>
+      <nav className="container-page flex h-16 items-center gap-6" aria-label={t.nav.primaryLabel}>
         <a href="#top" className="shrink-0" aria-label="OpenPE">
           <Wordmark />
         </a>
         <ul className="hidden items-center gap-0.5 lg:flex">
-          {CHAPTERS.map((chapter) => (
-            <li key={chapter}>
-              <a
-                href={`#${chapter}`}
-                aria-current={active === chapter ? "location" : undefined}
-                className={cn(
-                  "rounded-full px-3 py-2 text-[14px] whitespace-nowrap font-medium transition-colors",
-                  active === chapter ? "bg-mint text-green" : "text-body hover:bg-paper hover:text-ink",
-                )}
-              >
-                {t.nav[chapter]}
-              </a>
-            </li>
-          ))}
+          <ChapterLinks active={active} />
         </ul>
-        <div className="flex items-center gap-2">
+        <div className="ms-auto flex shrink-0 items-center gap-2">
           <button
             type="button"
             onClick={toggle}
@@ -87,6 +123,38 @@ export function Nav() {
             <GithubMark className="size-4" />
             {t.nav.github}
           </a>
+          <div
+            ref={menu}
+            className="relative lg:hidden"
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
+            }}
+          >
+            <button
+              ref={trigger}
+              type="button"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line bg-white px-3 text-sm font-semibold text-ink-2 transition-colors hover:bg-paper aria-expanded:bg-mint aria-expanded:text-green"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X aria-hidden="true" className="size-4" /> : <Menu aria-hidden="true" className="size-4" />}
+              {t.nav.menu}
+            </button>
+            <ul id="mobile-navigation" className="site-nav-menu" hidden={!menuOpen}>
+              <ChapterLinks active={active} closeMenu={() => setMenuOpen(false)} />
+              <li className="mt-1 border-t border-line pt-1 sm:hidden">
+                <a
+                  href={GITHUB_ORG_URL}
+                  className="flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink-2 hover:bg-paper hover:text-ink"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <GithubMark className="size-4" />
+                  {t.nav.github}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>

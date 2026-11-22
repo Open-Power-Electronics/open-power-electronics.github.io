@@ -4,7 +4,7 @@ Static promo site for OpenPE. Every product claim must be traceable to the OpenP
 
 ## Stack
 
-Vite 8, React 19, TypeScript 6, Tailwind CSS 4 (`@tailwindcss/vite`), lucide-react, oxlint. `cn()` is clsx + tailwind-merge. Fonts are self-hosted: Inter Variable (optical size axis) for text, JetBrains Mono Variable for technical labels. English is the default. Chinese is an explicit toggle stored in `localStorage` as `openpe-lang`. Never read `navigator.language`. All copy lives in `src/i18n/content.ts`; both languages share one typed shape. Author profiles, academic connections and circuit-map positions live in `src/content/team.ts`.
+Vite 8, React 19, TypeScript 6, Tailwind CSS 4 (`@tailwindcss/vite`), lucide-react, oxlint. `cn()` is clsx + tailwind-merge. Fonts are self-hosted: Inter Variable (optical size axis) for text, JetBrains Mono Variable for technical labels. English is the default. Chinese is an explicit toggle stored in `localStorage` as `openpe-lang`. Never read `navigator.language`. All copy lives in `src/i18n/content.ts`; both languages share one typed shape. Author credits and circuit-map positions live in `src/content/team.ts`.
 
 ## Commands
 
