@@ -1,0 +1,14 @@
+Agent product marks identify the integrations shown in the OpenPE demo.
+Product names and trademarks belong to their respective owners.
+
+The OpenPE promotional artwork supplies these five SVGs.
+- codex.svg uses the OpenAI Codex VS Code extension's resources/blossom-black.svg.
+  https://marketplace.visualstudio.com/items?itemName=openai.chatgpt
+- claude-code.svg uses Lobe Icons' Claude Code mark under the accompanying LICENSE.
+  https://github.com/lobehub/lobe-icons
+- deepseek-harness.svg uses the DeepSeek Harness web favicon under LICENSE-deepseek.
+  https://github.com/deepseek-ai/deepseek-harness
+- pi.svg uses the official Pi press-kit mark with its transparent margin cropped.
+  See LICENSE-pi. https://pi.dev/press-kit
+- cursor.svg uses the Cursor light favicon with the cube isolated.
+  https://cursor.com/brand

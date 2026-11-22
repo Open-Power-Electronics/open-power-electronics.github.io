@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Regenerate muted clips from the promo master. The master path is required.
-# Each clip crop is W:H:X:Y on the 1920x1080 master; clips keep the cropped size.
+# Regenerate the web film derivative, muted clips and posters from the promo master.
+# Current release: OpenPE.mp4, as recorded in OpenPE promotion/VERIFY.md.
+# SHA-256: 119de623eb33d9969c8afaa19bafe0a596d45c4e609a7baf94bf4c7d7be4663f
+# Each clip crop is W:H:X:Y on the 1920x1080 master. Use 16px-aligned output dimensions to avoid partially visible decoder padding.
 set -euo pipefail
 
 if [[ $# -ne 1 ]]; then
@@ -24,13 +26,23 @@ if ! command -v ffprobe >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! ffmpeg -hide_banner -encoders | grep -q libvpx-vp9; then
-  echo "ffmpeg is missing libvpx-vp9" >&2
-  exit 1
-fi
+encoders=$(ffmpeg -hide_banner -encoders)
+for encoder in libx264 libvpx-vp9 libwebp; do
+  if [[ "$encoders" != *"$encoder"* ]]; then
+    echo "ffmpeg is missing $encoder" >&2
+    exit 1
+  fi
+done
 
-if ! ffmpeg -hide_banner -encoders | grep -q libx264; then
-  echo "ffmpeg is missing libx264" >&2
+video_dimensions() {
+  local size
+  size=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 "$1")
+  printf '%s\n' "${size%$'\r'}"
+}
+
+master_size=$(video_dimensions "$master")
+if [[ "$master_size" != "1920,1080" ]]; then
+  echo "expected a 1920x1080 promotional master, got $master_size" >&2
   exit 1
 fi
 
@@ -44,6 +56,7 @@ encode_clip() {
   local start=$2
   local end=$3
   local crop=$4
+  local poster_time=$5
   local mp4="$clips_dir/$name.mp4"
   local webm="$clips_dir/$name.webm"
   local poster="$clips_dir/$name.jpg"
@@ -53,66 +66,60 @@ encode_clip() {
     echo "invalid crop: $crop" >&2
     exit 1
   fi
-  if (( cw % 2 != 0 || ch % 2 != 0 || cx % 2 != 0 || cy % 2 != 0 )); then
-    echo "crop values must be even: $crop" >&2
+  if (( cw % 16 != 0 || ch % 16 != 0 || cx % 2 != 0 || cy % 2 != 0 )); then
+    echo "clip dimensions must be multiples of 16 and crop offsets must be even: $crop" >&2
     exit 1
   fi
-  if (( cw <= 0 || ch <= 0 || cx < 0 || cy < 0 )); then
+  if (( cw <= 0 || ch <= 0 || cx < 0 || cy < 0 || cx + cw > 1920 || cy + ch > 1080 )); then
     echo "crop is out of range: $crop" >&2
     exit 1
   fi
 
   local vf="crop=${crop}"
 
-  ffmpeg -y -hide_banner -loglevel error -i "$master" -ss "$start" -to "$end" \
-    -an -vf "$vf" -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p \
+  ffmpeg -y -nostdin -hide_banner -loglevel error -i "$master" -ss "$start" -to "$end" \
+    -an -vf "$vf" -c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p \
     -movflags +faststart "$mp4"
 
-  ffmpeg -y -hide_banner -loglevel error -i "$master" -ss "$start" -to "$end" \
-    -an -vf "$vf" -c:v libvpx-vp9 -b:v 0 -crf 32 -deadline good -cpu-used 1 \
+  ffmpeg -y -nostdin -hide_banner -loglevel error -i "$master" -ss "$start" -to "$end" \
+    -an -vf "$vf" -c:v libvpx-vp9 -b:v 0 -crf 32 -deadline good -cpu-used 3 \
     -row-mt 1 -pix_fmt yuv420p "$webm"
 
-  ffmpeg -y -hide_banner -loglevel error -i "$mp4" \
-    -vf "select=eq(n\,0)" -frames:v 1 -q:v 2 "$poster"
+  ffmpeg -y -nostdin -hide_banner -loglevel error -ss "$poster_time" -i "$master" \
+    -vf "$vf" -frames:v 1 -q:v 2 -update 1 "$poster"
 
-  local out_w out_h webm_w webm_h
-  out_w=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=nokey=1:noprint_wrappers=1 "$mp4")
-  out_h=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nokey=1:noprint_wrappers=1 "$mp4")
-  webm_w=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=nokey=1:noprint_wrappers=1 "$webm")
-  webm_h=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nokey=1:noprint_wrappers=1 "$webm")
-  if (( out_w % 2 != 0 || out_h % 2 != 0 || webm_w % 2 != 0 || webm_h % 2 != 0 )); then
-    echo "odd output dimensions for $name: mp4 ${out_w}x${out_h} webm ${webm_w}x${webm_h}" >&2
-    exit 1
-  fi
-  if (( out_w != webm_w || out_h != webm_h )); then
-    echo "mp4/webm size mismatch for $name: ${out_w}x${out_h} vs ${webm_w}x${webm_h}" >&2
-    exit 1
-  fi
-  if (( out_w != cw || out_h != ch )); then
-    echo "expected native ${cw}x${ch} for $name, got ${out_w}x${out_h}" >&2
-    exit 1
-  fi
+  local file dimensions
+  for file in "$mp4" "$webm" "$poster"; do
+    dimensions=$(video_dimensions "$file")
+    if [[ "$dimensions" != "$cw,$ch" ]]; then
+      echo "expected ${cw}x${ch} for $file, got $dimensions" >&2
+      exit 1
+    fi
+  done
 }
 
-# intro: exploded board and grid only. Card clips share the card interior.
-encode_clip intro 0.0 5.0 1050:748:820:174
-encode_clip spice 36.0 44.0 1260:724:570:190
-encode_clip placement 44.0 50.0 1260:724:570:190
-encode_clip comment 50.0 62.0 1260:724:570:190
-encode_clip case 66.0 76.0 1260:724:570:190
-encode_clip thermal 84.3 88.0 1260:724:570:190
-encode_clip parasitics 88.0 92.2 1260:724:570:190
+# Keep the editors and analysis panels inside the film's card interior.
+# Use settled posters. In particular, 88.0 s is still the thermal shot.
+encode_clip spice 35.6 43.9 1360:768:520:168 43.4
+encode_clip layout 44.7 64.8 1360:768:520:168 64.4
+encode_clip case 65.8 79.9 1360:768:520:168 78.8
+encode_clip thermal 84.666667 87.9 1264:720:568:192 87.4
+parasitics_still=91.5
+encode_clip parasitics 88.7 91.9 1264:720:568:192 "$parasitics_still"
 
-cp -- "$master" "$film_dir/openpe-workflow-demo.mp4"
-cmp -- "$master" "$film_dir/openpe-workflow-demo.mp4"
-ffmpeg -y -hide_banner -loglevel error -ss 53 -i "$master" -frames:v 1 \
-  -vf "scale=1920:-2" -q:v 2 "$film_dir/openpe-workflow-demo.jpg"
+# Preserve the original soundtrack and 98 s timeline in a smaller, seekable web encode.
+ffmpeg -y -nostdin -hide_banner -loglevel error -i "$master" -map 0:v:0 -map 0:a:0 \
+  -c:v libx264 -preset medium -crf 22 -pix_fmt yuv420p -c:a copy \
+  -movflags +faststart "$film_dir/openpe-workflow-demo.mp4"
+ffmpeg -y -nostdin -hide_banner -loglevel error -ss 4.8 -i "$master" -frames:v 1 \
+  -vf "crop=1056:752:816:172" -q:v 2 -update 1 "$film_dir/openpe-workflow-demo.jpg"
+ffmpeg -y -nostdin -hide_banner -loglevel error -ss "$parasitics_still" -i "$master" -frames:v 1 \
+  -vf "crop=1212:638:594:224" -c:v libwebp -quality 91 -compression_level 6 \
+  "$film_dir/layout-parasitics.webp"
 
 names=(
-  intro
   spice
-  placement
-  comment
+  layout
   case
   thermal
   parasitics
@@ -128,12 +135,9 @@ for name in "${names[@]}"; do
   done
 done
 
-if [[ ! -s "$film_dir/openpe-workflow-demo.mp4" ]]; then
-  echo "missing or empty film copy" >&2
-  exit 1
-fi
-
-if [[ ! -s "$film_dir/openpe-workflow-demo.jpg" ]]; then
-  echo "missing or empty film poster" >&2
-  exit 1
-fi
+for asset in openpe-workflow-demo.mp4 openpe-workflow-demo.jpg layout-parasitics.webp; do
+  if [[ ! -s "$film_dir/$asset" ]]; then
+    echo "missing or empty output: $asset" >&2
+    exit 1
+  fi
+done

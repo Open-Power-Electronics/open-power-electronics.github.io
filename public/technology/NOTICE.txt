@@ -1,0 +1,27 @@
+OpenPE homepage artwork identifies the upstream projects below.
+
+KiCad app icon (icon_kicad.svg)
+Source: https://gitlab.com/kicad/code/kicad/-/blob/master/resources/bitmaps_png/sources/light/icon_kicad.svg
+Credit: KiCad project. The SVG declares CC BY-SA 4.0.
+License: https://creativecommons.org/licenses/by-sa/4.0/
+The original SVG is preserved as published. kicad-mono.svg is a monochrome
+adaptation under CC BY-SA 4.0.
+
+Open CASCADE Technology logo (occt_logo.png)
+Source: https://github.com/Open-Cascade-SAS/OCCT/blob/V7_8_1/dox/resources/occt_logo.png
+Credit: Open Cascade SAS. Resized proportionally and displayed as a single-color mask.
+
+ngspice header logo (nglogo.jpg)
+Source: https://ngspice.sourceforge.io/images/nglogo.jpg
+Credit: ngspice project. Converted to PNG without changing decoded pixels.
+ngspice-mono.png retains the lettering and a disc outline with transparency.
+
+Gmsh icon (utils/icons/gmsh-no-text.png)
+Source: https://gmsh.info/src/gmsh-4.15.2-source.tgz
+Credit: Gmsh project. Resized proportionally for the homepage.
+gmsh-mono.png trims the transparent margins and converts the facets to one color.
+
+Elmer icon (pics/ElmerLogoPlain64x64.png)
+Source: https://github.com/ElmerCSC/elmerfem/releases/download/release-26.1/elmerfem-release-26.1.tar.gz
+Credit: Elmer FEM project. The original PNG is preserved as published.
+elmer-mono.png converts the colored mark to a single-color mask with transparency.

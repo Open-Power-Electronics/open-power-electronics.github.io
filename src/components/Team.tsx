@@ -1,90 +1,163 @@
-import { ArrowUpRight, Mail } from "lucide-react"
-import { GITHUB_ORG_URL } from "@/content/site.ts"
-import { contactEmail, institutions, teamMembers } from "@/content/team.ts"
+import { useId, useState, type CSSProperties } from "react"
+import { MAP_SIZE, schools, teamMembers, type SchoolId } from "@/content/team.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
-import { ChapterSection, GithubMark, SectionHeader, revealDelay } from "./primitives.tsx"
+import { ChapterSection, SectionHeader } from "./primitives.tsx"
+import "./team.css"
 
-function initials(name: string): string {
-  const parts = name.split(" ").filter((part) => part !== "")
-  if (parts.length < 2) throw new Error(`team member needs a given and family name: ${name}`)
-  return `${parts[0][0]}${parts[parts.length - 1][0]}`
+const schoolIds = Object.keys(schools) as SchoolId[]
+const labelLayouts = ["wide", "compact"] as const
+
+const trunkPaths = [
+  "M201.4 179 226.4 154H271L294 131H323L351.5 159.5V165.1",
+  "M212.6 190.8H239L273 224.8H312L351.5 185.3V165.1",
+  "M351.5 165.1H400L456 109.1H502L515 122.1H546.3L547.4 123.2 561.3 137.1 576.1 136.9",
+  "M576.1 136.9H610L642 168.9H710L748 206.9H841L867 180.9H890.7L912.1 202.3",
+]
+
+function mapPosition(school: (typeof schools)[SchoolId]): CSSProperties {
+  const { wide, compact } = school
+  return {
+    "--label-x": wide.terminal[0] / MAP_SIZE.width * 100 + "%",
+    "--label-y": wide.terminal[1] / MAP_SIZE.height * 100 + "%",
+    "--label-compact-x": compact.terminal[0] / MAP_SIZE.width * 100 + "%",
+    "--label-compact-y": compact.terminal[1] / MAP_SIZE.height * 100 + "%",
+  } as CSSProperties
+}
+
+function MapRoutes({ active }: { active: SchoolId | null }) {
+  return (
+    <svg className="team-routes" viewBox={"0 0 " + MAP_SIZE.width + " " + MAP_SIZE.height} aria-hidden="true">
+      <g className="team-traces">
+        {trunkPaths.map((path, index) => (
+          <path key={path} d={path} pathLength="1" style={{ "--route-delay": index * 0.06 } as CSSProperties} />
+        ))}
+      </g>
+      <g className="team-trace-pulses">
+        {trunkPaths.map((path, index) => (
+          <path key={path} d={path} pathLength="1" style={{ "--route-delay": index * 0.06 } as CSSProperties} />
+        ))}
+      </g>
+      {schoolIds.map((id) => {
+        const { pad } = schools[id]
+        return (
+          <g key={id} className="team-route-leader" data-active={active === id || undefined}>
+            {labelLayouts.map((layout) => {
+              const { lead, terminal } = schools[id][layout]
+              return (
+                <g className={"team-lead-" + layout} key={layout}>
+                  <path className="team-lead-base" d={lead} />
+                  <path className="team-lead-pulse" d={lead} pathLength="1" />
+                  <circle className="team-lead-terminal" cx={terminal[0]} cy={terminal[1]} r="2.4" />
+                </g>
+              )
+            })}
+            <circle cx={pad[0]} cy={pad[1]} r="12" className="team-route-halo" />
+            <circle cx={pad[0]} cy={pad[1]} r="5.8" className="team-route-ring" />
+            <circle cx={pad[0]} cy={pad[1]} r="3.3" className="team-route-pad" />
+          </g>
+        )
+      })}
+    </svg>
+  )
 }
 
 export function Team() {
-  const { t } = useI18n()
+  const { lang, t } = useI18n()
   const team = t.team
+  const nameSeparator = lang === "zh" ? "" : " "
+  const connectionId = useId()
+  const [selected, setSelected] = useState<SchoolId | null>(null)
+  const [hovered, setHovered] = useState<SchoolId | null>(null)
+  const [focused, setFocused] = useState<SchoolId | null>(null)
+  const active = hovered ?? focused ?? selected
+  const connections = selected === null ? [] : teamMembers.flatMap((member) =>
+    member.connections.filter(([school]) => school === selected).map(([, role]) => ({ member, role })),
+  )
 
   return (
-    <ChapterSection chapter="team" className="bg-paper">
+    <ChapterSection chapter="team" className="circuit-field team-section">
       <div className="container-page">
         <SectionHeader chapter="team" title={team.title} />
-
-        <h3 data-reveal className="mt-14 font-mono text-[12px] tracking-[0.06em] text-muted uppercase">
-          {team.core}
-        </h3>
-        <ul className="mt-5 grid max-w-[800px] gap-3 sm:grid-cols-2">
-          {teamMembers.map((member, index) => {
-            const details = [member.role, member.affiliation].filter((value) => value !== "")
-            const body = (
-              <>
-                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-mint text-[14px] font-bold tracking-[-0.02em] text-green">
-                  {initials(member.name)}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[16px] font-semibold tracking-[-0.015em] text-ink">{member.name}</span>
-                  {details.length > 0 && <span className="mt-0.5 block truncate text-[13.5px] text-body">{details.join(" · ")}</span>}
-                </span>
-                {member.link !== "" && <ArrowUpRight className="size-4 text-faint transition-colors group-hover:text-green" />}
-              </>
-            )
-            return (
-              <li key={member.name} data-reveal style={revealDelay((index % 3) * 0.05)}>
-                {member.link === "" ? (
-                  <div className="flex items-center gap-4 rounded-2xl border border-line bg-white px-4 py-4">{body}</div>
-                ) : (
-                  <a href={member.link} className="group flex items-center gap-4 rounded-2xl border border-line bg-white px-4 py-4 transition-colors hover:border-green/40">
-                    {body}
-                  </a>
-                )}
-              </li>
-            )
-          })}
-        </ul>
-
-        <div className="mt-14 grid gap-10 border-t border-line pt-10 md:grid-cols-2">
-          <div data-reveal>
-            <h3 className="font-mono text-[12px] tracking-[0.06em] text-muted uppercase">{team.institutions}</h3>
-            {institutions.length === 0 ? (
-              <p className="mt-4 text-[16px] text-faint">{team.institutionsEmpty}</p>
-            ) : (
-              <ul className="mt-4 flex flex-col gap-2 text-[16px] font-medium text-ink-2">
-                {institutions.map((name) => (
-                  <li key={name}>{name}</li>
+        <figure
+          className="team-map"
+          data-scroll-stage=""
+          onKeyDown={(event) => {
+            if (event.key === "Escape") setSelected(null)
+          }}
+        >
+          <div className="team-map-graphic">
+            <div className="team-map-sheet">
+              <img
+                className="team-map-image"
+                src="/media/team-circuit-map.svg"
+                alt=""
+                width={MAP_SIZE.width}
+                height={MAP_SIZE.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <MapRoutes active={active} />
+              <ul className="team-map-labels" aria-label={team.institutions}>
+                {schoolIds.map((id) => (
+                  <li key={id} style={mapPosition(schools[id])}>
+                    <button
+                      type="button"
+                      className="team-map-label"
+                      aria-label={team.schoolNames[id].join(nameSeparator)}
+                      aria-controls={connectionId}
+                      aria-expanded={selected === id}
+                      data-active={active === id || undefined}
+                      data-school={id}
+                      data-dock={schools[id].dock}
+                      onPointerEnter={(event) => {
+                        if (event.pointerType === "mouse") setHovered(id)
+                      }}
+                      onPointerLeave={() => setHovered(null)}
+                      onFocus={(event) => {
+                        if (event.currentTarget.matches(":focus-visible")) setFocused(id)
+                      }}
+                      onBlur={() => setFocused(null)}
+                      onClick={() => setSelected((current) => current === id ? null : id)}
+                    >
+                      <img className="team-map-logo" src={schools[id].logo} alt="" width={18} height={18} loading="lazy" />
+                      <span className="team-map-school-name">{team.schoolNames[id].join("\n")}</span>
+                    </button>
+                  </li>
                 ))}
               </ul>
-            )}
+            </div>
           </div>
-          <div data-reveal style={revealDelay(0.06)}>
-            <h3 className="font-mono text-[12px] tracking-[0.06em] text-muted uppercase">{team.contact}</h3>
-            <ul className="mt-4 flex flex-col gap-2.5">
-              <li>
-                <a href={GITHUB_ORG_URL} className="inline-flex items-center gap-2.5 text-[16px] font-medium text-ink-2 transition-colors hover:text-green">
-                  <GithubMark className="size-4" />
-                  {team.contactGithub}
-                  <ArrowUpRight className="size-3.5 text-faint" />
-                </a>
-              </li>
-              {contactEmail !== "" && (
-                <li>
-                  <a href={`mailto:${contactEmail}`} className="inline-flex items-center gap-2.5 text-[16px] font-medium text-ink-2 transition-colors hover:text-green">
-                    <Mail className="size-4" />
-                    {contactEmail}
+
+          <figcaption className="team-credits">
+            <ul aria-label={team.core}>
+              {teamMembers.map((member) => (
+                <li key={member.name}>
+                  <a
+                    href={member.link}
+                    className="team-credit"
+                    data-active={member.connections.some(([id]) => id === active) || undefined}
+                  >
+                    {member.name}
                   </a>
                 </li>
-              )}
+              ))}
             </ul>
-          </div>
-        </div>
+            <div id={connectionId} className="team-academic-links" hidden={selected === null}>
+              {selected !== null && (
+                <>
+                  <strong>{team.schoolNames[selected].join(nameSeparator)}</strong>
+                  <ul>
+                    {connections.map(({ member, role }) => (
+                      <li key={member.name}>
+                        <a href={member.link}>{member.name}</a><span> · {team.roles[role]}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          </figcaption>
+        </figure>
       </div>
     </ChapterSection>
   )

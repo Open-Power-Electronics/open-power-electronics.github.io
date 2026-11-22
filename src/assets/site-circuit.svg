@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1320" viewBox="0 0 1440 1320">
+  <defs>
+    <rect id="pad-h" x="-10" y="-3.75" width="20" height="7.5" rx="1.35" fill="black"/>
+    <rect id="pad-v" x="-3.75" y="-10" width="7.5" height="20" rx="1.35" fill="black"/>
+    <circle id="via" r="5.5" fill="none" stroke="black" stroke-width="2"/>
+    <circle id="through-hole" r="9" fill="none" stroke="black" stroke-width="4.5"/>
+  </defs>
+
+  <!-- The wide supply traces rejoin at the top and bottom of each tile. -->
+  <g fill="none" stroke="black" stroke-width="7.4" stroke-linecap="round" stroke-linejoin="round" opacity=".93">
+    <path d="M156 0V132L92 196V382L166 456V648L268 750H329L398 819V972L327 1043H242L156 1129V1320"/>
+    <path d="M440 0V126L502 188V315L447 370V505L485 543V601L458 628V705L536 783V900L478 958V1094L440 1132V1320"/>
+    <path d="M944 0V203L1016 275V436L1103 523V591L1035 659V850L984 901V1016L944 1056V1320"/>
+    <path d="M1288 0V118L1360 190V391L1264 487V653L1356 745V908L1288 976V1320"/>
+    <path d="M156 72H108L68 112V160M166 560H129L84 605H58M398 867H345L302 910H279"/>
+    <path d="M485 575H562L596 541H646L684 503V482L710 456V448M944 1133H1010L1063 1186V1239"/>
+    <path d="M1016 370H1043L1072 341H1105V311M1264 617H1214L1173 658V692"/>
+  </g>
+
+  <!-- Parallel routes and the pin fan-outs use different copper weights. -->
+  <g fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke-width="3.2" opacity=".77">
+      <path d="M205 0V92L243 130V178L210 211H169L137 243V339L205 407V516L220 531V627L320 727H352L428 803V979L363 1044V1084L205 1242V1320"/>
+      <path d="M909 0V193L979 263V360M879 1165V1222L909 1252V1320M1125 372h44l34 34v21l33 33v111l-58 58v20"/>
+      <path d="M1243 0V115L1328 200V367L1302 393H1260M1332 762v123l-77 77v95l-38 38v107l26 26v92"/>
+      <path d="M502 239h32l39 39h26M447 476h-40l-57 57H289M458 664h-52l-41-41h-84"/>
+      <path d="M536 848h48l41 41h28v58M740 967v70l-50 50v37l-34 34h-57M984 944h-65l-38-38h-52v41"/>
+    </g>
+    <g stroke-width="1.75" opacity=".78">
+      <path d="M676 334H638L607 303H580M676 366H607L592 351H535"/>
+      <path d="M676 382H602L561 423H510M676 398H626L568 456H531M676 414H644L639 419V458L623 474H601"/>
+      <path d="M710 302V284L690 264V236L658 204H635M742 302V190L725 173V98L701 74"/>
+      <path d="M758 302V258L781 235V207L801 187H865M774 302V280L819 235H856L879 212H904M790 302V294L824 260H884"/>
+      <path d="M822 334H861L888 307V290M822 366H899L934 331V304"/>
+      <path d="M822 382H868L901 415H952M822 398H859L907 446H966M822 414H845L897 466H1003"/>
+      <path d="M726 448V476L699 503V545L675 569H650M742 448V467L727 482V523L744 540V609"/>
+      <path d="M758 448V482L774 498V549L806 581H855M790 448V454L815 479H846"/>
+      <path d="M1134 294v-38l22-22h68M1163 294v-24l20-20h74M1192 294v-12l15-15h74"/>
+      <path d="M1134 310v18l30 30h15l40 40v14M1163 310v11l23 23h15l35 35v19M1192 310h18l43 43h39"/>
+      <path d="M653 965v54l-43 43h-46M682 965v17l-23 23v32l-36 36h-27M711 965v56l-20 20v20l-22 22h-36"/>
+      <path d="M769 965v27l27 27v55l24 24h55M798 965v14l30 30v54l22 22h47M829 965v9l39 39v42h40"/>
+      <path d="M84 250h-25l-30 30v40M68 172v15l-24 24v30M327 1043l28 28v42l30 30v48"/>
+      <path d="M218 542h28l35 35h16M225 562h12l32 32h41M268 750h-24l-40 40h-66M263 769h-14l-33 33h-51"/>
+      <path d="M1128 739v21l-25 25v41M1154 737v35l-34 34v40M1072 1107v54l23 23v47"/>
+    </g>
+    <g stroke-width="1.4" opacity=".49">
+      <path d="M603 655h56l30 30v34l32 32h72l39 39v56"/>
+      <path d="M640 0v53l27 27v49l18 18M702 1200H674L640 1234V1320M1214 0v90l-19 19v58l-33 33h-30M1144 1215h11l59 59v46"/>
+      <path d="M98 918h88l39-39h46M113 942h83l43-43h32M1369 574h28l20 20v50"/>
+    </g>
+  </g>
+
+  <g opacity=".85">
+    <use href="#through-hole" x="68" y="160"/>
+    <use href="#through-hole" x="58" y="605"/>
+    <use href="#through-hole" x="279" y="910"/>
+    <use href="#through-hole" x="1063" y="1239"/>
+    <use href="#through-hole" x="1173" y="692"/>
+    <use href="#through-hole" x="1105" y="302"/>
+    <use href="#through-hole" x="1134" y="302"/>
+    <use href="#through-hole" x="1163" y="302"/>
+    <use href="#through-hole" x="1192" y="302"/>
+    <use href="#through-hole" x="653" y="956"/>
+    <use href="#through-hole" x="682" y="956"/>
+    <use href="#through-hole" x="711" y="956"/>
+    <use href="#through-hole" x="740" y="956"/>
+    <use href="#through-hole" x="769" y="956"/>
+    <use href="#through-hole" x="798" y="956"/>
+    <use href="#through-hole" x="829" y="956"/>
+  </g>
+
+  <!-- The square footprint has routed pads on all four sides. -->
+  <g opacity=".77">
+    <use href="#pad-h" x="685" y="334"/><use href="#pad-h" x="685" y="350"/>
+    <use href="#pad-h" x="685" y="366"/><use href="#pad-h" x="685" y="382"/>
+    <use href="#pad-h" x="685" y="398"/><use href="#pad-h" x="685" y="414"/>
+    <use href="#pad-h" x="813" y="334"/><use href="#pad-h" x="813" y="350"/>
+    <use href="#pad-h" x="813" y="366"/><use href="#pad-h" x="813" y="382"/>
+    <use href="#pad-h" x="813" y="398"/><use href="#pad-h" x="813" y="414"/>
+    <use href="#pad-v" x="710" y="311"/><use href="#pad-v" x="726" y="311"/>
+    <use href="#pad-v" x="742" y="311"/><use href="#pad-v" x="758" y="311"/>
+    <use href="#pad-v" x="774" y="311"/><use href="#pad-v" x="790" y="311"/>
+    <use href="#pad-v" x="710" y="439"/><use href="#pad-v" x="726" y="439"/>
+    <use href="#pad-v" x="742" y="439"/><use href="#pad-v" x="758" y="439"/>
+    <use href="#pad-v" x="774" y="439"/><use href="#pad-v" x="790" y="439"/>
+    <use href="#pad-h" x="278" y="879"/><use href="#pad-h" x="278" y="899"/>
+    <use href="#pad-v" x="1128" y="731"/><use href="#pad-v" x="1154" y="731"/>
+  </g>
+
+  <g fill="none" stroke="black" stroke-width="1.5" opacity=".48">
+    <path d="M696 338v-16h16m74 0h16v16m0 74v16h-16m-74 0h-16v-16"/>
+    <path d="M1092 282h116v39h-116zm-454 652h206v43H638z"/>
+    <path d="M268 866h20v46h-20zm847-142h52v14h-52z"/>
+    <circle cx="709" cy="337" r="4.5"/>
+  </g>
+
+  <g opacity=".78">
+    <use href="#via" x="605" y="278"/><use href="#via" x="574" y="303"/>
+    <use href="#via" x="529" y="351"/>
+    <use href="#via" x="504" y="423"/><use href="#via" x="525" y="456"/>
+    <use href="#via" x="595" y="474"/><use href="#via" x="629" y="204"/>
+    <use href="#via" x="697" y="70"/>
+    <use href="#via" x="871" y="187"/><use href="#via" x="910" y="212"/>
+    <use href="#via" x="890" y="260"/><use href="#via" x="888" y="284"/>
+    <use href="#via" x="934" y="298"/>
+    <use href="#via" x="958" y="415"/><use href="#via" x="972" y="446"/>
+    <use href="#via" x="1009" y="466"/><use href="#via" x="644" y="569"/>
+    <use href="#via" x="744" y="615"/><use href="#via" x="861" y="581"/>
+    <use href="#via" x="852" y="479"/>
+    <use href="#via" x="1230" y="234"/><use href="#via" x="1263" y="250"/>
+    <use href="#via" x="1287" y="267"/><use href="#via" x="1219" y="418"/>
+    <use href="#via" x="1236" y="404"/><use href="#via" x="1298" y="353"/>
+    <use href="#via" x="558" y="1062"/><use href="#via" x="590" y="1073"/>
+    <use href="#via" x="627" y="1083"/><use href="#via" x="881" y="1098"/>
+    <use href="#via" x="903" y="1085"/><use href="#via" x="914" y="1055"/>
+    <use href="#via" x="832" y="852"/>
+    <use href="#via" x="879" y="1159"/><use href="#via" x="708" y="1200"/>
+    <use href="#via" x="1138" y="1215"/><use href="#via" x="1126" y="200"/>
+  </g>
+</svg>

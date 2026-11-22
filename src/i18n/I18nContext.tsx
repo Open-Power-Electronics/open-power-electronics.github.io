@@ -45,7 +45,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    document.documentElement.lang = lang
+    document.documentElement.lang = lang === "zh" ? "zh-Hans" : lang
     document.title = content[lang].meta.title
   }, [lang])
 

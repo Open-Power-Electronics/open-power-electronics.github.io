@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 476">
+  <!-- Land positions derived from Natural Earth v5.1.2 1:110m land polygons (public domain).
+       https://github.com/nvkelso/natural-earth-vector/blob/v5.1.2/geojson/ne_110m_land.geojson -->
+  <defs>
+    <circle id="via" r="2.15" fill="none" stroke="#648f74" stroke-width="1.05"/>
+    <circle id="point" r="1.65" fill="#648f74"/>
+  </defs>
+  <g fill="none" stroke="#648f74" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.12">
+    <path opacity="0.56" d="M994 405 980 405 938 363"/>
+    <path opacity="0.45" d="M756 97 756 181 770 195 798 195 812 181"/>
+    <path opacity="0.74" stroke-width="1.52" d="M434 321 364 391 364 405"/>
+    <path opacity="0.53" d="M602 279 672 279 686 293 700 279 700 265 672 265"/>
+    <path opacity="0.63" stroke-width="1.52" d="M322 167 294 195 266 195 238 167 224 181"/>
+    <path opacity="0.32" d="M826 83 868 125"/>
+    <path opacity="0.44" d="M952 125 910 125 854 69 826 69"/>
+    <path opacity="0.65" stroke-width="1.52" d="M868 251 868 209 882 195 896 209 896 223 882 223"/>
+    <path opacity="0.73" stroke-width="1.52" d="M854 125 896 167 938 167 966 139"/>
+    <path opacity="0.42" d="M868 167 840 195 826 195"/>
+    <path opacity="0.34" d="M420 97 420 55 434 41 448 41"/>
+    <path opacity="0.28" d="M574 223 546 251 518 251 518 223 546 195"/>
+    <path opacity="0.28" d="M616 307 616 349 644 377 644 391 616 391 616 363 602 349"/>
+    <path opacity="0.48" d="M854 209 854 251 868 265"/>
+    <path opacity="0.37" d="M980 335 980 391 1008 391 1008 377"/>
+    <path opacity="0.31" d="M350 41 378 41 406 69"/>
+    <path opacity="0.47" d="M196 111 252 111"/>
+    <path opacity="0.52" d="M364 293 336 293 336 279 364 279"/>
+    <path opacity="0.67" stroke-width="1.52" d="M742 153 728 153 686 111 686 97 714 97"/>
+    <path opacity="0.43" d="M812 69 798 69 770 97 770 111"/>
+    <path opacity="0.53" d="M364 265 392 293 392 307"/>
+    <path opacity="0.31" d="M336 335 336 307 350 307"/>
+    <path opacity="0.56" d="M910 377 910 363 924 349 966 349 966 363"/>
+    <path opacity="0.53" d="M406 321 350 321 350 335"/>
+    <path opacity="0.39" d="M784 111 784 97 798 83 812 83 840 111 840 153 854 167 840 181"/>
+    <path opacity="0.40" d="M630 209 672 209 700 181"/>
+    <path opacity="0.49" d="M560 195 560 223 546 237 532 237"/>
+    <path opacity="0.69" stroke-width="1.52" d="M308 195 336 167 322 153 294 153 266 181"/>
+    <path opacity="0.44" d="M644 97 644 83 616 83 588 111"/>
+    <path opacity="0.53" d="M406 363 406 391 378 391 378 405 364 419"/>
+    <path opacity="0.71" stroke-width="1.52" d="M924 97 924 111 980 111 1008 83"/>
+    <path opacity="0.32" d="M896 125 924 153 938 153 952 139"/>
+    <path opacity="0.32" d="M770 181 798 153 798 139"/>
+    <path opacity="0.67" stroke-width="1.52" d="M476 55 490 55 490 41 462 41 434 69 434 83"/>
+    <path opacity="0.43" d="M378 293 378 307 364 307"/>
+    <path opacity="0.51" d="M154 111 126 83 98 83"/>
+    <path opacity="0.71" stroke-width="1.52" d="M658 293 672 293 672 321 644 349 630 349 630 293"/>
+    <path opacity="0.46" d="M784 139 784 153 770 167"/>
+    <path opacity="0.28" d="M182 125 140 83"/>
+    <path opacity="0.57" d="M966 97 966 83 980 69 994 83 980 97"/>
+    <path opacity="0.67" stroke-width="1.52" d="M672 251 658 265 602 265 588 279 602 293 616 293"/>
+    <path opacity="0.45" d="M924 377 938 391 952 391"/>
+    <path opacity="0.65" stroke-width="1.52" d="M812 195 840 167 798 125 798 97 812 97 826 111 826 125"/>
+    <path opacity="0.63" stroke-width="1.52" d="M210 125 266 125 280 111 280 97 294 83"/>
+    <path opacity="0.47" d="M1064 97 1050 83 1022 83 994 111"/>
+    <path opacity="0.57" d="M588 293 602 307 602 335"/>
+    <path opacity="0.31" d="M588 223 602 209 616 209 658 251"/>
+    <path opacity="0.49" d="M854 139 882 167"/>
+    <path opacity="0.52" d="M728 237 700 209 700 195 714 195 728 209"/>
+    <path opacity="0.55" d="M644 293 644 335"/>
+    <path opacity="0.76" stroke-width="1.52" d="M700 223 714 237 700 251 686 251 686 209"/>
+    <path opacity="0.56" d="M378 55 350 55 336 41 308 41"/>
+    <path opacity="0.57" d="M420 307 434 307 448 321 448 335 420 363"/>
+    <path opacity="0.44" d="M364 335 406 335 420 321 406 307 406 293 392 279"/>
+    <path opacity="0.58" d="M910 153 896 153 882 139 882 111 868 97"/>
+    <path opacity="0.49" d="M574 209 574 195 588 181"/>
+    <path opacity="0.46" d="M924 391 910 391 896 377"/>
+    <path opacity="0.51" d="M350 97 336 111 336 125 350 125 350 111 336 97"/>
+    <path opacity="0.35" d="M588 237 602 223 616 223 630 237"/>
+    <path opacity="0.45" d="M434 97 462 69 490 69"/>
+    <path opacity="0.52" d="M392 349 364 377"/>
+    <path opacity="0.28" d="M868 69 896 69 910 83 938 83"/>
+    <path opacity="0.38" d="M658 363 658 349 672 335"/>
+    <path opacity="0.54" d="M672 195 672 181 644 181"/>
+    <path opacity="0.37" d="M252 69 224 97 182 97 168 83 154 83"/>
+    <path opacity="0.56" d="M574 265 574 237"/>
+    <path opacity="0.33" d="M770 223 840 223"/>
+    <path opacity="0.34" d="M1008 111 1022 97 1050 97"/>
+    <path opacity="0.45" d="M714 125 714 111 742 83"/>
+    <path opacity="0.52" d="M658 139 644 153 630 139 630 125 658 125"/>
+    <path opacity="0.28" d="M644 251 588 251 588 265"/>
+    <path opacity="0.36" d="M546 209 546 223 532 223"/>
+    <path opacity="0.41" d="M560 251 560 279 532 279"/>
+    <path opacity="0.52" d="M280 125 266 139 210 139 168 97"/>
+    <path opacity="0.53" d="M84 83 98 97 126 97"/>
+    <path opacity="0.31" d="M238 97 266 97 266 111"/>
+    <path opacity="0.51" d="M882 83 896 83 910 97 910 111"/>
+    <path opacity="0.35" d="M672 139 686 125 658 97"/>
+    <path opacity="0.37" d="M798 167 812 153 826 167"/>
+    <path opacity="0.31" d="M210 83 182 83"/>
+    <path opacity="0.31" d="M812 167 798 181 784 181"/>
+    <path opacity="0.33" d="M910 307 896 293 882 293"/>
+    <path opacity="0.46" d="M868 111 840 83"/>
+    <path opacity="0.48" d="M980 321 966 321 966 307 952 307"/>
+    <path opacity="0.51" d="M798 237 784 251 784 265"/>
+    <path opacity="0.42" d="M378 349 364 363 350 349"/>
+    <path opacity="0.43" d="M546 139 560 153 602 153"/>
+    <path opacity="0.30" d="M686 139 700 139 700 153 686 153"/>
+    <path opacity="0.51" d="M742 125 728 111 742 97"/>
+    <path opacity="0.45" d="M742 139 728 139 728 125"/>
+    <path opacity="0.33" d="M770 139 770 125 784 125"/>
+    <path opacity="0.46" d="M350 447 364 433 350 419 350 405"/>
+    <path opacity="0.48" d="M364 97 350 83 336 83"/>
+    <path opacity="0.52" d="M826 139 812 125 812 111"/>
+    <path opacity="0.51" d="M294 181 294 167 308 167"/>
+    <path opacity="0.32" d="M742 167 742 181 756 195"/>
+    <path opacity="0.48" d="M238 209 266 237"/>
+    <path opacity="0.47" d="M518 265 546 265"/>
+    <path opacity="0.53" d="M952 83 952 97 938 97"/>
+  </g>
+  <g>
+    <use href="#via" x="994" y="405" opacity="0.56"/>
+    <use href="#via" x="938" y="363" opacity="0.56"/>
+    <use href="#via" x="756" y="97" opacity="0.45"/>
+    <use href="#point" x="434" y="321" opacity="0.74"/>
+    <use href="#via" x="602" y="279" opacity="0.53"/>
+    <use href="#via" x="672" y="265" opacity="0.53"/>
+    <use href="#point" x="322" y="167" opacity="0.63"/>
+    <use href="#point" x="224" y="181" opacity="0.63"/>
+    <use href="#point" x="826" y="83" opacity="0.32"/>
+    <use href="#via" x="868" y="125" opacity="0.32"/>
+    <use href="#point" x="952" y="125" opacity="0.44"/>
+    <use href="#via" x="826" y="69" opacity="0.44"/>
+    <use href="#point" x="868" y="251" opacity="0.65"/>
+    <use href="#via" x="854" y="125" opacity="0.73"/>
+    <use href="#via" x="966" y="139" opacity="0.73"/>
+    <use href="#via" x="868" y="167" opacity="0.42"/>
+    <use href="#via" x="826" y="195" opacity="0.42"/>
+    <use href="#via" x="420" y="97" opacity="0.34"/>
+    <use href="#point" x="448" y="41" opacity="0.34"/>
+    <use href="#via" x="574" y="223" opacity="0.28"/>
+    <use href="#via" x="546" y="195" opacity="0.28"/>
+    <use href="#via" x="616" y="307" opacity="0.28"/>
+    <use href="#via" x="854" y="209" opacity="0.48"/>
+    <use href="#via" x="868" y="265" opacity="0.48"/>
+    <use href="#point" x="980" y="335" opacity="0.37"/>
+    <use href="#via" x="1008" y="377" opacity="0.37"/>
+    <use href="#via" x="350" y="41" opacity="0.31"/>
+    <use href="#via" x="406" y="69" opacity="0.31"/>
+    <use href="#via" x="196" y="111" opacity="0.47"/>
+    <use href="#via" x="252" y="111" opacity="0.47"/>
+    <use href="#via" x="364" y="293" opacity="0.52"/>
+    <use href="#via" x="364" y="279" opacity="0.52"/>
+    <use href="#via" x="742" y="153" opacity="0.67"/>
+    <use href="#via" x="812" y="69" opacity="0.43"/>
+    <use href="#point" x="770" y="111" opacity="0.43"/>
+    <use href="#point" x="364" y="265" opacity="0.53"/>
+    <use href="#via" x="392" y="307" opacity="0.53"/>
+    <use href="#via" x="336" y="335" opacity="0.31"/>
+    <use href="#via" x="350" y="307" opacity="0.31"/>
+    <use href="#via" x="910" y="377" opacity="0.56"/>
+    <use href="#point" x="966" y="363" opacity="0.56"/>
+    <use href="#via" x="406" y="321" opacity="0.53"/>
+    <use href="#via" x="350" y="335" opacity="0.53"/>
+    <use href="#via" x="784" y="111" opacity="0.39"/>
+    <use href="#point" x="630" y="209" opacity="0.40"/>
+    <use href="#point" x="700" y="181" opacity="0.40"/>
+    <use href="#via" x="560" y="195" opacity="0.49"/>
+    <use href="#point" x="532" y="237" opacity="0.49"/>
+    <use href="#via" x="308" y="195" opacity="0.69"/>
+    <use href="#via" x="266" y="181" opacity="0.69"/>
+    <use href="#point" x="644" y="97" opacity="0.44"/>
+    <use href="#via" x="588" y="111" opacity="0.44"/>
+    <use href="#via" x="406" y="363" opacity="0.53"/>
+    <use href="#point" x="364" y="419" opacity="0.53"/>
+    <use href="#via" x="924" y="97" opacity="0.71"/>
+    <use href="#via" x="1008" y="83" opacity="0.71"/>
+    <use href="#via" x="896" y="125" opacity="0.32"/>
+    <use href="#via" x="952" y="139" opacity="0.32"/>
+    <use href="#point" x="770" y="181" opacity="0.32"/>
+    <use href="#via" x="798" y="139" opacity="0.32"/>
+    <use href="#point" x="476" y="55" opacity="0.67"/>
+    <use href="#via" x="378" y="293" opacity="0.43"/>
+    <use href="#via" x="154" y="111" opacity="0.51"/>
+    <use href="#via" x="98" y="83" opacity="0.51"/>
+    <use href="#via" x="658" y="293" opacity="0.71"/>
+    <use href="#via" x="630" y="293" opacity="0.71"/>
+    <use href="#via" x="784" y="139" opacity="0.46"/>
+    <use href="#via" x="770" y="167" opacity="0.46"/>
+    <use href="#via" x="182" y="125" opacity="0.28"/>
+    <use href="#point" x="966" y="97" opacity="0.57"/>
+    <use href="#via" x="980" y="97" opacity="0.57"/>
+    <use href="#point" x="672" y="251" opacity="0.67"/>
+    <use href="#via" x="924" y="377" opacity="0.45"/>
+    <use href="#point" x="952" y="391" opacity="0.45"/>
+    <use href="#point" x="812" y="195" opacity="0.65"/>
+    <use href="#via" x="826" y="125" opacity="0.65"/>
+    <use href="#via" x="210" y="125" opacity="0.63"/>
+    <use href="#via" x="1064" y="97" opacity="0.47"/>
+    <use href="#via" x="588" y="293" opacity="0.57"/>
+    <use href="#point" x="602" y="335" opacity="0.57"/>
+    <use href="#point" x="588" y="223" opacity="0.31"/>
+    <use href="#via" x="658" y="251" opacity="0.31"/>
+    <use href="#via" x="854" y="139" opacity="0.49"/>
+    <use href="#via" x="882" y="167" opacity="0.49"/>
+    <use href="#point" x="728" y="237" opacity="0.52"/>
+    <use href="#via" x="728" y="209" opacity="0.52"/>
+    <use href="#via" x="644" y="293" opacity="0.55"/>
+    <use href="#via" x="644" y="335" opacity="0.55"/>
+    <use href="#via" x="700" y="223" opacity="0.76"/>
+    <use href="#via" x="378" y="55" opacity="0.56"/>
+    <use href="#point" x="308" y="41" opacity="0.56"/>
+    <use href="#point" x="420" y="307" opacity="0.57"/>
+    <use href="#via" x="420" y="363" opacity="0.57"/>
+    <use href="#via" x="364" y="335" opacity="0.44"/>
+    <use href="#via" x="392" y="279" opacity="0.44"/>
+    <use href="#via" x="910" y="153" opacity="0.58"/>
+    <use href="#point" x="868" y="97" opacity="0.58"/>
+    <use href="#via" x="574" y="209" opacity="0.49"/>
+    <use href="#via" x="924" y="391" opacity="0.46"/>
+    <use href="#point" x="896" y="377" opacity="0.46"/>
+    <use href="#point" x="350" y="97" opacity="0.51"/>
+    <use href="#via" x="336" y="97" opacity="0.51"/>
+    <use href="#via" x="588" y="237" opacity="0.35"/>
+    <use href="#point" x="630" y="237" opacity="0.35"/>
+    <use href="#point" x="434" y="97" opacity="0.45"/>
+    <use href="#via" x="490" y="69" opacity="0.45"/>
+    <use href="#via" x="392" y="349" opacity="0.52"/>
+    <use href="#via" x="364" y="377" opacity="0.52"/>
+    <use href="#via" x="868" y="69" opacity="0.28"/>
+    <use href="#via" x="938" y="83" opacity="0.28"/>
+    <use href="#via" x="658" y="363" opacity="0.38"/>
+    <use href="#via" x="672" y="335" opacity="0.38"/>
+    <use href="#via" x="672" y="195" opacity="0.54"/>
+    <use href="#via" x="644" y="181" opacity="0.54"/>
+    <use href="#point" x="252" y="69" opacity="0.37"/>
+    <use href="#point" x="154" y="83" opacity="0.37"/>
+    <use href="#point" x="574" y="265" opacity="0.56"/>
+    <use href="#via" x="574" y="237" opacity="0.56"/>
+    <use href="#via" x="770" y="223" opacity="0.33"/>
+    <use href="#via" x="840" y="223" opacity="0.33"/>
+    <use href="#point" x="1008" y="111" opacity="0.34"/>
+    <use href="#via" x="1050" y="97" opacity="0.34"/>
+    <use href="#point" x="714" y="125" opacity="0.45"/>
+    <use href="#point" x="742" y="83" opacity="0.45"/>
+    <use href="#via" x="658" y="139" opacity="0.52"/>
+    <use href="#point" x="658" y="125" opacity="0.52"/>
+    <use href="#via" x="644" y="251" opacity="0.28"/>
+    <use href="#point" x="588" y="265" opacity="0.28"/>
+    <use href="#point" x="546" y="209" opacity="0.36"/>
+    <use href="#via" x="532" y="223" opacity="0.36"/>
+    <use href="#via" x="560" y="251" opacity="0.41"/>
+    <use href="#via" x="532" y="279" opacity="0.41"/>
+    <use href="#point" x="280" y="125" opacity="0.52"/>
+    <use href="#point" x="84" y="83" opacity="0.53"/>
+    <use href="#point" x="126" y="97" opacity="0.53"/>
+    <use href="#via" x="238" y="97" opacity="0.31"/>
+    <use href="#point" x="266" y="111" opacity="0.31"/>
+    <use href="#via" x="882" y="83" opacity="0.51"/>
+    <use href="#point" x="910" y="111" opacity="0.51"/>
+    <use href="#via" x="672" y="139" opacity="0.35"/>
+    <use href="#via" x="658" y="97" opacity="0.35"/>
+    <use href="#via" x="798" y="167" opacity="0.37"/>
+    <use href="#via" x="826" y="167" opacity="0.37"/>
+    <use href="#point" x="210" y="83" opacity="0.31"/>
+    <use href="#point" x="182" y="83" opacity="0.31"/>
+    <use href="#point" x="812" y="167" opacity="0.31"/>
+    <use href="#via" x="784" y="181" opacity="0.31"/>
+    <use href="#point" x="910" y="307" opacity="0.33"/>
+    <use href="#via" x="868" y="111" opacity="0.46"/>
+    <use href="#point" x="840" y="83" opacity="0.46"/>
+    <use href="#point" x="980" y="321" opacity="0.48"/>
+    <use href="#via" x="952" y="307" opacity="0.48"/>
+    <use href="#point" x="798" y="237" opacity="0.51"/>
+    <use href="#via" x="784" y="265" opacity="0.51"/>
+    <use href="#via" x="378" y="349" opacity="0.42"/>
+    <use href="#via" x="350" y="349" opacity="0.42"/>
+    <use href="#via" x="546" y="139" opacity="0.43"/>
+    <use href="#point" x="686" y="139" opacity="0.30"/>
+    <use href="#point" x="686" y="153" opacity="0.30"/>
+    <use href="#via" x="742" y="125" opacity="0.51"/>
+    <use href="#via" x="742" y="97" opacity="0.51"/>
+    <use href="#via" x="742" y="139" opacity="0.45"/>
+    <use href="#via" x="728" y="125" opacity="0.45"/>
+    <use href="#via" x="770" y="139" opacity="0.33"/>
+    <use href="#point" x="784" y="125" opacity="0.33"/>
+    <use href="#via" x="350" y="447" opacity="0.46"/>
+    <use href="#via" x="350" y="405" opacity="0.46"/>
+    <use href="#via" x="364" y="97" opacity="0.48"/>
+    <use href="#point" x="336" y="83" opacity="0.48"/>
+    <use href="#via" x="826" y="139" opacity="0.52"/>
+    <use href="#point" x="294" y="181" opacity="0.51"/>
+    <use href="#via" x="308" y="167" opacity="0.51"/>
+    <use href="#via" x="742" y="167" opacity="0.32"/>
+    <use href="#point" x="756" y="195" opacity="0.32"/>
+    <use href="#via" x="238" y="209" opacity="0.48"/>
+    <use href="#via" x="518" y="265" opacity="0.47"/>
+    <use href="#point" x="546" y="265" opacity="0.47"/>
+    <use href="#via" x="952" y="83" opacity="0.53"/>
+    <use href="#via" x="686" y="181" opacity="0.4"/>
+    <use href="#via" x="588" y="209" opacity="0.4"/>
+    <use href="#via" x="672" y="125" opacity="0.4"/>
+    <use href="#point" x="658" y="223" opacity="0.4"/>
+    <use href="#via" x="616" y="237" opacity="0.4"/>
+    <use href="#via" x="728" y="167" opacity="0.4"/>
+  </g>
+</svg>

@@ -46,11 +46,11 @@ export function Nav() {
   return (
     <div
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
-        scrolled ? "border-b border-line/80 bg-white/80 backdrop-blur-xl" : "border-b border-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300",
+        scrolled ? "border-b border-line bg-white" : "border-b border-transparent",
       )}
     >
-      <nav className="container-page flex h-16 items-center justify-between gap-6" aria-label="Primary">
+      <nav className="container-page flex h-16 items-center justify-between gap-6" aria-label={t.nav.primaryLabel}>
         <a href="#top" className="shrink-0" aria-label="OpenPE">
           <Wordmark />
         </a>
@@ -61,7 +61,7 @@ export function Nav() {
                 href={`#${chapter}`}
                 aria-current={active === chapter ? "location" : undefined}
                 className={cn(
-                  "rounded-full px-3 py-2 text-[14px] font-medium transition-colors",
+                  "rounded-full px-3 py-2 text-[14px] whitespace-nowrap font-medium transition-colors",
                   active === chapter ? "bg-mint text-green" : "text-body hover:bg-paper hover:text-ink",
                 )}
               >

@@ -1,34 +1,12 @@
 import type { CSSProperties, ReactNode } from "react"
-import { chapterNumber, subsectionNumber, type Chapter } from "@/content/site.ts"
-import { useI18n } from "@/i18n/I18nContext.tsx"
+import { CHAPTERS, type Chapter } from "@/content/site.ts"
 import { cn } from "@/lib/utils.ts"
 
 export function ChapterSection({ chapter, className, children }: { chapter: Chapter; className?: string; children: ReactNode }) {
   return (
-    <section id={chapter} className={cn("relative border-t border-line py-28 md:py-36", className)}>
+    <section id={chapter} aria-labelledby={chapter + "-heading"} className={cn("chapter-section relative border-t border-line", className)}>
       {children}
     </section>
-  )
-}
-
-function ChapterMarker({ chapter }: { chapter: Chapter }) {
-  const { t } = useI18n()
-  return (
-    <p className="flex items-center gap-3.5">
-      <span className="rounded-lg bg-green px-2.5 py-1.5 font-mono text-[14.5px] leading-none font-semibold text-white tabular-nums">
-        {chapterNumber(chapter)}
-      </span>
-      <span className="text-[20px] leading-none font-bold tracking-[-0.02em] text-ink">{t.nav[chapter]}</span>
-    </p>
-  )
-}
-
-export function SubsectionMarker({ chapter, index, name }: { chapter: Chapter; index: number; name: string }) {
-  return (
-    <p className="flex items-baseline gap-3 font-mono text-[12.5px] leading-none tracking-[0.08em] uppercase">
-      <span className="font-semibold text-green tabular-nums">{subsectionNumber(chapter, index)}</span>
-      <span className="text-muted">{name}</span>
-    </p>
   )
 }
 
@@ -40,54 +18,17 @@ export function SectionHeader({
 }: {
   chapter: Chapter
   title: string
-  lede?: string
+  lede?: ReactNode
   className?: string
 }) {
-  return (
-    <header data-reveal className={cn("flex max-w-[760px] flex-col gap-7", className)}>
-      <ChapterMarker chapter={chapter} />
-      <h2 className="heading text-balance text-[36px] sm:text-[44px] lg:text-[56px]">{title}</h2>
-      {lede !== undefined && <p className="lede max-w-[620px] text-pretty">{lede}</p>}
-    </header>
-  )
-}
+  const number = String(CHAPTERS.indexOf(chapter) + 1).padStart(2, "0")
 
-export function SubsectionHeader({
-  chapter,
-  index,
-  name,
-  title,
-  lede,
-  className,
-}: {
-  chapter: Chapter
-  index: number
-  name: string
-  title: string
-  lede?: string
-  className?: string
-}) {
   return (
-    <header data-reveal className={cn("flex max-w-[680px] flex-col gap-5", className)}>
-      <SubsectionMarker chapter={chapter} index={index} name={name} />
-      <h3 className="heading text-balance text-[28px] sm:text-[34px] lg:text-[40px]">{title}</h3>
-      {lede !== undefined && <p className="max-w-[560px] text-[16px] leading-relaxed text-pretty text-body md:text-[17px]">{lede}</p>}
+    <header data-reveal className={cn("chapter-heading max-w-[800px]", className)}>
+      <span className="chapter-index" aria-hidden="true">{number}</span>
+      <h2 id={chapter + "-heading"} className="heading chapter-title text-balance">{title}</h2>
+      {lede !== undefined && <p className="chapter-lede lede max-w-[620px] text-pretty">{lede}</p>}
     </header>
-  )
-}
-
-export function Chip({ children, tone = "neutral", className }: { children: ReactNode; tone?: "neutral" | "green"; className?: string }) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11.5px] leading-none whitespace-nowrap",
-        tone === "neutral" && "border-line bg-white text-body",
-        tone === "green" && "border-green/20 bg-mint text-green",
-        className,
-      )}
-    >
-      {children}
-    </span>
   )
 }
 

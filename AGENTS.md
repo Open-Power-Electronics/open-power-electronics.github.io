@@ -4,7 +4,7 @@ Static promo site for OpenPE. Every product claim must be traceable to the OpenP
 
 ## Stack
 
-Vite 8, React 19, TypeScript 6, Tailwind CSS 4 (`@tailwindcss/vite`), lucide-react, oxlint. `cn()` is clsx + tailwind-merge. Fonts are self-hosted: Inter Variable (optical size axis) for text, JetBrains Mono Variable for technical labels. English is the default. Chinese is an explicit toggle stored in `localStorage` as `openpe-lang`. Never read `navigator.language`. All copy lives in `src/i18n/content.ts`; both languages share one typed shape. Team and contact data live in `src/content/team.ts`; empty strings render nothing.
+Vite 8, React 19, TypeScript 6, Tailwind CSS 4 (`@tailwindcss/vite`), lucide-react, oxlint. `cn()` is clsx + tailwind-merge. Fonts are self-hosted: Inter Variable (optical size axis) for text, JetBrains Mono Variable for technical labels. English is the default. Chinese is an explicit toggle stored in `localStorage` as `openpe-lang`. Never read `navigator.language`. All copy lives in `src/i18n/content.ts`; both languages share one typed shape. Author profiles, academic connections and circuit-map positions live in `src/content/team.ts`.
 
 ## Commands
 
@@ -22,12 +22,11 @@ scripts/cut-clips.sh /absolute/path/to/OpenPE-Workflow-Demo.mp4
 
 ## Design
 
-The page follows the promo film: white paper with mint corner radials, deep green accents, extra-bold tight headlines, and a datasheet-like layer of mono labels, hairlines and numbered chapters. `CHAPTERS` in `src/content/site.ts` is the single ordered list behind section anchors, nav entries and chapter numbers; a chapter marker is a solid green two-digit badge followed by the nav name in bold Inter (`03` Agents), and a subsection label is a plain mono line with a green number without the leading zero and a muted uppercase name (`3.1  AGENT PARITY`). Lists inside a subsection are not numbered. Tokens are defined once in `src/index.css` under `@theme`; use them instead of raw hex values.
+The hero and Team share a pale mint background. The rest of the page uses white. Deep green accents and a low-contrast PCB pattern with distinct power routes, signal traces and pads run throughout the site. The first section contains the full film player. CHAPTERS in src/content/site.ts owns section order, title numbering and navigation anchors. A monospaced number and short rule sit above each chapter title. Use the tokens in src/index.css.
 
 - Ink `#1F2622`, body `#505854`, muted `#7D8781`, hairline `#E3E8E4`, paper `#FAFCF9`, mint `#E7F1E9`, green `#206F39`, signal `#88EA5C` (dots and highlights only).
-- Architecture blocks: Agent `#E6EFFC`, Human `#DFF1F2`, Uniform API `#EBE3F6`, Core `#ECF5E9`, Plugins `#F8EBE4`. Chart: Baseline `#A36734`, Tuned `#39784E`, ±1% band `#EAF7EC`.
-- Media sits in `.window` frames (radius 20px, hairline border, layered shadow). The hero board uses `mix-blend-multiply` so its white surround disappears.
-- Motion: `.rise` on first paint, `[data-reveal]` on scroll, travelling dots on `.wire`. Everything is disabled under `prefers-reduced-motion`.
+- Use `.window` for unframed captures that need a defined edge (radius 20px, hairline border, layered shadow).
+- Motion follows native scroll. The workflow follows normal page flow. Its chapter buttons switch the demonstration and caption in place. The Team map uses transparent PCB geometry with school marks and full names connected to their projected locations, with film-style author credits. Respect prefers-reduced-motion for animation and clip autoplay.
 - The mark SVG keeps its own painted colours; do not redraw it.
 
 ## Copy red lines
@@ -36,4 +35,4 @@ Do not claim general KiCad or model import, complete ERC/DRC, autorouting, produ
 
 ## Media and review
 
-Clips are cropped to the product media inside each film card; the crop rectangles live in `scripts/cut-clips.sh`, and `src/content/site.ts` records the output sizes. Regenerate with `scripts/cut-clips.sh <master>`; the master path is required and the master is never committed. `public/media/workspace.webp` is a lossless 2x capture of the real OpenPE desktop window (EMC Flyback, Layout view, T1 selected); its size lives in `WORKSPACE_SHOT` and the callout anchors in `src/components/Workspace.tsx` are percentages of that image, so recapturing means re-placing them. One pixel edit is applied to that capture: the composer status line "Could not load models." is painted over with the bar's own flat colour RGB (252, 252, 252) in the 2x rectangle (151, 1828)–(406, 1854) inclusive, then exported with `cwebp -lossless -exact -z 9`; repeat this on any recapture. Visual changes need owner review.
+The Workflow presents Schematic, Layout and Module clips. Layout follows placement and comments in one continuous example. The clips provide their own product card with space around it, and the player crossfades them without zooming. The crop rectangles live in `scripts/cut-clips.sh`, and `src/content/site.ts` records the output sizes. Regenerate with `scripts/cut-clips.sh <master>`. Keep the published fast-start film, clips and analysis stills derived from the same source. The source master stays outside this repository. `public/media/workspace.webp` is a lossless 2x capture of the real OpenPE desktop window (EMC Flyback, Layout view, T1 selected); its size lives in `WORKSPACE_SHOT` and the callout anchors in `src/components/Workspace.tsx` are percentages of that image, so recapturing means re-placing them. One pixel edit is applied to that capture: the composer status line "Could not load models." is painted over with the bar's own flat colour RGB (252, 252, 252) in the 2x rectangle (151, 1828)–(406, 1854) inclusive, then exported with `cwebp -lossless -exact -z 9`; repeat this on any recapture. Visual changes need owner review.

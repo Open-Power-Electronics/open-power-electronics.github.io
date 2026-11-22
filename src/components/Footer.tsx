@@ -6,14 +6,13 @@ export function Footer() {
   const { t } = useI18n()
 
   return (
-    <footer className="border-t border-line bg-paper">
-      <div className="container-page flex flex-col gap-10 py-14 md:flex-row md:items-start md:justify-between">
+    <footer className="border-t border-line bg-white">
+      <div className="container-page flex flex-col gap-4 py-6 md:flex-row md:items-center md:justify-between">
         <div className="max-w-[420px]">
           <Wordmark />
-          <p className="mt-4 text-[13.5px] text-body">{t.footer.license}</p>
-          <p className="mt-2 text-[12.5px] leading-relaxed text-muted">{t.footer.notices}</p>
+          <p className="mt-1 text-[13.5px] text-body">{t.footer.license}</p>
         </div>
-        <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-3">
+        <nav aria-label={t.nav.footerLabel} className="flex flex-wrap gap-x-4 gap-y-2">
           {CHAPTERS.map((chapter) => (
             <a key={chapter} href={`#${chapter}`} className="text-[14px] font-medium text-body transition-colors hover:text-ink">
               {t.nav[chapter]}

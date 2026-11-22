@@ -1,0 +1,292 @@
+.team-section {
+  --team-foreground: var(--color-ink);
+  --team-secondary: var(--color-body);
+  --team-route: #46775a;
+  --team-signal: var(--color-green-deep);
+  --team-pulse: #4b9961;
+  --team-rule: #d1e1d5;
+
+  border-color: var(--team-rule);
+}
+
+.team-section .heading {
+  color: var(--team-foreground);
+}
+
+.team-section :focus-visible {
+  outline-color: var(--team-signal);
+}
+
+.team-map {
+  container-type: inline-size;
+  margin-block: clamp(0.55rem, 2vw, 1.7rem) 0;
+  margin-inline: clamp(-2rem, -2.5vw, -0.75rem);
+}
+
+.team-map-graphic {
+  transform-origin: 50% 60%;
+}
+
+.team-map-sheet {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1120 / 476;
+}
+
+.team-map-image,
+.team-routes,
+.team-map-labels {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.team-routes {
+  overflow: visible;
+  color: var(--team-route);
+}
+
+.team-traces,
+.team-trace-pulses,
+.team-route-leader {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.team-traces {
+  stroke-width: 2.75;
+}
+
+.team-route-leader {
+  stroke-width: 1.6;
+}
+
+.team-trace-pulses path,
+.team-lead-pulse {
+  opacity: 0;
+  stroke: var(--team-pulse);
+  stroke-width: 3.65;
+  stroke-dasharray: 0.1 1;
+}
+
+@keyframes team-signal-flow {
+  from { stroke-dashoffset: 0.1; }
+  to { stroke-dashoffset: -1; }
+}
+
+.team-lead-compact {
+  display: none;
+}
+
+.team-route-leader :is(.team-lead-base, .team-lead-terminal) {
+  opacity: 0.72;
+}
+
+.team-route-leader[data-active] :is(.team-lead-base, .team-lead-terminal) {
+  opacity: 1;
+  stroke-width: 2.5;
+}
+
+.team-route-halo {
+  fill: var(--color-signal);
+  stroke: none;
+  opacity: 0.26;
+}
+
+.team-route-ring {
+  fill: var(--circuit-field-color);
+  stroke: var(--team-signal);
+  stroke-width: 1.4;
+}
+
+.team-route-pad {
+  fill: var(--team-signal);
+  stroke: none;
+}
+
+.team-map-labels > li {
+  position: absolute;
+  inset-block-start: var(--label-y);
+  inset-inline-start: var(--label-x);
+}
+
+.team-map-label {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.2rem, 0.55cqi, 0.4rem);
+  inline-size: max-content;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  padding-inline: 0.15rem;
+  background: var(--circuit-field-color);
+  text-align: center;
+  translate: -50% 0.35rem;
+  pointer-events: auto;
+}
+
+.team-map-label[data-dock=above] {
+  translate: -50% calc(-100% - 0.35rem);
+}
+
+.team-map-school-name {
+  color: color-mix(in srgb, var(--team-secondary) 72%, var(--color-muted));
+  font-size: clamp(0.58rem, calc(0.44rem + 0.5cqi), 0.82rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  white-space: pre;
+}
+
+.team-map-school-name:lang(zh) {
+  font-size: clamp(0.6875rem, calc(0.46rem + 0.5cqi), 0.82rem);
+  letter-spacing: normal;
+}
+
+@container (max-width: 41rem) {
+  .team-map-graphic {
+    padding-block: clamp(2.9rem, 10cqi, 3.7rem) 2.65rem;
+  }
+
+  .team-lead-wide {
+    display: none;
+  }
+
+  .team-lead-compact {
+    display: inline;
+  }
+
+  .team-map-labels > li {
+    inset-block-start: var(--label-compact-y);
+    inset-inline-start: var(--label-compact-x);
+  }
+
+  .team-map-label {
+    padding-inline: 0.05rem;
+  }
+}
+
+.team-map-label:hover,
+.team-map-label[data-active] {
+  text-decoration: underline;
+  text-decoration-color: var(--team-signal);
+  text-underline-offset: 0.24em;
+}
+
+.team-map-logo {
+  display: block;
+  width: clamp(3.1rem, 7.4cqi, 4.25rem);
+  height: clamp(1.375rem, 3.1cqi, 1.625rem);
+  flex: none;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(23%) sepia(25%) saturate(1460%) hue-rotate(90deg) brightness(91%) contrast(82%);
+}
+
+.team-map-label:is([data-school=berkeley], [data-school=glasgow]) .team-map-logo {
+  filter: grayscale(1) sepia(0.55) hue-rotate(72deg) saturate(1.6);
+}
+
+.team-map-label[data-school=glasgow] .team-map-logo {
+  height: clamp(1.75rem, 3.85cqi, 2rem);
+}
+
+.team-map-label[data-school=eindhoven] .team-map-logo {
+  scale: 0.9;
+}
+
+.team-credits {
+  margin-inline: 0.75rem;
+  text-align: center;
+}
+
+.team-credits > ul,
+.team-academic-links > ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.22rem 1em;
+}
+
+.team-credits > ul {
+  column-gap: 0.5em;
+  font-size: clamp(0.79rem, 1.55cqi, 0.94rem);
+  line-height: 1.55;
+}
+
+.team-credit {
+  color: var(--team-secondary);
+  white-space: nowrap;
+}
+
+.team-credits > ul > li:not(:last-child)::after {
+  content: "";
+  display: inline-block;
+  width: 0.16em;
+  height: 0.16em;
+  margin-inline-start: 0.5em;
+  vertical-align: 0.23em;
+  border-radius: 50%;
+  background-color: var(--team-route);
+}
+
+.team-credit[data-active] {
+  color: var(--team-foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.23em;
+}
+
+.team-credit:hover,
+.team-academic-links a:hover {
+  color: var(--team-foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.team-academic-links {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0.75rem auto 0;
+  padding-block-start: 0.6rem;
+  border-block-start: 1px solid var(--team-rule);
+  color: var(--team-secondary);
+  font-size: 0.81rem;
+  line-height: 1.55;
+}
+
+.team-academic-links strong {
+  color: var(--team-foreground);
+  font-weight: 650;
+}
+
+.team-academic-links a {
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-scroll-ready] .team-map-graphic {
+    transform: translateY(calc(1.2rem * (1 - var(--stage-progress, 1)))) scale(calc(0.98 + 0.02 * var(--stage-progress, 1)));
+  }
+
+  [data-scroll-ready] .team-traces path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: clamp(0, calc(1 - (var(--stage-progress, 1) - var(--route-delay)) * 1.26), 1);
+  }
+
+  [data-scroll-ready] .team-route-halo {
+    r: calc(6px + 9px * var(--stage-progress, 1));
+  }
+
+  .team-map-graphic:is(:hover, :focus-within) .team-trace-pulses path,
+  .team-map-graphic:is(:hover, :focus-within) .team-route-leader[data-active] .team-lead-pulse {
+    opacity: 1;
+    animation: team-signal-flow 1.5s linear infinite;
+    animation-delay: calc(var(--route-delay, 0) * -1s);
+  }
+}

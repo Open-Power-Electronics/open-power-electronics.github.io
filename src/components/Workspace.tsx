@@ -48,75 +48,77 @@ export function Workspace() {
   const closeIf = (index: number) => setOpen((current) => (current === index ? null : current))
 
   return (
-    <ChapterSection chapter="workspace" className="bg-paper">
+    <ChapterSection chapter="workspace" className="bg-white">
       <div className="container-page">
-        <SectionHeader chapter="workspace" title={w.title} lede={w.lede} />
+        <SectionHeader chapter="workspace" title={w.title} />
 
-        <figure data-reveal className="window relative mx-auto mt-14 max-w-[1080px] md:mt-16">
-          <img
-            src={WORKSPACE_SHOT.src}
-            width={WORKSPACE_SHOT.width}
-            height={WORKSPACE_SHOT.height}
-            alt={w.imageAlt}
-            loading="lazy"
-            decoding="async"
-            className="block h-auto w-full"
-          />
-          {CALLOUTS.map((callout, index) => {
-            const part = w.parts[index]
-            const tipId = `${idPrefix}-callout-${callout.letter}`
-            const shown = open === index
-            return (
-              <div
-                key={callout.letter}
-                data-callout=""
-                className={cn("absolute -translate-x-1/2 -translate-y-1/2", shown ? "z-20" : "z-10")}
-                style={{ left: `${callout.x}%`, top: `${callout.y}%` }}
-                onPointerEnter={(event) => {
-                  if (event.pointerType === "mouse") setOpen(index)
-                }}
-                onPointerLeave={(event) => {
-                  if (event.pointerType === "mouse") closeIf(index)
-                }}
-              >
-                <button
-                  type="button"
-                  aria-label={part.name}
-                  aria-describedby={tipId}
-                  className="beacon grid size-6 place-items-center rounded-full bg-green font-mono text-[11px] font-semibold text-white md:size-7 md:text-[12.5px]"
-                  style={{ "--beacon-delay": `${index * 0.35}s` } as CSSProperties}
-                  onPointerDown={(event) => {
-                    pointerType.current = event.pointerType
-                  }}
-                  onFocus={(event) => {
-                    if (event.currentTarget.matches(":focus-visible")) setOpen(index)
-                  }}
-                  onBlur={() => closeIf(index)}
-                  onClick={() => {
-                    const via = pointerType.current
-                    pointerType.current = ""
-                    if (via === "mouse") setOpen(index)
-                    else setOpen((current) => (current === index ? null : index))
-                  }}
-                >
-                  {callout.letter}
-                </button>
+        <div className="chapter-content" data-scroll-stage="">
+          <figure className="window workspace-preview relative">
+            <img
+              src={WORKSPACE_SHOT.src}
+              width={WORKSPACE_SHOT.width}
+              height={WORKSPACE_SHOT.height}
+              alt={w.imageAlt}
+              loading="lazy"
+              decoding="async"
+              className="block h-auto w-full"
+            />
+            {CALLOUTS.map((callout, index) => {
+              const part = w.parts[index]
+              const tipId = `${idPrefix}-callout-${callout.letter}`
+              const shown = open === index
+              return (
                 <div
-                  id={tipId}
-                  role="tooltip"
-                  className={cn(
-                    "surface absolute w-[min(264px,58vw)] rounded-2xl px-4 py-3 text-left transition-opacity duration-200",
-                    callout.tip,
-                    shown ? "visible opacity-100" : "pointer-events-none invisible opacity-0",
-                  )}
+                  key={callout.letter}
+                  data-callout=""
+                  className={cn("absolute -translate-x-1/2 -translate-y-1/2", shown ? "z-20" : "z-10")}
+                  style={{ left: `${callout.x}%`, top: `${callout.y}%` }}
+                  onPointerEnter={(event) => {
+                    if (event.pointerType === "mouse") setOpen(index)
+                  }}
+                  onPointerLeave={(event) => {
+                    if (event.pointerType === "mouse") closeIf(index)
+                  }}
                 >
-                  <p className="text-[15px] leading-6 font-semibold tracking-[-0.015em] text-ink">{part.name}</p>
-                  <p className="mt-0.5 text-[13.5px] leading-relaxed text-body">{part.body}</p>
+                  <button
+                    type="button"
+                    aria-label={part.name}
+                    aria-describedby={tipId}
+                    className="beacon grid size-6 place-items-center rounded-full bg-green font-mono text-[11px] font-semibold text-white md:size-7 md:text-[12.5px]"
+                    style={{ "--beacon-delay": `${index * 0.35}s` } as CSSProperties}
+                    onPointerDown={(event) => {
+                      pointerType.current = event.pointerType
+                    }}
+                    onFocus={(event) => {
+                      if (event.currentTarget.matches(":focus-visible")) setOpen(index)
+                    }}
+                    onBlur={() => closeIf(index)}
+                    onClick={() => {
+                      const via = pointerType.current
+                      pointerType.current = ""
+                      if (via === "mouse") setOpen(index)
+                      else setOpen((current) => (current === index ? null : index))
+                    }}
+                  >
+                    {callout.letter}
+                  </button>
+                  <div
+                    id={tipId}
+                    role="tooltip"
+                    className={cn(
+                      "surface absolute w-[min(264px,58vw)] rounded-2xl px-4 py-3 text-left transition-opacity duration-200",
+                      callout.tip,
+                      shown ? "visible opacity-100" : "pointer-events-none invisible opacity-0",
+                    )}
+                  >
+                    <p className="text-[15px] leading-6 font-semibold tracking-[-0.015em] text-ink">{part.name}</p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-body">{part.body}</p>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </figure>
+              )
+            })}
+          </figure>
+        </div>
       </div>
     </ChapterSection>
   )
