@@ -13,9 +13,9 @@ export type Content = {
   hero: {
     openSource: string
     foundations: string
-    titleTop: string
-    titleAccent: string
-    titleBottom: string
+    titleMain: string
+    titleFor: string
+    titleAudience: string
     download: string
   }
   film: { title: string; caption: string; play: string }
@@ -42,7 +42,7 @@ export type Content = {
 }
 
 const en: Content = {
-  meta: { title: "OpenPE · AI-Native Power Electronics Engineer Workbench" },
+  meta: { title: "OpenPE · AI-Native Workbench for Power Electronics Engineer" },
   nav: {
     workspace: "Workspace",
     workflow: "Workflow",
@@ -57,10 +57,10 @@ const en: Content = {
   hero: {
     openSource: "Open source",
     foundations: "Built with open source",
-    titleTop: "AI-Native",
-    titleAccent: "Power Electronics",
-    titleBottom: "Engineer Workbench",
-    download: "Download OpenPE",
+    titleMain: "AI-Native Workbench",
+    titleFor: "for",
+    titleAudience: "Power Electronics Engineer",
+    download: "Download",
   },
   film: {
     title: "Watch the workflow",
@@ -176,10 +176,10 @@ const zh: Content = {
   hero: {
     openSource: "开源",
     foundations: "基于开源技术",
-    titleTop: "AI 原生",
-    titleAccent: "电力电子",
-    titleBottom: "工程师工作台",
-    download: "下载 OpenPE",
+    titleMain: "AI 原生工作台",
+    titleFor: "面向",
+    titleAudience: "电力电子工程师",
+    download: "下载",
   },
   film: {
     title: "工作流演示",

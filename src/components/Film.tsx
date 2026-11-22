@@ -42,9 +42,9 @@ export function Film() {
               type="button"
               onClick={play}
               aria-label={t.film.play}
-              className="group absolute inset-0 grid place-items-center outline-offset-[-3px] transition-colors hover:bg-green/5"
+              className="absolute inset-0 grid place-items-center outline-offset-[-3px]"
             >
-              <span className="grid size-12 place-items-center rounded-full bg-white/95 text-green ring-1 ring-green/20 transition-colors group-hover:bg-mint-2 sm:size-14">
+              <span className="grid size-12 place-items-center rounded-full bg-white/95 text-green ring-1 ring-green/20 sm:size-14">
                 <Play aria-hidden="true" className="size-5 translate-x-px fill-current" strokeWidth={0} />
               </span>
             </button>

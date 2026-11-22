@@ -65,9 +65,9 @@
   position: absolute;
   z-index: 1;
   inset: 0;
-  background-color: color-mix(in srgb, var(--color-green) 85%, var(--color-ink));
+  background-color: #f6f5f2;
   mask: url("./assets/site-circuit.svg") center top / max(49rem, 100%) auto repeat-y;
-  opacity: 0.085;
+  mix-blend-mode: multiply;
   pointer-events: none;
   content: "";
 }
@@ -79,17 +79,9 @@
 }
 
 .circuit-field {
-  --circuit-field-color: color-mix(in srgb, var(--color-mint) 62%, var(--color-paper));
+  --circuit-field-color: #f1efeb;
+  --circuit-field-line: #dad6cf;
   background-color: var(--circuit-field-color);
-}
-
-.circuit-field::before {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  background-color: color-mix(in srgb, var(--circuit-field-color) 58%, transparent);
-  pointer-events: none;
-  content: "";
 }
 
 @layer components {
@@ -219,49 +211,101 @@
   }
 }
 
-/* Give the title its own measure while keeping the film adjacent on desktop. */
+.hero-layout {
+  display: flex;
+  max-inline-size: 68rem;
+  flex-direction: column;
+  justify-content: safe center;
+  gap: clamp(0.75rem, 2.25svh, 1.5rem);
+  padding-block: clamp(0.75rem, 2.75svh, 1.75rem);
+}
+
+.hero-film-stage {
+  display: grid;
+  align-items: center;
+}
+
+@supports (container-type: size) and (width: 100cqb) and (height: 100svh) {
+  @media (height >= 22.5rem) {
+    .hero-section {
+      display: grid;
+      block-size: 100svh;
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    .hero-layout {
+      container-type: inline-size;
+    }
+
+    /* The film starts at its full-width 16:9 height and shrinks to fit. */
+    .hero-film-stage {
+      container-type: size;
+      flex: 0 1 calc(100cqi * 9 / 16);
+      min-block-size: 0;
+    }
+
+    .hero-film-stage > #film {
+      max-inline-size: calc(100cqb * 16 / 9);
+    }
+  }
+}
+
 @media (width < 40rem) {
   .hero-layout {
     padding-inline: clamp(1rem, 5vw, 1.5rem);
   }
 }
 
-@media (width >= 64rem) {
-  .hero-layout {
-    max-inline-size: 82rem;
-    grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
-    grid-template-areas: "copy film" "foundations film";
-    align-content: center;
-    column-gap: clamp(1.25rem, 2vw, 2rem);
-    row-gap: 1.25rem;
-  }
+.hero-copy {
+  container-type: inline-size;
+  flex: none;
+}
 
-  .hero-copy {
-    grid-area: copy;
-    align-self: end;
-  }
+.hero-actions {
+  --hero-actions-gap: clamp(0.5rem, 1.45vw, 1rem);
+  display: flex;
+  max-inline-size: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem var(--hero-actions-gap);
+  margin-block-start: clamp(0.625rem, 2.35svh, 1.25rem);
+}
 
-  .hero-layout > #film {
-    grid-area: film;
-  }
+.hero-open-source {
+  padding-inline-start: var(--hero-actions-gap);
+  border-inline-start: 1px solid var(--circuit-field-line);
+}
 
-  .hero-foundations {
-    grid-area: foundations;
-    align-self: start;
+@media (width < 24rem) {
+  .hero-download {
+    padding-inline: 0.8rem;
+    font-size: 0.8125rem;
+    white-space: nowrap;
   }
 }
 
-.hero-copy {
-  container-type: inline-size;
+@media (height < 31.25rem) {
+  .hero-layout {
+    gap: 0.625rem;
+    padding-block: 0.5rem;
+  }
+
+  .hero-download {
+    min-block-size: 2.5rem;
+  }
 }
 
 .hero-foundations {
   display: flex;
+  flex: none;
   flex-wrap: wrap;
   align-items: center;
+  align-self: center;
+  justify-content: center;
   gap: 0.5rem 1rem;
-  min-inline-size: 0;
-  border-block-start: 1px solid var(--color-line-strong);
+  inline-size: min(100%, 28rem);
+  border-block-start: 1px solid var(--circuit-field-line);
   padding-block-start: 0.65rem;
   color: var(--color-body);
 }
@@ -302,8 +346,8 @@
 
 .hero-title {
   display: grid;
-  justify-items: start;
-  font-size: min(11.45cqi, 4.65rem);
+  justify-items: center;
+  font-size: min(10cqi, calc(1.55rem + 3.3vw), clamp(1.4rem, 7.5svh, 4.65rem));
   line-height: 1;
   letter-spacing: -0.05em;
 }
@@ -317,47 +361,29 @@
   letter-spacing: normal;
 }
 
-.hero-title-intro {
+.hero-title-audience {
   display: flex;
-  align-items: center;
-  gap: 0.42em;
-  margin-block-end: 0.13em;
+  align-items: baseline;
+  gap: 0.27em;
+  margin-block-start: 0.2em;
+  font-size: min(0.82em, 7.2cqi);
+  letter-spacing: -0.038em;
+}
+
+.hero-title-audience:lang(zh) {
+  gap: 0.18em;
+  letter-spacing: normal;
+}
+
+.hero-title-for {
   color: var(--color-ink-2);
-  font-size: 0.84em;
-  font-weight: 690;
-}
-
-.hero-title-trace {
-  display: flex;
-  align-items: center;
-  inline-size: clamp(1.45rem, 8cqi, 4rem);
-  color: color-mix(in srgb, var(--color-green) 62%, transparent);
-}
-
-.hero-title-trace::before {
-  flex: 1;
-  border-block-start: 1px solid currentColor;
-  content: "";
-}
-
-.hero-title-trace::after {
-  inline-size: 0.375rem;
-  aspect-ratio: 1;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  content: "";
+  font-size: 0.76em;
+  font-weight: 650;
 }
 
 .hero-title-accent {
   color: var(--color-green);
-  font-weight: 820;
-}
-
-.hero-title-workbench {
-  margin-block-start: 0.12em;
-  font-size: 0.87em;
-  font-weight: 740;
-  line-height: 1.06;
+  font-weight: 780;
 }
 
 .closing-banner {

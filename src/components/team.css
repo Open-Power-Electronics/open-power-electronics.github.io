@@ -1,10 +1,10 @@
 .team-section {
   --team-foreground: var(--color-ink);
   --team-secondary: var(--color-body);
-  --team-route: #46775a;
+  --team-route: #4c6255;
   --team-signal: var(--color-green-deep);
   --team-pulse: #4b9961;
-  --team-rule: #d1e1d5;
+  --team-rule: var(--circuit-field-line);
 
   border-color: var(--team-rule);
 }
@@ -47,6 +47,10 @@
 .team-routes {
   overflow: visible;
   color: var(--team-route);
+}
+
+.team-map-image {
+  filter: saturate(0.35);
 }
 
 .team-traces,

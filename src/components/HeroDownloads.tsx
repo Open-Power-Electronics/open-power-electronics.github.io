@@ -8,7 +8,7 @@ export function HeroDownloads() {
   return (
     <a
       href={OPENPE_RELEASES_URL}
-      className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-green-deep px-5 text-sm font-semibold text-white transition-colors hover:bg-green motion-reduce:transition-none"
+      className="hero-download inline-flex min-h-12 items-center gap-2 rounded-full bg-green-deep px-5 text-sm font-semibold text-white transition-colors hover:bg-green motion-reduce:transition-none"
     >
       <Download className="size-4" aria-hidden="true" />
       {t.hero.download}

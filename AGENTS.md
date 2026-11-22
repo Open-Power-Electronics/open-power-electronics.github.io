@@ -22,7 +22,7 @@ scripts/cut-clips.sh /absolute/path/to/OpenPE-Workflow-Demo.mp4
 
 ## Design
 
-The hero and Team share a pale mint background. The rest of the page uses white. Deep green accents and a low-contrast PCB pattern with distinct power routes, signal traces and pads run throughout the site. The first section contains the full film player. CHAPTERS in src/content/site.ts owns section order, title numbering and navigation anchors. A monospaced number and short rule sit above each chapter title. Use the tokens in src/index.css.
+The hero and Team share an opaque warm stone-gray background (`#f1efeb`). The rest of the page uses white. Deep green accents and a low-contrast PCB pattern with distinct power routes, signal traces and pads run throughout the site. The hero fits its two-line title, download link, 16:9 film and technology credits into one viewport on standard displays. On very short viewports it stacks naturally. CHAPTERS in src/content/site.ts owns section order, title numbering and navigation anchors. A monospaced number and short rule sit above each chapter title. Use the tokens in src/index.css.
 
 - Ink `#1F2622`, body `#505854`, muted `#7D8781`, hairline `#E3E8E4`, paper `#FAFCF9`, mint `#E7F1E9`, green `#206F39`, signal `#88EA5C` (dots and highlights only).
 - Use `.window` for unframed captures that need a defined edge (radius 20px, hairline border, layered shadow).

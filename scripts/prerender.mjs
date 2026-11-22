@@ -31,7 +31,7 @@ if (!appHtml.includes("Power Electronics")) {
 }
 
 const template = readFileSync(htmlPath, "utf8")
-const title = "<title>OpenPE · AI-Native Power Electronics Engineer Workbench</title>"
+const title = "<title>OpenPE · AI-Native Workbench for Power Electronics Engineer</title>"
 if (!template.includes(title)) {
   throw new Error("dist/index.html title does not match the English page title")
 }
