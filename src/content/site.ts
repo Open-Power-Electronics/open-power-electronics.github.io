@@ -1,5 +1,8 @@
 export const GITHUB_ORG_URL = "https://github.com/Open-Power-Electronics"
-export const OPENPE_RELEASES_URL = "https://github.com/fleaxiao/OpenPE/releases"
+export const OPENPE_REPO_URL = "https://github.com/fleaxiao/OpenPE"
+export const OPENPE_RELEASES_URL = `${OPENPE_REPO_URL}/releases`
+
+export const PLATFORMS = ["Windows x64", "macOS arm64", "Linux x64"] as const
 
 export const FILM_ID = "film"
 

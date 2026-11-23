@@ -516,7 +516,12 @@
 }
 
 .closing-banner {
-  padding-block: clamp(2.5rem, 5.1vw, 3.75rem);
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+}
+
+.closing-lede {
+  max-inline-size: 50rem;
+  margin-block-start: clamp(1rem, 2.4vw, 1.5rem);
 }
 
 .closing-copy {
@@ -569,8 +574,7 @@
 }
 
 .workflow-caption {
-  max-inline-size: 40rem;
-  min-block-size: 3.2em;
+  min-block-size: 1.6em;
   margin: 0.875rem auto 0;
   color: var(--color-body);
   font-size: clamp(0.9375rem, calc(0.88rem + 0.2vw), 1.0625rem);

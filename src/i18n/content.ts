@@ -50,6 +50,7 @@ export type Content = {
     skill: Plugin
     yours: { name: string; run: string; reset: string; output: string; ready: string }
   }
+  closing: { lede: string; download: string; source: string; platformsLabel: string }
   team: {
     title: string
     lede: string
@@ -106,15 +107,15 @@ const en: Content = {
     steps: [
       {
         chapter: "Schematic",
-        caption: "Your agent runs a 10 ms ngspice transient and tunes R15 until VOUT sits inside ±1%.",
+        caption: "Your agent runs an ngspice transient and tunes R15 until VOUT sits inside ±1%.",
       },
       {
         chapter: "Layout",
-        caption: "Place a group of parts from a preview, then mark a region and send a comment with your next message.",
+        caption: "Place a group of parts, then mark a region and comment for your agent.",
       },
       {
         chapter: "Module",
-        caption: "Model an enclosure from dimensions, then refine posts, walls and a 3 mm acrylic lid in conversation.",
+        caption: "Model the enclosure from dimensions, then refine posts, walls and lid in conversation.",
       },
     ],
   },
@@ -125,7 +126,7 @@ const en: Content = {
     more: "More Agents",
     architecture: {
       title: "OpenPE architecture",
-      description: "The GUI supplies project context to the Agent. Both share the Uniform API for Core and plugin capabilities.",
+      description: "The GUI supplies project context to the Agent, and both use the Uniform API for Core and plugins.",
       agent: "Agent",
       human: "Human",
       context: "Context Management",
@@ -165,6 +166,12 @@ const en: Content = {
       output: "Sample output",
       ready: "Run to count parts.",
     },
+  },
+  closing: {
+    lede: "Open source under Apache-2.0. Download the desktop app or read the code on GitHub.",
+    download: "Download",
+    source: "View source",
+    platformsLabel: "Runs on",
   },
   team: {
     title: "The OpenPE team",
@@ -231,15 +238,15 @@ const zh: Content = {
     steps: [
       {
         chapter: "原理图",
-        caption: "agent 运行 10 ms 的 ngspice 瞬态仿真，调整 R15，直到 VOUT 落在 ±1% 以内。",
+        caption: "agent 运行 ngspice 瞬态仿真，调整 R15，直到 VOUT 落在 ±1% 以内。",
       },
       {
         chapter: "PCB 布局",
-        caption: "按预览放置一组元件，再圈出区域，把批注随下一条消息发给 agent。",
+        caption: "放置一组元件，再圈出区域、写下批注发给 agent。",
       },
       {
         chapter: "外壳建模",
-        caption: "按尺寸为电路板建模外壳，再在对话中细化立柱、侧壁和 3 mm 亚克力盖板。",
+        caption: "按尺寸为外壳建模，再在对话中细化立柱、侧壁和盖板。",
       },
     ],
   },
@@ -250,7 +257,7 @@ const zh: Content = {
     more: "更多 Agent",
     architecture: {
       title: "OpenPE 架构",
-      description: "图形界面向 Agent 提供工程上下文。两者通过统一 API 使用核心与插件功能。",
+      description: "图形界面向 Agent 提供工程上下文，两者通过统一 API 调用核心与插件。",
       agent: "Agent",
       human: "用户",
       context: "上下文管理",
@@ -290,6 +297,12 @@ const zh: Content = {
       output: "示例输出",
       ready: "运行后显示元件数量。",
     },
+  },
+  closing: {
+    lede: "以 Apache-2.0 协议开源。下载桌面软件，或在 GitHub 上查看源代码。",
+    download: "下载",
+    source: "查看源代码",
+    platformsLabel: "支持系统",
   },
   team: {
     title: "OpenPE 团队",
