@@ -50,7 +50,7 @@ export function Hero() {
             {foundations.map(({ name, icon }) => (
               <li key={name}>
                 <span className="hero-foundations-icon" style={{ maskImage: `url(${icon})` }} aria-hidden="true" />
-                <span className="hero-foundations-name">{name}</span>
+                <span className="hero-foundations-tooltip">{name}</span>
               </li>
             ))}
           </ul>
