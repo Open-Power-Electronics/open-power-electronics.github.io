@@ -15,13 +15,10 @@ export function PluginDemo() {
 
   return (
     <article className="surface mt-6 overflow-hidden" aria-labelledby="custom-plugin-title">
-      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:px-5">
-        <div className="flex min-w-0 flex-1 items-start gap-2.5">
-          <Puzzle aria-hidden="true" className="mt-1.5 size-4 shrink-0 text-green" />
-          <div className="min-w-0">
-            <h3 id="custom-plugin-title" className="text-lg font-semibold text-ink">{demo.name}</h3>
-            <p className="mt-0.5 max-w-[640px] text-sm leading-snug text-pretty text-body md:text-[0.9375rem]">{demo.body}</p>
-          </div>
+      <header className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 sm:px-5">
+        <div className="flex items-center gap-2.5">
+          <Puzzle aria-hidden="true" className="size-4 shrink-0 text-green" />
+          <h3 id="custom-plugin-title" className="text-lg font-semibold text-ink">{demo.name}</h3>
         </div>
         <button
           type="button"

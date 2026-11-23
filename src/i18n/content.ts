@@ -48,7 +48,7 @@ export type Content = {
     emc: Plugin
     parasitics: Plugin
     skill: Plugin
-    yours: { name: string; body: string; run: string; reset: string; output: string; ready: string }
+    yours: { name: string; run: string; reset: string; output: string; ready: string }
   }
   team: {
     title: string
@@ -81,7 +81,7 @@ const en: Content = {
     titleFor: "for",
     titleDomain: "Power Electronics",
     titleRole: "Engineer",
-    lede: "An open-source desktop app for power-electronics design on native KiCad 10 files. Your AI agent works on the same schematic, PCB layout, 3D model and simulation as you.",
+    lede: "An open-source, AI-native desktop app for power-electronics design. Your AI agent works on the same schematic, PCB layout, 3D model and simulation as you.",
     download: "Download",
   },
   film: {
@@ -160,7 +160,6 @@ const en: Content = {
     },
     yours: {
       name: "Your plugin",
-      body: "Package JavaScript as a local plugin. It installs with your approval and runs in a QuickJS sandbox with no native or network access.",
       run: "Run",
       reset: "Reset",
       output: "Sample output",
@@ -169,7 +168,7 @@ const en: Content = {
   },
   team: {
     title: "The OpenPE team",
-    lede: "OpenPE is developed by authors from six universities and released under Apache-2.0.",
+    lede: "OpenPE is developed by contributors from leading universities around the world and released under Apache-2.0.",
     core: "Authors",
     institutions: "Universities",
     schoolNames: {
@@ -207,7 +206,7 @@ const zh: Content = {
     titleFor: "面向",
     titleDomain: "电力电子",
     titleRole: "工程师",
-    lede: "一款开源桌面软件，用原生 KiCad 10 文件做电力电子设计。你的 AI agent 和你在同一份原理图、PCB 布局、三维模型和仿真上工作。",
+    lede: "一款开源、AI 原生的电力电子设计桌面软件。你的 AI agent 和你在同一份原理图、PCB 布局、三维模型和仿真上工作。",
     download: "下载",
   },
   film: {
@@ -286,7 +285,6 @@ const zh: Content = {
     },
     yours: {
       name: "自定义插件",
-      body: "把 JavaScript 打包成本地插件。安装需要你确认，运行在 QuickJS 沙箱中，没有本机权限，也不能联网。",
       run: "运行",
       reset: "重置",
       output: "示例输出",
@@ -295,7 +293,7 @@ const zh: Content = {
   },
   team: {
     title: "OpenPE 团队",
-    lede: "OpenPE 由来自六所高校的作者共同开发，以 Apache-2.0 协议开源。",
+    lede: "OpenPE 由来自全球多所知名高校的贡献者共同开发，以 Apache-2.0 协议开源。",
     core: "作者",
     institutions: "院校",
     schoolNames: {

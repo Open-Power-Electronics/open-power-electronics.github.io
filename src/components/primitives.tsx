@@ -24,10 +24,10 @@ export function SectionHeader({
   const number = String(CHAPTERS.indexOf(chapter) + 1).padStart(2, "0")
 
   return (
-    <header data-reveal className={cn("chapter-heading max-w-[800px]", className)}>
+    <header data-reveal className={cn("chapter-heading max-w-[980px]", className)}>
       <span className="chapter-index" aria-hidden="true">{number}</span>
       <h2 id={chapter + "-heading"} className="heading chapter-title text-balance">{title}</h2>
-      {lede !== undefined && <p className="chapter-lede lede max-w-[620px] text-pretty">{lede}</p>}
+      {lede !== undefined && <p className="chapter-lede lede max-w-[960px] text-pretty">{lede}</p>}
     </header>
   )
 }
