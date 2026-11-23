@@ -3,6 +3,7 @@ import { OPENPE_REPO_URL } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { Film } from "./Film.tsx"
 import { HeroDownloads } from "./HeroDownloads.tsx"
+import { Wordmark } from "./primitives.tsx"
 
 const foundations = [
   { name: "KiCad", icon: "/technology/kicad-mono.svg" },
@@ -20,6 +21,7 @@ export function Hero() {
     <section id="top" className="circuit-field hero-section relative pt-16">
       <div className="container-page hero-layout">
         <div className="hero-copy flex min-w-0 flex-col items-center text-center">
+          <Wordmark className="hero-brand rise" />
           <h1 className="display hero-title rise" style={{ animationDelay: "0.12s" }}>
             <span>{t.hero.titleMain}</span>{" "}
             <span className="hero-title-audience">

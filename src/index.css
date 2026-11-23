@@ -337,6 +337,21 @@
   flex: none;
 }
 
+.hero-brand {
+  --hero-brand-size: clamp(2rem, min(6.2vw, 9svh), 4.25rem);
+  margin-block-end: clamp(0.5rem, 1.8svh, 1.25rem);
+}
+
+.hero-brand > img {
+  inline-size: var(--hero-brand-size);
+  block-size: var(--hero-brand-size);
+}
+
+.hero-brand > span {
+  font-size: calc(var(--hero-brand-size) * 0.72);
+  line-height: 1;
+}
+
 .hero-actions {
   --hero-actions-gap: clamp(0.5rem, 1.45vw, 1rem);
   display: flex;
