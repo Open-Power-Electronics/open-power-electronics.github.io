@@ -48,13 +48,18 @@ export const schools = {
 
 export type SchoolId = keyof typeof schools
 
+export type TeamMember = {
+  name: string
+  schools: readonly SchoolId[]
+}
+
 /** Website credits follow the order shown in the project film. */
-export const teamMembers = [
-  "Xiao Yang",
-  "Yukang Zhu",
-  "Wenhao Deng",
-  "Tian Xia",
-  "Chengmin Li",
-  "Dongsheng Yang",
-  "Tailin Wu",
-] as const
+export const teamMembers: readonly TeamMember[] = [
+  { name: "Xiao Yang", schools: ["eindhoven", "westlake"] },
+  { name: "Yukang Zhu", schools: ["westlake", "ucla"] },
+  { name: "Wenhao Deng", schools: ["glasgow"] },
+  { name: "Tian Xia", schools: ["westlake", "berkeley"] },
+  { name: "Chengmin Li", schools: ["eindhoven"] },
+  { name: "Dongsheng Yang", schools: ["eindhoven"] },
+  { name: "Tailin Wu", schools: ["westlake", "mit"] },
+]

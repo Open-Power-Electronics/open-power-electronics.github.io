@@ -15,7 +15,7 @@ const tile = "flex min-w-0 items-center justify-center gap-2 rounded-xl border p
 
 export function Agents() {
   const { t } = useI18n()
-  const { title, lede, privacy, more } = t.agents
+  const { title, lede, more } = t.agents
 
   return (
     <ChapterSection chapter="agents" className="bg-white">
@@ -43,7 +43,6 @@ export function Agents() {
             <span>{more}</span>
           </li>
         </ul>
-        <p data-reveal className="mt-4 max-w-[720px] text-sm leading-relaxed text-pretty text-muted">{privacy}</p>
       </div>
     </ChapterSection>
   )

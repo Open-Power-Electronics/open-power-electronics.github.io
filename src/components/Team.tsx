@@ -1,11 +1,16 @@
-import { useState, type CSSProperties } from "react"
-import { MAP_SIZE, schools, teamMembers, type SchoolId } from "@/content/team.ts"
+import { useState, type CSSProperties, type PointerEvent } from "react"
+import { MAP_SIZE, schools, teamMembers, type SchoolId, type TeamMember } from "@/content/team.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { ChapterSection, SectionHeader } from "./primitives.tsx"
 import "./team.css"
 
 const schoolIds = Object.keys(schools) as SchoolId[]
 const labelLayouts = ["wide", "compact"] as const
+
+type TeamHover = {
+  schools: readonly SchoolId[]
+  member?: TeamMember
+}
 
 const trunkPaths = [
   "M201.4 179 226.4 154H271L294 131H323L351.5 159.5V165.1",
@@ -24,7 +29,7 @@ function mapPosition(school: (typeof schools)[SchoolId]): CSSProperties {
   } as CSSProperties
 }
 
-function MapRoutes({ active }: { active: SchoolId | null }) {
+function MapRoutes({ activeSchools }: { activeSchools: readonly SchoolId[] }) {
   return (
     <svg className="team-routes" viewBox={"0 0 " + MAP_SIZE.width + " " + MAP_SIZE.height} aria-hidden="true">
       <defs>
@@ -47,15 +52,10 @@ function MapRoutes({ active }: { active: SchoolId | null }) {
           <path key={path} d={path} pathLength="1" style={{ "--route-delay": index * 0.06 } as CSSProperties} />
         ))}
       </g>
-      <g className="team-trace-pulses">
-        {trunkPaths.map((path, index) => (
-          <path key={path} d={path} pathLength="1" style={{ "--route-delay": index * 0.06 } as CSSProperties} />
-        ))}
-      </g>
       {schoolIds.map((id) => {
         const { pad } = schools[id]
         return (
-          <g key={id} className="team-route-leader" data-active={active === id || undefined}>
+          <g key={id} className="team-route-leader" data-active={activeSchools.includes(id) || undefined}>
             {labelLayouts.map((layout) => {
               const { lead, terminal } = schools[id][layout]
               return (
@@ -79,7 +79,12 @@ function MapRoutes({ active }: { active: SchoolId | null }) {
 export function Team() {
   const { t } = useI18n()
   const team = t.team
-  const [hovered, setHovered] = useState<SchoolId | null>(null)
+  const [hovered, setHovered] = useState<TeamHover | null>(null)
+  const activeSchools = hovered?.schools ?? []
+
+  function updateHover(event: PointerEvent, next: TeamHover | null) {
+    if (event.pointerType === "mouse") setHovered(next)
+  }
 
   return (
     <ChapterSection chapter="team" className="circuit-field team-section">
@@ -97,7 +102,7 @@ export function Team() {
                 loading="lazy"
                 decoding="async"
               />
-              <MapRoutes active={hovered} />
+              <MapRoutes activeSchools={activeSchools} />
               <ul className="team-map-labels" role="list" aria-label={team.institutions}>
                 {schoolIds.map((id) => (
                   <li key={id} style={mapPosition(schools[id])}>
@@ -105,10 +110,9 @@ export function Team() {
                       className="team-map-label"
                       data-school={id}
                       data-dock={schools[id].dock}
-                      onPointerEnter={(event) => {
-                        if (event.pointerType === "mouse") setHovered(id)
-                      }}
-                      onPointerLeave={() => setHovered(null)}
+                      data-active={activeSchools.includes(id) || undefined}
+                      onPointerEnter={(event) => updateHover(event, { schools: [id] })}
+                      onPointerLeave={(event) => updateHover(event, null)}
                     >
                       <img className="team-map-logo" src={schools[id].logo} alt="" width={18} height={18} loading="lazy" />
                       <span className="team-map-school-name">{team.schoolNames[id].join("\n")}</span>
@@ -121,7 +125,24 @@ export function Team() {
 
           <figcaption className="team-credits">
             <ul role="list" aria-label={team.core}>
-              {teamMembers.map((name) => <li key={name}>{name}</li>)}
+              {teamMembers.map((member) => {
+                const active = hovered?.member
+                  ? hovered.member === member
+                  : member.schools.some((id) => activeSchools.includes(id))
+
+                return (
+                  <li key={member.name}>
+                    <span
+                      className="team-credit-name"
+                      data-active={active || undefined}
+                      onPointerEnter={(event) => updateHover(event, { schools: member.schools, member })}
+                      onPointerLeave={(event) => updateHover(event, null)}
+                    >
+                      {member.name}
+                    </span>
+                  </li>
+                )
+              })}
             </ul>
           </figcaption>
         </figure>

@@ -17,7 +17,6 @@ export type Content = {
     titleFor: string
     titleDomain: string
     titleRole: string
-    lede: string
     download: string
   }
   film: { title: string; caption: string; play: string }
@@ -26,7 +25,6 @@ export type Content = {
   agents: {
     title: string
     lede: string
-    privacy: string
     more: string
     architecture: {
       title: string
@@ -50,7 +48,7 @@ export type Content = {
     skill: Plugin
     yours: { name: string; run: string; reset: string; output: string; ready: string }
   }
-  closing: { lede: string; download: string; source: string; platformsLabel: string }
+  closing: { download: string; source: string; platformsLabel: string }
   team: {
     title: string
     lede: string
@@ -82,7 +80,6 @@ const en: Content = {
     titleFor: "for",
     titleDomain: "Power Electronics",
     titleRole: "Engineer",
-    lede: "An open-source, AI-native desktop app for power-electronics design. Your AI agent works on the same schematic, PCB layout, 3D model and simulation as you.",
     download: "Download",
   },
   film: {
@@ -121,8 +118,7 @@ const en: Content = {
   },
   agents: {
     title: "Work with your local Agent",
-    lede: "Connect an agent you already use. It works on the project you have open, with the access its mode allows.",
-    privacy: "No OpenPE servers. Projects stay on your disk as native KiCad files. The AI provider you choose receives the prompts and context you send.",
+    lede: "Use your existing agent on the open project, with access set by its mode. Native KiCad files stay on your device. Your chosen AI provider receives the prompts and context you send.",
     more: "More Agents",
     architecture: {
       title: "OpenPE architecture",
@@ -168,14 +164,13 @@ const en: Content = {
     },
   },
   closing: {
-    lede: "Open source under Apache-2.0. Download the desktop app or read the code on GitHub.",
     download: "Download",
     source: "View source",
     platformsLabel: "Runs on",
   },
   team: {
     title: "The OpenPE team",
-    lede: "OpenPE is developed by contributors from leading universities around the world and released under Apache-2.0.",
+    lede: "OpenPE is developed by contributors from leading universities around the world.",
     core: "Authors",
     institutions: "Universities",
     schoolNames: {
@@ -213,7 +208,6 @@ const zh: Content = {
     titleFor: "面向",
     titleDomain: "电力电子",
     titleRole: "工程师",
-    lede: "一款开源、AI 原生的电力电子设计桌面软件。你的 AI agent 和你在同一份原理图、PCB 布局、三维模型和仿真上工作。",
     download: "下载",
   },
   film: {
@@ -252,8 +246,7 @@ const zh: Content = {
   },
   agents: {
     title: "与本地 Agent 协作",
-    lede: "接入你已经在用的 agent。它直接在你打开的工程里工作，权限由它的接入方式决定。",
-    privacy: "没有 OpenPE 服务器。工程以 KiCad 原生文件保存在你的磁盘上，你选择的 AI 服务商会收到你发送的提示词和上下文。",
+    lede: "在当前工程中使用已有的 Agent，权限由接入模式决定。工程以 KiCad 原生文件保存在本机。你发送的提示词和上下文会传给所选的 AI 服务商。",
     more: "更多 Agent",
     architecture: {
       title: "OpenPE 架构",
@@ -299,14 +292,13 @@ const zh: Content = {
     },
   },
   closing: {
-    lede: "以 Apache-2.0 协议开源。下载桌面软件，或在 GitHub 上查看源代码。",
     download: "下载",
     source: "查看源代码",
     platformsLabel: "支持系统",
   },
   team: {
     title: "OpenPE 团队",
-    lede: "OpenPE 由来自全球多所知名高校的贡献者共同开发，以 Apache-2.0 协议开源。",
+    lede: "OpenPE 由来自全球多所知名高校的贡献者共同开发。",
     core: "作者",
     institutions: "院校",
     schoolNames: {

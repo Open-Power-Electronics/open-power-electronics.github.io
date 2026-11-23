@@ -20,7 +20,6 @@ export function Closing() {
             <strong className="font-extrabold text-green">{engineer}</strong>
           </span>
         </h2>
-        <p data-reveal className="closing-lede lede text-pretty">{c.lede}</p>
         <div data-reveal className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <a
             href={OPENPE_RELEASES_URL}

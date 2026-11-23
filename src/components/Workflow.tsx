@@ -44,6 +44,7 @@ export function Workflow() {
               </div>
             ))}
           </div>
+          <p className="workflow-caption text-pretty" aria-live="polite">{w.steps[active].caption}</p>
           <ol className="workflow-controls" aria-label={w.title}>
             {workflowSteps.map(({ clip, icon: Icon }, index) => (
               <li key={clip}>
@@ -58,7 +59,6 @@ export function Workflow() {
               </li>
             ))}
           </ol>
-          <p className="workflow-caption text-pretty" aria-live="polite">{w.steps[active].caption}</p>
         </div>
       </div>
     </ChapterSection>

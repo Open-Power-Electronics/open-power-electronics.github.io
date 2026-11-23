@@ -28,7 +28,6 @@ export function Hero() {
               <span>{t.hero.titleRole}</span>
             </span>
           </h1>
-          <p className="hero-lede rise text-pretty" style={{ animationDelay: "0.18s" }}>{t.hero.lede}</p>
           <div className="hero-actions">
             <HeroDownloads />
             <a

@@ -337,20 +337,6 @@
   flex: none;
 }
 
-.hero-lede {
-  max-inline-size: 47rem;
-  margin-block-start: clamp(0.5rem, 1.7svh, 1rem);
-  color: var(--color-body);
-  font-size: clamp(0.9375rem, calc(0.87rem + 0.28vw), 1.0625rem);
-  line-height: 1.55;
-  letter-spacing: -0.008em;
-}
-
-.hero-lede:lang(zh) {
-  letter-spacing: normal;
-  text-wrap: balance;
-}
-
 .hero-actions {
   --hero-actions-gap: clamp(0.5rem, 1.45vw, 1rem);
   display: flex;
@@ -517,11 +503,6 @@
 
 .closing-banner {
   padding-block: clamp(3.5rem, 8vw, 6.5rem);
-}
-
-.closing-lede {
-  max-inline-size: 50rem;
-  margin-block-start: clamp(1rem, 2.4vw, 1.5rem);
 }
 
 .closing-copy {
