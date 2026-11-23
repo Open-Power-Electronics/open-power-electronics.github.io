@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Regenerate the web film derivative, muted clips and posters from the promo master.
 # Current release: OpenPE.mp4, as recorded in OpenPE promotion/VERIFY.md.
-# SHA-256: e3b59d67283c9a5e83861e7de6bce0e9ebdde29cdf0d2dfd1c64384a871be69a
-# Each clip crop is W:H:X:Y on the 1920x1080 master. Use 16px-aligned output dimensions to avoid partially visible decoder padding.
+# SHA-256: 0e8731c139c718ac3f1a3ca524dd04f7c22db0ed57cb2e4a4d42002cb4ca26bd
+# Crops use W:H:X:Y on the 1920x1080 composition canvas. Align clip dimensions to 16px to avoid visible decoder padding.
 set -euo pipefail
 
 if [[ $# -ne 1 ]]; then
@@ -41,10 +41,13 @@ video_dimensions() {
 }
 
 master_size=$(video_dimensions "$master")
-if [[ "$master_size" != "1920,1080" ]]; then
-  echo "expected a 1920x1080 promotional master, got $master_size" >&2
+IFS=, read -r master_width master_height <<< "$master_size"
+if [[ -z "$master_width" || -z "$master_height" ]] ||
+   (( master_width < 1920 || master_height < 1080 || master_width * 9 != master_height * 16 )); then
+  echo "expected a 16:9 promotional master of at least 1920x1080, got $master_size" >&2
   exit 1
 fi
+web_scale="scale=1920:1080:flags=lanczos"
 
 root=$(cd "$(dirname "$0")/.." && pwd)
 clips_dir="$root/public/media/clips"
@@ -75,7 +78,7 @@ encode_clip() {
     exit 1
   fi
 
-  local vf="crop=${crop}"
+  local vf="${web_scale},crop=${crop}"
 
   ffmpeg -y -nostdin -hide_banner -loglevel error -i "$master" -ss "$start" -to "$end" \
     -an -vf "$vf" -c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p \
@@ -109,12 +112,12 @@ encode_clip parasitics 88.7 91.9 1264:720:568:192 "$parasitics_still"
 
 # Preserve the original soundtrack and 98 s timeline in a smaller, seekable web encode.
 ffmpeg -y -nostdin -hide_banner -loglevel error -i "$master" -map 0:v:0 -map 0:a:0 \
-  -c:v libx264 -preset medium -crf 22 -pix_fmt yuv420p -c:a copy \
+  -vf "$web_scale" -c:v libx264 -preset medium -crf 22 -pix_fmt yuv420p -c:a copy \
   -movflags +faststart "$film_dir/openpe-workflow-demo.mp4"
 ffmpeg -y -nostdin -hide_banner -loglevel error -ss 4.8 -i "$master" -frames:v 1 \
-  -vf "crop=1056:752:816:172" -q:v 2 -update 1 "$film_dir/openpe-workflow-demo.jpg"
+  -vf "${web_scale},crop=1056:752:816:172" -q:v 2 -update 1 "$film_dir/openpe-workflow-demo.jpg"
 ffmpeg -y -nostdin -hide_banner -loglevel error -ss "$parasitics_still" -i "$master" -frames:v 1 \
-  -vf "crop=1212:638:594:224" -c:v libwebp -quality 91 -compression_level 6 \
+  -vf "${web_scale},crop=1212:638:594:224" -c:v libwebp -quality 91 -compression_level 6 \
   "$film_dir/layout-parasitics.webp"
 
 names=(

@@ -23,7 +23,7 @@ export function Hero() {
         <div className="hero-copy flex min-w-0 flex-col items-center text-center">
           <Wordmark className="hero-brand rise" />
           <h1 className="display hero-title rise" style={{ animationDelay: "0.12s" }}>
-            <span>{t.hero.titleMain}</span>{" "}
+            <span className="hero-title-main">{t.hero.titleMain}</span>{" "}
             <span className="hero-title-audience">
               <span className="hero-title-for">{t.hero.titleFor}</span>{wordSpace}
               <span className="hero-title-accent">{t.hero.titleDomain}</span>{wordSpace}

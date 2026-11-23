@@ -289,11 +289,11 @@
 
 .hero-layout {
   display: flex;
-  max-inline-size: 68rem;
+  max-inline-size: 74rem;
   flex-direction: column;
   justify-content: safe center;
-  gap: clamp(0.75rem, 2.25svh, 1.5rem);
-  padding-block: clamp(0.75rem, 2.75svh, 1.75rem);
+  gap: clamp(0.625rem, 1.9svh, 1.5rem);
+  padding-block: clamp(0.75rem, 2.25svh, 1.75rem);
 }
 
 .hero-film-stage {
@@ -338,8 +338,8 @@
 }
 
 .hero-brand {
-  --hero-brand-size: clamp(2rem, min(6.2vw, 9svh), 4.25rem);
-  margin-block-end: clamp(0.5rem, 1.8svh, 1.25rem);
+  --hero-brand-size: clamp(1.875rem, min(5.5vw, 7.25svh), 3.5rem);
+  margin-block-end: clamp(0.5rem, 3svh, 2rem);
 }
 
 .hero-brand > img {
@@ -447,7 +447,7 @@
 .hero-title {
   display: grid;
   justify-items: center;
-  font-size: min(9.35cqi, calc(1.55rem + 3.25vw), clamp(1.4rem, 8.1svh, 4.35rem));
+  font-size: min(8.4cqi, calc(1.4rem + 2.75vw), clamp(1.3rem, 7.15svh, 3.8rem));
   font-weight: 780;
   line-height: 1.02;
   letter-spacing: -0.042em;
@@ -460,6 +460,10 @@
 .hero-title:lang(zh) {
   line-height: 1.12;
   letter-spacing: normal;
+}
+
+.hero-title-main {
+  font-size: 0.92em;
 }
 
 .hero-title-audience {
