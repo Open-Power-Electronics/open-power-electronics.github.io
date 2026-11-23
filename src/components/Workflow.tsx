@@ -32,7 +32,7 @@ export function Workflow() {
   return (
     <ChapterSection chapter="workflow" className="bg-white">
       <div className="container-page">
-        <SectionHeader chapter="workflow" title={w.title} lede={w.steps[active].caption} />
+        <SectionHeader chapter="workflow" title={w.title} lede={w.lede} />
         <div
           className="chapter-content workflow-media"
           style={{ "--workflow-aspect": WORKFLOW_CLIP_SIZE.width / WORKFLOW_CLIP_SIZE.height } as CSSProperties}
@@ -58,6 +58,7 @@ export function Workflow() {
               </li>
             ))}
           </ol>
+          <p className="workflow-caption text-pretty" aria-live="polite">{w.steps[active].caption}</p>
         </div>
       </div>
     </ChapterSection>

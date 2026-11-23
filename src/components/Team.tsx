@@ -84,7 +84,7 @@ export function Team() {
   return (
     <ChapterSection chapter="team" className="circuit-field team-section">
       <div className="container-page">
-        <SectionHeader chapter="team" title={team.title} />
+        <SectionHeader chapter="team" title={team.title} lede={team.lede} />
         <figure className="team-map" data-scroll-stage="">
           <div className="team-map-graphic">
             <div className="team-map-sheet">

@@ -50,7 +50,7 @@ export function Workspace() {
   return (
     <ChapterSection chapter="workspace" className="bg-white">
       <div className="container-page">
-        <SectionHeader chapter="workspace" title={w.title} />
+        <SectionHeader chapter="workspace" title={w.title} lede={w.lede} />
 
         <div className="chapter-content" data-scroll-stage="">
           <figure className="window workspace-preview relative">

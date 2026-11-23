@@ -20,7 +20,7 @@ export function Plugins() {
   return (
     <ChapterSection chapter="plugins" className="bg-white">
       <div className="container-page">
-        <SectionHeader chapter="plugins" title={p.title} />
+        <SectionHeader chapter="plugins" title={p.title} lede={p.lede} />
         <div className="chapter-content grid gap-4 sm:grid-cols-2" data-scroll-stage="">
           {previews.map(({ icon: Icon, name, body, clip }) => (
             <figure key={clip} className="window plugin-preview">

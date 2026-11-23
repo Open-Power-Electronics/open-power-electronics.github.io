@@ -17,15 +17,16 @@ export type Content = {
     titleFor: string
     titleDomain: string
     titleRole: string
+    lede: string
     download: string
   }
   film: { title: string; caption: string; play: string }
-  workspace: { title: string; imageAlt: string; parts: readonly Term[] }
-  workflow: { title: string; steps: readonly Step[] }
+  workspace: { title: string; lede: string; imageAlt: string; parts: readonly Term[] }
+  workflow: { title: string; lede: string; steps: readonly Step[] }
   agents: {
     title: string
-    storage: string
-    providerContext: string
+    lede: string
+    privacy: string
     more: string
     architecture: {
       title: string
@@ -41,15 +42,17 @@ export type Content = {
   }
   plugins: {
     title: string
+    lede: string
     thermal: Plugin
     spice: Plugin
     emc: Plugin
     parasitics: Plugin
     skill: Plugin
-    yours: { name: string; run: string; reset: string; output: string; ready: string }
+    yours: { name: string; body: string; run: string; reset: string; output: string; ready: string }
   }
   team: {
     title: string
+    lede: string
     core: string
     institutions: string
     schoolNames: Record<SchoolId, readonly [string, string]>
@@ -78,6 +81,7 @@ const en: Content = {
     titleFor: "for",
     titleDomain: "Power Electronics",
     titleRole: "Engineer",
+    lede: "An open-source desktop app for power-electronics design on native KiCad 10 files. Your AI agent works on the same schematic, PCB layout, 3D model and simulation as you.",
     download: "Download",
   },
   film: {
@@ -87,6 +91,7 @@ const en: Content = {
   },
   workspace: {
     title: "Design alongside your Agent",
+    lede: "The agent conversation sits on the left and the editable design on the right: schematic, PCB layout, 3D model and native KiCad source. Select a marker to see what each area does.",
     imageAlt: "OpenPE desktop with the EMC Flyback layout open and transformer T1 selected",
     parts: [
       { name: "Session manager", body: "Switch between conversations." },
@@ -97,25 +102,26 @@ const en: Content = {
   },
   workflow: {
     title: "From schematic to enclosure",
+    lede: "One project from circuit to enclosure. Edit directly or ask your agent at any step.",
     steps: [
       {
         chapter: "Schematic",
-        caption: "Tune feedback in ngspice.",
+        caption: "Your agent runs a 10 ms ngspice transient and tunes R15 until VOUT sits inside ±1%.",
       },
       {
         chapter: "Layout",
-        caption: "Place parts and send comments.",
+        caption: "Place a group of parts from a preview, then mark a region and send a comment with your next message.",
       },
       {
         chapter: "Module",
-        caption: "Model the enclosure and lid.",
+        caption: "Model an enclosure from dimensions, then refine posts, walls and a 3 mm acrylic lid in conversation.",
       },
     ],
   },
   agents: {
     title: "Work with your local Agent",
-    storage: "Projects stay in native KiCad files.",
-    providerContext: "The AI provider you choose receives the prompts and context you send.",
+    lede: "Connect an agent you already use. It works on the project you have open, with the access its mode allows.",
+    privacy: "No OpenPE servers. Projects stay on your disk as native KiCad files. The AI provider you choose receives the prompts and context you send.",
     more: "More Agents",
     architecture: {
       title: "OpenPE architecture",
@@ -131,6 +137,7 @@ const en: Content = {
   },
   plugins: {
     title: "Extend the workbench",
+    lede: "Five plugins ship built in: PCB temperature, parasitics, SPICE, EMC geometry review and PE layout guidance. You can also write your own in JavaScript.",
     thermal: {
       name: "Layout Thermal",
       body: "Map PCB temperatures with Gmsh and Elmer.",
@@ -141,7 +148,7 @@ const en: Content = {
     },
     emc: {
       name: "EMC Analysis",
-      body: "Review PCB geometry for EMC risks.",
+      body: "Review PCB geometry for EMC risks. A design review, not a compliance test.",
     },
     parasitics: {
       name: "Layout Parasitics",
@@ -153,6 +160,7 @@ const en: Content = {
     },
     yours: {
       name: "Your plugin",
+      body: "Package JavaScript as a local plugin. It installs with your approval and runs in a QuickJS sandbox with no native or network access.",
       run: "Run",
       reset: "Reset",
       output: "Sample output",
@@ -161,6 +169,7 @@ const en: Content = {
   },
   team: {
     title: "The OpenPE team",
+    lede: "OpenPE is developed by authors from six universities and released under Apache-2.0.",
     core: "Authors",
     institutions: "Universities",
     schoolNames: {
@@ -198,6 +207,7 @@ const zh: Content = {
     titleFor: "面向",
     titleDomain: "电力电子",
     titleRole: "工程师",
+    lede: "一款开源桌面软件，用原生 KiCad 10 文件做电力电子设计。你的 AI agent 和你在同一份原理图、PCB 布局、三维模型和仿真上工作。",
     download: "下载",
   },
   film: {
@@ -207,6 +217,7 @@ const zh: Content = {
   },
   workspace: {
     title: "与 Agent 协作设计",
+    lede: "左侧是 agent 对话，右侧是可编辑的设计：原理图、PCB 布局、三维模型和 KiCad 原生源文件。点击标记查看各区域的用途。",
     imageAlt: "OpenPE 桌面端的 EMC Flyback PCB 布局，已选中变压器 T1",
     parts: [
       { name: "会话管理", body: "切换对话。" },
@@ -217,25 +228,26 @@ const zh: Content = {
   },
   workflow: {
     title: "从原理图到外壳",
+    lede: "同一个工程，从电路一直做到外壳。每一步都可以自己动手，也可以交给 agent。",
     steps: [
       {
         chapter: "原理图",
-        caption: "调整反馈分压电阻，并用 ngspice 验证输出电压。",
+        caption: "agent 运行 10 ms 的 ngspice 瞬态仿真，调整 R15，直到 VOUT 落在 ±1% 以内。",
       },
       {
         chapter: "PCB 布局",
-        caption: "放置 PCB 元件，并将布局批注发给 Agent。",
+        caption: "按预览放置一组元件，再圈出区域，把批注随下一条消息发给 agent。",
       },
       {
         chapter: "外壳建模",
-        caption: "为电路板的外壳和上盖建模。",
+        caption: "按尺寸为电路板建模外壳，再在对话中细化立柱、侧壁和 3 mm 亚克力盖板。",
       },
     ],
   },
   agents: {
     title: "与本地 Agent 协作",
-    storage: "工程以 KiCad 原生格式保存在本地。",
-    providerContext: "所选 AI 服务商会收到你发送的提示词和上下文。",
+    lede: "接入你已经在用的 agent。它直接在你打开的工程里工作，权限由它的接入方式决定。",
+    privacy: "没有 OpenPE 服务器。工程以 KiCad 原生文件保存在你的磁盘上，你选择的 AI 服务商会收到你发送的提示词和上下文。",
     more: "更多 Agent",
     architecture: {
       title: "OpenPE 架构",
@@ -251,6 +263,7 @@ const zh: Content = {
   },
   plugins: {
     title: "扩展工作台",
+    lede: "内置五个插件：PCB 温度、寄生参数、SPICE 仿真、EMC 几何审查和电力电子布局指导。你也可以用 JavaScript 编写自己的插件。",
     thermal: {
       name: "Layout Thermal",
       body: "用 Gmsh 和 Elmer 计算 PCB 温度分布。",
@@ -261,7 +274,7 @@ const zh: Content = {
     },
     emc: {
       name: "EMC Analysis",
-      body: "根据 PCB 几何结构检查潜在的 EMC 风险。",
+      body: "根据 PCB 几何结构检查潜在的 EMC 风险。这是设计审查，不是合规测试。",
     },
     parasitics: {
       name: "Layout Parasitics",
@@ -273,6 +286,7 @@ const zh: Content = {
     },
     yours: {
       name: "自定义插件",
+      body: "把 JavaScript 打包成本地插件。安装需要你确认，运行在 QuickJS 沙箱中，没有本机权限，也不能联网。",
       run: "运行",
       reset: "重置",
       output: "示例输出",
@@ -281,6 +295,7 @@ const zh: Content = {
   },
   team: {
     title: "OpenPE 团队",
+    lede: "OpenPE 由来自六所高校的作者共同开发，以 Apache-2.0 协议开源。",
     core: "作者",
     institutions: "院校",
     schoolNames: {

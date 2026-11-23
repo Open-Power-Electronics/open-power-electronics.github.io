@@ -15,16 +15,12 @@ const tile = "flex min-w-0 items-center justify-center gap-2 rounded-xl border p
 
 export function Agents() {
   const { t } = useI18n()
-  const { title, storage, providerContext, more } = t.agents
+  const { title, lede, privacy, more } = t.agents
 
   return (
     <ChapterSection chapter="agents" className="bg-white">
       <div id="privacy" className="container-page">
-        <SectionHeader
-          chapter="agents"
-          title={title}
-          lede={<>{storage}{" "}<span className="agent-provider-context">{providerContext}</span></>}
-        />
+        <SectionHeader chapter="agents" title={title} lede={lede} />
         <AgentArchitecture />
         <ul role="list" className="chapter-content grid grid-cols-2 gap-2.5 sm:grid-cols-3 xl:grid-cols-6">
           {providers.map((provider, index) => (
@@ -47,6 +43,7 @@ export function Agents() {
             <span>{more}</span>
           </li>
         </ul>
+        <p data-reveal className="mt-4 max-w-[720px] text-sm leading-relaxed text-pretty text-muted">{privacy}</p>
       </div>
     </ChapterSection>
   )

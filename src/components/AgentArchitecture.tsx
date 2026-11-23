@@ -45,7 +45,7 @@ export function AgentArchitecture() {
       data-scroll-stage="architecture"
     >
       <figcaption id="agent-architecture-title" className="agent-architecture-title">{title}</figcaption>
-      <p id="agent-architecture-description" hidden>{description}</p>
+      <p id="agent-architecture-description" className="agent-architecture-description text-pretty">{description}</p>
       <div className="agent-architecture-flow">
         <div className="architecture-node architecture-actor architecture-agent">
           <Bot aria-hidden="true" />

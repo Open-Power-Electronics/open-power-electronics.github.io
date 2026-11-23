@@ -27,6 +27,7 @@ export function Hero() {
               <span>{t.hero.titleRole}</span>
             </span>
           </h1>
+          <p className="hero-lede rise text-pretty" style={{ animationDelay: "0.18s" }}>{t.hero.lede}</p>
           <div className="hero-actions">
             <HeroDownloads />
             <p className="hero-open-source inline-flex items-center gap-1.5 text-[13px] font-semibold whitespace-nowrap text-ink-2">
@@ -43,13 +44,8 @@ export function Hero() {
           <ul className="hero-foundations-list" role="list">
             {foundations.map(({ name, icon }) => (
               <li key={name}>
-                <span
-                  className="hero-foundations-icon"
-                  style={{ maskImage: `url(${icon})` }}
-                  aria-hidden="true"
-                  title={name}
-                />
-                <span className="sr-only">{name}</span>
+                <span className="hero-foundations-icon" style={{ maskImage: `url(${icon})` }} aria-hidden="true" />
+                <span className="hero-foundations-name">{name}</span>
               </li>
             ))}
           </ul>
