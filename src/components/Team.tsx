@@ -77,7 +77,7 @@ function MapRoutes({ activeSchools }: { activeSchools: readonly SchoolId[] }) {
 }
 
 export function Team() {
-  const { t } = useI18n()
+  const { lang, t } = useI18n()
   const team = t.team
   const [hovered, setHovered] = useState<TeamHover | null>(null)
   const activeSchools = hovered?.schools ?? []
@@ -132,14 +132,15 @@ export function Team() {
 
                 return (
                   <li key={member.name}>
-                    <span
+                    <a
                       className="team-credit-name"
+                      href={member.homepage}
                       data-active={active || undefined}
                       onPointerEnter={(event) => updateHover(event, { schools: member.schools, member })}
                       onPointerLeave={(event) => updateHover(event, null)}
                     >
-                      {member.name}
-                    </span>
+                      {lang === "zh" ? member.nameZh : member.name}
+                    </a>
                   </li>
                 )
               })}

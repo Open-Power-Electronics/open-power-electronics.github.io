@@ -50,16 +50,53 @@ export type SchoolId = keyof typeof schools
 
 export type TeamMember = {
   name: string
+  nameZh: string
+  homepage: string
   schools: readonly SchoolId[]
 }
 
 /** Website credits follow the order shown in the project film. */
 export const teamMembers: readonly TeamMember[] = [
-  { name: "Xiao Yang", schools: ["eindhoven", "westlake"] },
-  { name: "Yukang Zhu", schools: ["westlake", "ucla"] },
-  { name: "Wenhao Deng", schools: ["glasgow"] },
-  { name: "Tian Xia", schools: ["westlake", "berkeley"] },
-  { name: "Chengmin Li", schools: ["eindhoven"] },
-  { name: "Dongsheng Yang", schools: ["eindhoven"] },
-  { name: "Tailin Wu", schools: ["westlake", "mit"] },
+  {
+    name: "Xiao Yang",
+    nameZh: "杨啸",
+    homepage: "https://fleaxiao.github.io/",
+    schools: ["eindhoven", "westlake"],
+  },
+  {
+    name: "Yukang Zhu",
+    nameZh: "朱昱康",
+    homepage: "https://kaynezhu.github.io/",
+    schools: ["westlake", "ucla"],
+  },
+  {
+    name: "Wenhao Deng",
+    nameZh: "邓文豪",
+    homepage: "https://w3nhao.github.io/",
+    schools: ["glasgow"],
+  },
+  {
+    name: "Tian Xia",
+    nameZh: "夏天",
+    homepage: "https://github.com/Lunar13737",
+    schools: ["westlake", "berkeley"],
+  },
+  {
+    name: "Chengmin Li",
+    nameZh: "李成敏",
+    homepage: "https://www.tue.nl/en/research/researchers/chengmin-li",
+    schools: ["eindhoven"],
+  },
+  {
+    name: "Dongsheng Yang",
+    nameZh: "杨东升",
+    homepage: "https://www.tue.nl/en/research/researchers/dongsheng-yang",
+    schools: ["eindhoven"],
+  },
+  {
+    name: "Tailin Wu",
+    nameZh: "吴泰霖",
+    homepage: "https://tailin.org/",
+    schools: ["westlake", "mit"],
+  },
 ]

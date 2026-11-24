@@ -338,7 +338,7 @@
 }
 
 .hero-brand {
-  --hero-brand-size: clamp(1.875rem, min(5.5vw, 7.25svh), 3.5rem);
+  --hero-brand-size: clamp(2rem, min(5.8vw, 7.65svh), 3.7rem);
   margin-block-end: clamp(0.5rem, 3svh, 2rem);
 }
 
@@ -463,7 +463,7 @@
 .hero-title {
   display: grid;
   justify-items: center;
-  font-size: min(8.4cqi, calc(1.4rem + 2.75vw), clamp(1.3rem, 7.15svh, 3.8rem));
+  font-size: min(8.9cqi, calc(1.48rem + 2.9vw), clamp(1.375rem, 7.55svh, 4rem));
   font-weight: 780;
   line-height: 1.02;
   letter-spacing: -0.042em;

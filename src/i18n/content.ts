@@ -56,7 +56,7 @@ export type Content = {
     institutions: string
     schoolNames: Record<SchoolId, readonly [string, string]>
   }
-  footer: { license: string }
+  footer: { license: string; talentLab: string; tueEes: string }
 }
 
 const en: Content = {
@@ -184,6 +184,8 @@ const en: Content = {
   },
   footer: {
     license: "Apache-2.0 · © 2026 OpenPE contributors",
+    talentLab: "Westlake University TalentLab",
+    tueEes: "TU/e Electrical Energy Systems",
   },
 }
 
@@ -312,6 +314,8 @@ const zh: Content = {
   },
   footer: {
     license: "Apache-2.0 · © 2026 OpenPE 贡献者",
+    talentLab: "西湖大学 TalentLab",
+    tueEes: "TU/e 电能系统研究组",
   },
 }
 
