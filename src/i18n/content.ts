@@ -12,6 +12,8 @@ export type Content = {
   nav: Record<Chapter, string> & { github: string; menu: string; switchLang: string; primaryLabel: string; footerLabel: string }
   hero: {
     openSource: string
+    githubStars: string
+    latestRelease: string
     foundations: string
     titleMain: string
     titleFor: string
@@ -75,6 +77,8 @@ const en: Content = {
   },
   hero: {
     openSource: "Open source",
+    githubStars: "GitHub stars",
+    latestRelease: "Latest release",
     foundations: "Built with open source",
     titleMain: "AI-Native Workbench",
     titleFor: "for",
@@ -205,6 +209,8 @@ const zh: Content = {
   },
   hero: {
     openSource: "开源",
+    githubStars: "GitHub 星标数",
+    latestRelease: "最新版本",
     foundations: "基于开源技术",
     titleMain: "AI 原生工作台",
     titleFor: "面向",

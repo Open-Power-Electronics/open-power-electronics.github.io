@@ -1,8 +1,6 @@
-import { CodeXml } from "lucide-react"
-import { OPENPE_REPO_URL } from "@/content/site.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { Film } from "./Film.tsx"
-import { HeroDownloads } from "./HeroDownloads.tsx"
+import { HeroActions } from "./HeroActions.tsx"
 import { Wordmark } from "./primitives.tsx"
 
 const foundations = [
@@ -30,16 +28,7 @@ export function Hero() {
               <span>{t.hero.titleRole}</span>
             </span>
           </h1>
-          <div className="hero-actions">
-            <HeroDownloads />
-            <a
-              href={OPENPE_REPO_URL}
-              className="hero-open-source inline-flex min-h-11 items-center gap-1.5 text-[13px] font-semibold whitespace-nowrap text-ink-2 underline-offset-4 transition-colors hover:text-green-deep hover:underline"
-            >
-              <CodeXml className="size-4 shrink-0 text-green-deep" strokeWidth={1.8} aria-hidden="true" />
-              {t.hero.openSource}
-            </a>
-          </div>
+          <HeroActions />
         </div>
         <div className="hero-film-stage">
           <Film />

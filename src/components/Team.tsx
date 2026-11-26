@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type PointerEvent } from "react"
+import { useId, useState, type CSSProperties, type PointerEvent } from "react"
 import { MAP_SIZE, schools, teamMembers, type SchoolId, type TeamMember } from "@/content/team.ts"
 import { useI18n } from "@/i18n/I18nContext.tsx"
 import { ChapterSection, SectionHeader } from "./primitives.tsx"
@@ -79,8 +79,11 @@ function MapRoutes({ activeSchools }: { activeSchools: readonly SchoolId[] }) {
 export function Team() {
   const { lang, t } = useI18n()
   const team = t.team
+  const affiliationId = useId()
   const [hovered, setHovered] = useState<TeamHover | null>(null)
-  const activeSchools = hovered?.schools ?? []
+  const [focusedMember, setFocusedMember] = useState<TeamMember | null>(null)
+  const activeMember = hovered ? hovered.member : focusedMember
+  const activeSchools = hovered?.schools ?? focusedMember?.schools ?? []
 
   function updateHover(event: PointerEvent, next: TeamHover | null) {
     if (event.pointerType === "mouse") setHovered(next)
@@ -125,9 +128,9 @@ export function Team() {
 
           <figcaption className="team-credits">
             <ul role="list" aria-label={team.core}>
-              {teamMembers.map((member) => {
-                const active = hovered?.member
-                  ? hovered.member === member
+              {teamMembers.map((member, index) => {
+                const active = activeMember
+                  ? activeMember === member
                   : member.schools.some((id) => activeSchools.includes(id))
 
                 return (
@@ -135,9 +138,14 @@ export function Team() {
                     <a
                       className="team-credit-name"
                       href={member.homepage}
+                      aria-describedby={`${affiliationId}-${index}`}
                       data-active={active || undefined}
                       onPointerEnter={(event) => updateHover(event, { schools: member.schools, member })}
                       onPointerLeave={(event) => updateHover(event, null)}
+                      onFocus={(event) => {
+                        if (event.currentTarget.matches(":focus-visible")) setFocusedMember(member)
+                      }}
+                      onBlur={() => setFocusedMember(null)}
                     >
                       {lang === "zh" ? member.nameZh : member.name}
                     </a>
@@ -145,6 +153,17 @@ export function Team() {
                 )
               })}
             </ul>
+            <div className="team-credit-affiliations">
+              {teamMembers.map((member, index) => (
+                <span
+                  key={member.name}
+                  id={`${affiliationId}-${index}`}
+                  data-visible={activeMember === member || undefined}
+                >
+                  {member.schools.map((id) => team.schoolNames[id].join(lang === "zh" ? "" : " ")).join(" · ")}
+                </span>
+              ))}
+            </div>
           </figcaption>
         </figure>
       </div>

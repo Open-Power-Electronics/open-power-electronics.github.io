@@ -253,6 +253,23 @@
   background-size: 100% 1px;
 }
 
+.team-credit-affiliations {
+  display: grid;
+  margin-block-start: 0.35rem;
+  color: var(--team-secondary);
+  font-size: clamp(0.75rem, 1.3cqi, 0.8125rem);
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.team-credit-affiliations > span {
+  grid-area: 1 / 1;
+}
+
+.team-credit-affiliations > span:not([data-visible]) {
+  visibility: hidden;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   [data-scroll-ready] .team-map-graphic {
     transform: translateY(calc(1.2rem * (1 - var(--stage-progress, 1)))) scale(calc(0.98 + 0.02 * var(--stage-progress, 1)));
