@@ -356,10 +356,9 @@
   --hero-actions-gap: clamp(0.5rem, 1.45vw, 1rem);
   display: flex;
   max-inline-size: 100%;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem var(--hero-actions-gap);
+  gap: var(--hero-actions-gap);
   margin-block-start: clamp(0.625rem, 2.35svh, 1.25rem);
 }
 
@@ -368,11 +367,28 @@
   border-inline-start: 1px solid var(--circuit-field-line);
 }
 
-@media (width < 24rem) {
+@media (width < 30rem) {
+  .hero-actions {
+    --hero-actions-gap: 0.375rem;
+  }
+
+  .hero-download,
+  .hero-open-source {
+    gap: 0.25rem;
+  }
+
   .hero-download {
-    padding-inline: 0.8rem;
+    padding-inline: 0.625rem;
     font-size: 0.8125rem;
-    white-space: nowrap;
+  }
+
+  .hero-release-tag,
+  .hero-star-count {
+    padding-inline: 0.25rem;
+  }
+
+  .hero-star-count {
+    margin-inline-start: 0;
   }
 }
 
